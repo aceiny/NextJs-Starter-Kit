@@ -11,8 +11,9 @@
 # This will:
 # 1. Delete all documentation files in docs/
 # 2. Delete all example files in examples/
-# 3. Clear the main page (app/page.tsx) content
-# 4. Reset the README.md to minimal template
+# 3. Delete the example route in app/example/
+# 4. Clear the main page (app/page.tsx) content
+# 5. Reset the README.md to minimal template
 # ============================================================
 
 set -e  # Exit on error
@@ -50,6 +51,13 @@ if [ -d "examples" ]; then
     echo "🗑️  Deleting examples directory..."
     rm -rf examples
     echo -e "${GREEN}✓ Deleted examples/${NC}"
+fi
+
+# Delete app/example directory
+if [ -d "app/example" ]; then
+    echo "🗑️  Deleting app/example directory..."
+    rm -rf app/example
+    echo -e "${GREEN}✓ Deleted app/example/${NC}"
 fi
 
 # Reset app/page.tsx to minimal content
