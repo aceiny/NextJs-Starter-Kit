@@ -1,5 +1,5 @@
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { SonnerTypes, TooltipExamples } from "@/examples";
+import { SonnerTypes, TooltipExamples } from "@/../examples";
 
 export default function ToastExamplePage() {
   return (

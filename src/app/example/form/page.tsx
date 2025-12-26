@@ -1,17 +1,17 @@
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { DialogExamples } from "@/examples";
+import { ComprehensiveFormExample } from "@/../examples";
 
-export default function DialogExamplePage() {
+export default function FormExamplePage() {
   return (
     <div className="container mx-auto my-8 max-w-6xl px-4">
       {/* Page Header */}
       <div className="mb-8 flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-            Dialog Examples
+            Form System
           </h1>
           <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-            Modal dialogs using the useDialog hook and DialogCreator component
+            Comprehensive form components with React Hook Form integration
           </p>
         </div>
         <ThemeToggle variant="click-small" />
@@ -22,16 +22,14 @@ export default function DialogExamplePage() {
         <p className="text-sm text-blue-700 dark:text-blue-300">
           📚 See{" "}
           <code className="rounded bg-blue-100 px-1.5 py-0.5 font-mono text-xs dark:bg-blue-900">
-            docs/MODAL_DIALOG_DOCUMENTATION.md
+            docs/FORM_SYSTEM_DOCUMENTATION.md
           </code>{" "}
           for full documentation
         </p>
       </div>
 
       {/* Examples */}
-      <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg transition-colors duration-300 dark:border-gray-800 dark:bg-gray-950">
-        <DialogExamples />
-      </section>
+      <ComprehensiveFormExample />
     </div>
   );
 }
