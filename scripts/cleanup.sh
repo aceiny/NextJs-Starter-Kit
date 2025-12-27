@@ -27,27 +27,55 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-# Confirm before proceeding
-read -p "⚠️  This will delete documentation, examples, and reset the main page. Continue? (y/n) " -n 1 -r
-echo
-if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-    echo "❌ Cleanup cancelled."
-    exit 1
+
+# Parse arguments for --force or -f
+FORCE=false
+for arg in "$@"; do
+  case $arg in
+    --force|-f)
+      FORCE=true
+      ;;
+  esac
+done
+
+# Confirm before proceeding (global)
+if [ "$FORCE" = false ]; then
+  read -p "⚠️  This will delete documentation, examples, and reset the main page. Continue? (y/n) " -n 1 -r
+  echo
+  if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+      echo "❌ Cleanup cancelled."
+      exit 1
+  fi
 fi
 
 echo ""
 echo -e "${YELLOW}Cleaning up...${NC}"
 echo ""
 
-# Delete docs directory
+
+# Delete docs directory with per-dir confirmation
 if [ -d "docs" ]; then
+  if [ "$FORCE" = true ]; then
     echo "🗑️  Deleting docs directory..."
     rm -rf docs
     echo -e "${GREEN}✓ Deleted docs/${NC}"
+  else
+    read -p "Delete docs directory? (y/n) " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+      echo "🗑️  Deleting docs directory..."
+      rm -rf docs
+      echo -e "${GREEN}✓ Deleted docs/${NC}"
+    else
+      echo -e "${YELLOW}Skipped docs/${NC}"
+    fi
+  fi
 fi
 
-# Delete examples directory (includes all subdirectories)
+
+# Delete examples directory with per-dir confirmation
 if [ -d "examples" ]; then
+  if [ "$FORCE" = true ]; then
     echo "🗑️  Deleting examples directory..."
     rm -rf examples
     echo -e "${GREEN}✓ Deleted examples/${NC}"
@@ -56,19 +84,50 @@ if [ -d "examples" ]; then
     echo "   - examples/form/"
     echo "   - examples/data-display/"
     echo "   - examples/dropdown/"
+  else
+    read -p "Delete examples directory? (y/n) " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+      echo "🗑️  Deleting examples directory..."
+      rm -rf examples
+      echo -e "${GREEN}✓ Deleted examples/${NC}"
+      echo "   - examples/dialog/"
+      echo "   - examples/feedback/"
+      echo "   - examples/form/"
+      echo "   - examples/data-display/"
+      echo "   - examples/dropdown/"
+    else
+      echo -e "${YELLOW}Skipped examples/${NC}"
+    fi
+  fi
 fi
 
-# Delete app/example directory
+
+# Delete app/example directory with per-dir confirmation
 if [ -d "app/example" ]; then
+  if [ "$FORCE" = true ]; then
     echo "🗑️  Deleting app/example directory..."
     rm -rf app/example
     echo -e "${GREEN}✓ Deleted app/example/${NC}"
+  else
+    read -p "Delete app/example directory? (y/n) " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+      echo "🗑️  Deleting app/example directory..."
+      rm -rf app/example
+      echo -e "${GREEN}✓ Deleted app/example/${NC}"
+    else
+      echo -e "${YELLOW}Skipped app/example/${NC}"
+    fi
+  fi
 fi
 
-# Reset app/page.tsx to minimal content
+
+# Reset app/page.tsx to minimal content with per-file confirmation
 if [ -f "app/page.tsx" ]; then
-    echo "🗑️  Resetting app/page.tsx..."
-    cat > app/page.tsx << 'EOF'
+    if [ "$FORCE" = true ]; then
+        echo "🗑️  Resetting app/page.tsx..."
+        cat > app/page.tsx << 'EOF'
 "use client";
 
 export default function Home() {
@@ -84,11 +143,39 @@ export default function Home() {
   );
 }
 EOF
-    echo -e "${GREEN}✓ Reset app/page.tsx${NC}"
+        echo -e "${GREEN}✓ Reset app/page.tsx${NC}"
+    else
+        read -p "Reset app/page.tsx to minimal content? (y/n) " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            echo "🗑️  Resetting app/page.tsx..."
+            cat > app/page.tsx << 'EOF'
+"use client";
+
+export default function Home() {
+  return (
+    <div className="min-h-screen bg-white dark:bg-black flex items-center justify-center p-4">
+      <div className="text-center">
+        <h1 className="text-4xl font-bold mb-4">Welcome</h1>
+        <p className="text-gray-600 dark:text-gray-400">
+          Your Next.js starter is ready. Start building!
+        </p>
+      </div>
+    </div>
+  );
+}
+EOF
+            echo -e "${GREEN}✓ Reset app/page.tsx${NC}"
+        else
+            echo -e "${YELLOW}Skipped app/page.tsx${NC}"
+        fi
+    fi
 fi
 
-# Reset README.md to minimal content
+
+# Reset README.md to minimal content with per-file confirmation
 if [ -f "README.md" ]; then
+  if [ "$FORCE" = true ]; then
     echo "🗑️  Resetting README.md..."
     cat > README.md << 'EOF'
 # Project Name
@@ -111,6 +198,22 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
 
+## Cleanup Script
+
+To clean up all documentation, examples, and reset the main page, run:
+
+```bash
+bash scripts/cleanup.sh
+```
+
+You will be prompted before each deletion. To skip all prompts and force cleanup, use:
+
+```bash
+bash scripts/cleanup.sh --force
+# or
+bash scripts/cleanup.sh -f
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
@@ -125,10 +228,70 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 EOF
     echo -e "${GREEN}✓ Reset README.md${NC}"
+  else
+    read -p "Reset README.md to minimal content? (y/n) " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+      echo "🗑️  Resetting README.md..."
+      cat > README.md << 'EOF'
+# Project Name
+
+A Next.js 16 application built with TypeScript and Tailwind CSS.
+
+## Getting Started
+
+First, install dependencies:
+
+```bash
+npm install
+```
+
+Then, run the development server:
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
+
+## Cleanup Script
+
+To clean up all documentation, examples, and reset the main page, run:
+
+```bash
+bash scripts/cleanup.sh
+```
+
+You will be prompted before each deletion. To skip all prompts and force cleanup, use:
+
+```bash
+bash scripts/cleanup.sh --force
+# or
+bash scripts/cleanup.sh -f
+```
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+## Deployment
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new).
+
+Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+EOF
+      echo -e "${GREEN} Reset README.md${NC}"
+    else
+      echo -e "${YELLOW}Skipped README.md${NC}"
+    fi
+  fi
 fi
 
 echo ""
-echo -e "${GREEN}✅ Cleanup complete!${NC}"
+echo -e "${GREEN} Cleanup complete!${NC}"
 echo ""
 echo "📝 Next steps:"
 echo "   1. Review app/page.tsx - customize the home page"
