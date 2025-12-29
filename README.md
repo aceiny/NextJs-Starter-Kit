@@ -318,6 +318,31 @@ Comprehensive guides for all features:
 | **Tooltip & Dropdown** | CustomTooltip variants, ActionMenu with groups, checkboxes, submenus       | [View Docs](./docs/TOOLTIP_AND_DROPDOWN_DOCUMENTATION.md) |
 | **API & Axios**        | HTTP clients setup, interceptors, error handling, authentication           | [View Docs](./docs/API_DOCUMENTATION.md)                  |
 | **State & Utilities**  | Zustand stores, React Query, Toasts, Path constants                        | [View Docs](./docs/STATE_AND_UTILITIES.md)                |
+## Custom React Hooks
+
+### useLocalStorage
+Persist and sync state with localStorage. Supports SSR, override, and cross-tab updates.
+```ts
+const [value, setValue, removeValue] = useLocalStorage<string>("key", "default");
+```
+
+### useSessionStorage
+Persist and sync state with sessionStorage. Includes utility functions for direct access.
+```ts
+const [value, setValue, removeValue] = useSessionStorage<number>("key", 0);
+```
+
+### useDebounce
+Debounce any value or state change for smoother UX and reduced API calls.
+```ts
+const debounced = useDebounce(searchTerm, 300);
+```
+
+### usePagination
+Universal pagination for server/client-side. Syncs with URL query params and exposes config.
+```ts
+const { pageIndex, pageSize, pagination } = usePagination();
+```
 
 ### Quick Links
 
