@@ -11,7 +11,6 @@ A comprehensive, production-ready Next.js 16 starter template with TypeScript, f
 
 ## 🧹 Fresh Start - Cleanup Script
 
-
 If you want to start with a clean slate, delete all documentation and examples:
 
 ```bash
@@ -43,6 +42,7 @@ bash scripts/cleanup.sh --force
 # or
 bash scripts/cleanup.sh -f
 ```
+
 This will delete all targeted files and directories without any confirmation.
 
 **Note:** This action is tracked by Git, so you can undo with `git checkout .`

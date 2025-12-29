@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useDialog } from "@/hooks/useDialog";
+import { useDialog } from "@/hooks/use-dialog";
 import { DialogCreator } from "@/components/DialogCreator";
 import { Button } from "@/components/ui/button";
 import type { DialogConfig } from "@/types/dialog";
