@@ -720,14 +720,9 @@ export function RHFUniversalInput<T extends FieldValues>({
 
   // Determine if label should float
   // OTP and Editor always use static label mode
-  // Date inputs always use floating label mode for better UX
   // Otherwise, respect the labelMode prop
   const isFloating =
-    type === "otp" || type === "editor"
-      ? false
-      : type === "date" || type === "datetime-local"
-        ? true
-        : labelMode === "floating";
+    type === "otp" || type === "editor" ? false : labelMode === "floating";
 
   return (
     <Controller

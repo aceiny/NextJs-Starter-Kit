@@ -166,6 +166,8 @@ export default function ComprehensiveFormExample() {
                   type="date"
                   label="Birth Date"
                   required
+                              labelMode="static"
+
                 />
                 <Field.Input
                   name="birthDate"
