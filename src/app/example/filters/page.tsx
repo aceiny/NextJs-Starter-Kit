@@ -1,5 +1,10 @@
+import { Suspense } from "react";
 import { UniversalFiltersExample } from "../../../../examples";
 
 export default function FiltersExamplePage() {
-  return <UniversalFiltersExample />;
+  return (
+    <Suspense fallback={<div>Loading filters...</div>}>
+      <UniversalFiltersExample />
+    </Suspense>
+  );
 }
