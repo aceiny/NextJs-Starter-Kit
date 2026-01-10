@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import {
-  Table2,
-  MessageSquare,
-  FormInput,
-  LayoutGrid,
-  ChevronRight,
-  Menu,
+    Table2,
+    MessageSquare,
+    FormInput,
+    LayoutGrid,
+    ChevronRight,
+    Menu,
+    Filter,
 } from "lucide-react";
 
 interface ExampleCardProps {
@@ -98,6 +99,14 @@ const examples: ExampleCardProps[] = [
       "Customizable dropdown menus built on Radix UI. Supports actions, checkboxes, radio groups, submenus, and keyboard shortcuts.",
     href: "/example/dropdown",
     icon: <Menu className="h-6 w-6" />,
+  },
+  {
+    title: "Universal Filters",
+    description:
+      "Powerful filtering component with URL synchronization. Supports 13 filter types in tabs or dropdown mode.",
+    href: "/example/filters",
+    icon: <Filter className="h-6 w-6" />,
+    docPath: "docs/UNIVERSAL_FILTERS_DOCUMENTATION.md",
   },
 ];
 

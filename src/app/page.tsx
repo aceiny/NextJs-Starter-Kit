@@ -2,15 +2,16 @@ import Link from "next/link";
 import { APP_PATHS } from "@/shared/constants/paths";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import {
-  Github,
-  ArrowRight,
-  FileText,
-  Database,
-  Globe,
-  Moon,
-  Table,
-  MessageSquare,
-  Menu,
+    Github,
+    ArrowRight,
+    FileText,
+    Database,
+    Globe,
+    Moon,
+    Table,
+    MessageSquare,
+    Menu,
+    Filter,
 } from "lucide-react";
 
 export default function Home() {
@@ -189,6 +190,22 @@ export default function Home() {
           {/* Feature 8 */}
           <div className="group p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl hover:border-cyan-300 dark:hover:border-cyan-700 transition-all duration-300 hover:shadow-lg">
             <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+              <Filter className="w-6 h-6 text-white" />
+            </div>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+              Universal Filters
+            </h3>
+            <p className="text-gray-600 dark:text-gray-400">
+              Powerful filtering system with 13 filter types, URL
+              synchronization, and tabs/dropdown display modes.
+            </p>
+          </div>
+        </div>
+
+        {/* Documentation Section */}
+        <div className="mt-8 max-w-2xl mx-auto">
+          <div className="group p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl hover:border-orange-300 dark:hover:border-orange-700 transition-all duration-300 hover:shadow-lg">
+            <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
               <FileText className="w-6 h-6 text-white" />
             </div>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">

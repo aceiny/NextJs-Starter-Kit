@@ -9,6 +9,7 @@
  * - form/        - Form system examples
  * - data-display/ - DataTable and data visualization
  * - dropdown/    - ActionMenu and dropdown menu examples
+ * - filters/     - Universal filters examples
  */
 
 // Dialog examples
@@ -25,3 +26,6 @@ export { ActionMenuExamples } from "./dropdown";
 
 // Data display examples
 export { DataTableExamples } from "./data-display";
+
+// Filters examples
+export { UniversalFiltersExample } from "./filters";

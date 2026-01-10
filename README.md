@@ -135,6 +135,15 @@ This will delete all targeted files and directories without any confirmation.
 - ✅ **Keyboard Shortcuts** - Display shortcut hints
 - ✅ **Destructive Actions** - Visual warning for dangerous actions
 
+### 🔍 **Universal Filters**
+
+- ✅ **13 Filter Types** - Text, select, multi-select, number range, date range, checkbox, radio, search, tags, and more
+- ✅ **URL Synchronization** - Filters sync with URL query params
+- ✅ **Two Display Modes** - Tabs mode or compact dropdown mode
+- ✅ **TypeScript Support** - Fully typed filter configurations
+- ✅ **Debounced Inputs** - Optimized performance for text filters
+- ✅ **Theme Support** - Works seamlessly with dark mode
+
 ### 🎯 **Developer Experience**
 
 - ✅ **TypeScript** - Full type safety throughout
@@ -318,6 +327,7 @@ Comprehensive guides for all features:
 | **Tooltip & Dropdown** | CustomTooltip variants, ActionMenu with groups, checkboxes, submenus       | [View Docs](./docs/TOOLTIP_AND_DROPDOWN_DOCUMENTATION.md) |
 | **API & Axios**        | HTTP clients setup, interceptors, error handling, authentication           | [View Docs](./docs/API_DOCUMENTATION.md)                  |
 | **State & Utilities**  | Zustand stores, React Query, Toasts, Path constants                        | [View Docs](./docs/STATE_AND_UTILITIES.md)                |
+| **Universal Filters**  | 13 filter types with URL sync, tabs/dropdown modes, TypeScript examples    | [View Docs](./docs/UNIVERSAL_FILTERS_DOCUMENTATION.md)    |
 
 ## Custom React Hooks
 
@@ -379,6 +389,7 @@ Visit the **[/example](http://localhost:3000/example)** page for the examples hu
 | **[/example/dropdown](http://localhost:3000/example/dropdown)**     | ActionMenu with groups, checkboxes, radios, submenus   |
 | **[/example/form](http://localhost:3000/example/form)**             | All form components - inputs, selects, uploads, OTP    |
 | **[/example/toast](http://localhost:3000/example/toast)**           | Sonner toasts & custom tooltips with variants          |
+| **[/example/filters](http://localhost:3000/example/filters)**       | Universal filters with URL sync, 13 filter types       |
 
 ### Feature Highlights
 
