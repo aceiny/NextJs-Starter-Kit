@@ -101,6 +101,7 @@ export default function ComprehensiveFormExample() {
                   type="text"
                   placeholder="dsda"
                   label="First Name static label"
+                  labelMode="static"
                   required
                 />
 

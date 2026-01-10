@@ -8,6 +8,7 @@ import { FormDescription } from "./FormDescription";
 import { FormMessage } from "./FormMessage";
 import { CheckboxOption } from "./RHFCheckboxGroup";
 import { useThemeMode, getThemeClasses } from "./useThemeMode";
+import { Check } from "lucide-react";
 
 /**
  * RHFSearchableCheckboxGroup Component
@@ -281,18 +282,10 @@ export function RHFSearchableCheckboxGroup<T extends FieldValues>({
                             className={`appearance-none w-4 h-4 ${checkboxBgClass} border ${checkboxBorderClass} rounded cursor-pointer focus:outline-none focus:ring-2 ${ringClass} focus:ring-offset-2 ${ringOffsetClass} disabled:opacity-50 disabled:cursor-not-allowed transition-all ${checkedBgClass} ${checkedBorderClass}`}
                           />
                           {isChecked && (
-                            <svg
+                            <Check
                               className={`absolute w-4 h-4 ${checkIconClass} pointer-events-none`}
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="3"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            >
-                              <polyline points="20 6 9 17 4 12" />
-                            </svg>
+                              strokeWidth={3}
+                            />
                           )}
                         </div>
                         <label
