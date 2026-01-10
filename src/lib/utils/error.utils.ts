@@ -13,7 +13,10 @@
  *   console.log(message);
  * }
  */
-export function extractErrorMessage(error: unknown): string {
+export function extractErrorMessage(
+  error: unknown,
+  fallback: string = "An unexpected error occurred",
+): string {
   // Axios error
   if (typeof error === "object" && error !== null) {
     // @ts-ignore
@@ -41,5 +44,5 @@ export function extractErrorMessage(error: unknown): string {
   }
 
   // Fallback for unknown errors
-  return "An unexpected error occurred";
+  return fallback;
 }

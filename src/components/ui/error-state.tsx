@@ -11,7 +11,8 @@ import {
   RefreshCw,
   type LucideIcon,
 } from "lucide-react";
-import { Button } from "./button";
+import { Button } from "@/components/ui/button";
+import { extractErrorMessage } from "@/lib/utils/error.utils";
 
 export type ErrorStateVariant =
   | "default"
@@ -68,8 +69,10 @@ export interface ErrorStateProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: ErrorStateVariant;
   /** Main error title */
   title?: string;
-  /** Error message/description */
+  /** Error message/description - will be overridden by parsed error if error prop is provided */
   message?: string;
+  /** Error object to parse and display - takes precedence over message prop */
+  error?: unknown;
   /** Optional retry callback */
   onRetry?: () => void;
   /** Retry button label */
@@ -113,6 +116,7 @@ export function ErrorState({
   variant = "default",
   title = "Something went wrong",
   message = "An unexpected error occurred. Please try again.",
+  error,
   onRetry,
   retryLabel = "Try again",
   isRetrying = false,
@@ -128,6 +132,14 @@ export function ErrorState({
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = React.useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = React.useState(false);
+
+  // Parse error if provided, otherwise use the message prop
+  const displayMessage = React.useMemo(() => {
+    if (error) {
+      return extractErrorMessage(error, message);
+    }
+    return message;
+  }, [error, message]);
 
   React.useEffect(() => {
     if (!enableCursorEffect) return;
@@ -299,7 +311,7 @@ export function ErrorState({
           sizes.message,
         )}
       >
-        {message}
+        {displayMessage}
       </p>
 
       {/* Actions */}

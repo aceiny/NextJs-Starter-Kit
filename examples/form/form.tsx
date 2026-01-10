@@ -99,7 +99,8 @@ export default function ComprehensiveFormExample() {
                 <Field.Input
                   name="firstName"
                   type="text"
-                  label="First Name"
+                  placeholder="dsda"
+                  label="First Name static label"
                   required
                 />
 

@@ -717,14 +717,11 @@ export function RHFUniversalInput<T extends FieldValues>({
   const currentTheme = useThemeMode(theme);
   const [showPassword, setShowPassword] = React.useState(false);
 
-  // If placeholder is supplied, force floating label mode
+  // Determine if label should float
   // OTP and Editor always use static label mode
+  // Otherwise, respect the labelMode prop
   const isFloating =
-    type === "otp" || type === "editor"
-      ? false
-      : placeholder
-        ? true
-        : labelMode === "floating";
+    type === "otp" || type === "editor" ? false : labelMode === "floating";
 
   return (
     <Controller
@@ -734,17 +731,17 @@ export function RHFUniversalInput<T extends FieldValues>({
         const hasError = !!error;
 
         // Check if field has value for floating label
-        // For date inputs, always float the label
-        // If placeholder is supplied, always float the label (to show placeholder)
-        // For other inputs, check if value exists and is not the placeholder format
+        // For date inputs, always float the label when they have a value
+        // For other inputs, check if value exists
         const hasValue =
-          type === "date" ||
-          type === "datetime-local" ||
-          !!placeholder ||
-          (field.value !== undefined &&
-            field.value !== null &&
-            field.value !== "" &&
-            field.value !== "mm/dd/yyyy");
+          (type === "date" || type === "datetime-local") &&
+          field.value !== undefined &&
+          field.value !== null &&
+          field.value !== ""
+            ? true
+            : field.value !== undefined &&
+                field.value !== null &&
+                field.value !== "";
 
         // Theme-aware classes
         const bgClass = getThemeClasses(
@@ -1002,7 +999,7 @@ export function RHFUniversalInput<T extends FieldValues>({
                 {label && (
                   <FormLabel
                     required={required}
-                    className={`absolute left-3 ${labelBg} px-1 font-medium transition-all duration-200 pointer-events-none ${
+                    className={`absolute rounded-3xl left-3 ${labelBg} px-1 font-medium transition-all duration-200 pointer-events-none ${
                       hasValue
                         ? `-top-2.5 text-xs ${labelFocusedColor}`
                         : `top-1/2 -translate-y-1/2 text-sm ${labelUnfocusedColor} peer-focus:-top-2.5 peer-focus:translate-y-0 peer-focus:text-xs peer-focus:${labelFocusedColor}`
