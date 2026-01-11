@@ -104,6 +104,8 @@ export interface ActionMenuProps {
   submenus?: ActionMenuSubmenu[];
   /** Menu label displayed at the top */
   menuLabel?: string;
+  /** Custom header content (JSX) rendered at the top - use this for complex header layouts */
+  customHeader?: React.ReactNode;
   /** Trigger icon style */
   triggerVariant?: "horizontal" | "vertical";
   /** Custom trigger element */
@@ -111,7 +113,7 @@ export interface ActionMenuProps {
   /** Trigger button variant */
   buttonVariant?: "default" | "ghost" | "outline" | "secondary";
   /** Trigger button size */
-  buttonSize?: "default" | "sm" | "lg" | "icon" | "icon-sm";
+  buttonSize?: "default" | "sm" | "lg" | "icon" | null | undefined;
   /** Alignment of the dropdown */
   align?: "start" | "center" | "end";
   /** Side of the trigger to display on */
@@ -135,10 +137,11 @@ export function ActionMenu({
   radioGroups,
   submenus,
   menuLabel,
+  customHeader,
   triggerVariant = "horizontal",
   trigger,
   buttonVariant = "ghost",
-  buttonSize = "icon-sm",
+  buttonSize = "icon",
   align = "end",
   side = "bottom",
   contentClassName,
@@ -153,7 +156,6 @@ export function ActionMenu({
       <DropdownMenuItem
         onClick={item.onClick}
         disabled={item.disabled}
-        variant={item.variant}
         className={cn(
           "cursor-pointer",
           item.variant === "destructive" &&
@@ -250,13 +252,18 @@ export function ActionMenu({
         side={side}
         className={cn("w-56", contentClassName)}
       >
-        {/* Menu label */}
-        {menuLabel && (
+        {/* Custom header or menu label */}
+        {customHeader ? (
+          <>
+            <div className="px-2 py-1.5">{customHeader}</div>
+            <DropdownMenuSeparator />
+          </>
+        ) : menuLabel ? (
           <>
             <DropdownMenuLabel>{menuLabel}</DropdownMenuLabel>
             <DropdownMenuSeparator />
           </>
-        )}
+        ) : null}
 
         {/* Simple items */}
         {items && items.length > 0 && items.map(renderItem)}

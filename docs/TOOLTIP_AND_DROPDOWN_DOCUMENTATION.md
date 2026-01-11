@@ -199,26 +199,31 @@ A customizable dropdown menu component for displaying actions, with support for 
 ### ActionMenu Basic Usage
 
 ```tsx
-import { ActionMenu, ActionMenuAction } from "@/components/ActionMenu";
+import { ActionMenu } from "@/components/ActionMenu";
 
 function Example() {
-  const actions: ActionMenuAction[] = [
-    {
-      label: "Edit",
-      onClick: () => console.log("Edit clicked"),
-    },
-    {
-      label: "Duplicate",
-      onClick: () => console.log("Duplicate clicked"),
-    },
-    {
-      label: "Delete",
-      onClick: () => console.log("Delete clicked"),
-      variant: "destructive",
-    },
-  ];
-
-  return <ActionMenu actions={actions} />;
+  return (
+    <ActionMenu
+      items={[
+        {
+          id: "edit",
+          label: "Edit",
+          onClick: () => console.log("Edit clicked"),
+        },
+        {
+          id: "duplicate",
+          label: "Duplicate",
+          onClick: () => console.log("Duplicate clicked"),
+        },
+        {
+          id: "delete",
+          label: "Delete",
+          onClick: () => console.log("Delete clicked"),
+          variant: "destructive",
+        },
+      ]}
+    />
+  );
 }
 ```
 
@@ -227,70 +232,77 @@ function Example() {
 Organize actions into logical groups:
 
 ```tsx
-import { ActionMenu, ActionMenuGroup } from "@/components/ActionMenu";
+import { ActionMenu } from "@/components/ActionMenu";
 
 function Example() {
-  const groups: ActionMenuGroup[] = [
-    {
-      label: "Edit",
-      items: [
-        { label: "Undo", shortcut: "⌘Z", onClick: () => {} },
-        { label: "Redo", shortcut: "⌘Y", onClick: () => {} },
-      ],
-    },
-    {
-      label: "Clipboard",
-      items: [
-        { label: "Cut", shortcut: "⌘X", onClick: () => {} },
-        { label: "Copy", shortcut: "⌘C", onClick: () => {} },
-        { label: "Paste", shortcut: "⌘V", onClick: () => {} },
-      ],
-    },
-    {
-      // Group without label
-      items: [{ label: "Delete", variant: "destructive", onClick: () => {} }],
-    },
-  ];
-
-  return <ActionMenu groups={groups} />;
-}
-```
-
-### Checkbox & Radio Menus
-
-Create selection menus with checkboxes or radio buttons:
-
-```tsx
-import {
-  ActionMenu,
-  ActionMenuCheckbox,
-  ActionMenuRadio,
-} from "@/components/ActionMenu";
+  return (
+    <ActionMenu
+      groups={[
+        {
+          label: "Edit",
+          items: [
+            { id: "undo", label: "Undo", shortcut: "⌘Z", onClick: () => {} },
+            { id: "redo", label: "Redo", shortcut: "⌘Y", onClick: () => {} },
+          ],
+        },
+        {
+          label: "Clipboard",
+          items: [
+            { id: "cut", label: "Cut", shortcut: "⌘X", onClick: () => {} },
+            { id: "copy", label: "Copy", shortcut: "⌘C", onClick: () => {} },
+            { id: "paste", label: "Paste", shortcut: "⌘V", onClick: () => {} },
+          ],
+        },
+        {
+          // Group without label
+          items: [
+            {
+              id: "delete",
+              label: "Delete",
+              variant: "destructive",
+              onClick: () => {},
+            },
+          ],
+        },
+      ]}
+    />
+  ); ActionMenu } from "@/components/ActionMenu";
+import { useState } from "react";
 
 function Example() {
   const [showStatusBar, setShowStatusBar] = useState(true);
   const [showPanel, setShowPanel] = useState(false);
   const [fontSize, setFontSize] = useState("medium");
 
-  const checkboxItems: ActionMenuCheckbox[] = [
-    {
-      label: "Show Status Bar",
-      checked: showStatusBar,
-      onCheckedChange: setShowStatusBar,
-    },
-    {
-      label: "Show Panel",
-      checked: showPanel,
-      onCheckedChange: setShowPanel,
-    },
-  ];
-
-  const radioItems: ActionMenuRadio = {
-    value: fontSize,
-    onValueChange: setFontSize,
-    items: [
-      { value: "small", label: "Small" },
-      { value: "medium", label: "Medium" },
+  return (
+    <ActionMenu
+      trigger={<button>Settings</button>}
+      checkboxItems={[
+        {
+          id: "statusbar",
+          label: "Show Status Bar",
+          checked: showStatusBar,
+          onCheckedChange: setShowStatusBar,
+        },
+        {
+          id: "panel",
+          label: "Show Panel",
+          checked: showPanel,
+          onCheckedChange: setShowPanel,
+        },
+      ]}
+      radioGroups={[
+        {
+          label: "Font Size",
+          value: fontSize,
+          onValueChange: setFontSize,
+          options: [
+            { id: "small", label: "Small" },
+            { id: "medium", label: "Medium" },
+            { id: "large", label: "Large" },
+          ],
+        },
+      ]el: "Medium" },
       { value: "large", label: "Large" },
     ],
   };
@@ -312,32 +324,30 @@ Create nested dropdown menus:
 ```tsx
 import { ActionMenu, ActionMenuSubmenu } from "@/components/ActionMenu";
 
-function Example() {
-  const submenus: ActionMenuSubmenu[] = [
-    {
-      label: "Share",
-      items: [
-        { label: "Email", onClick: () => {} },
-        { label: "Message", onClick: () => {} },
-        { label: "Copy Link", onClick: () => {} },
-      ],
-    },
-    {
-      label: "Export As",
-      items: [
-        { label: "PDF", onClick: () => {} },
-        { label: "PNG", onClick: () => {} },
-        { label: "SVG", onClick: () => {} },
-      ],
-    },
-  ];
+function Example()  } from "@/components/ActionMenu";
 
+function Example() {
   return (
     <ActionMenu
-      actions={[{ label: "Download", onClick: () => {} }]}
-      submenus={submenus}
-    />
-  );
+      items={[{ id: "download", label: "Download", onClick: () => {} }]}
+      submenus={[
+        {
+          label: "Share",
+          items: [
+            { id: "email", label: "Email", onClick: () => {} },
+            { id: "message", label: "Message", onClick: () => {} },
+            { id: "link", label: "Copy Link", onClick: () => {} },
+          ],
+        },
+        {
+          label: "Export As",
+          items: [
+            { id: "pdf", label: "PDF", onClick: () => {} },
+            { id: "png", label: "PNG", onClick: () => {} },
+            { id: "svg", label: "SVG", onClick: () => {} },
+          ],
+        },
+      ]
 }
 ```
 
@@ -345,33 +355,39 @@ function Example() {
 
 Built-in trigger styles:
 
+```tCustom Header
+
+Use `customHeader` for complex menu headers with JSX content:
+
 ```tsx
-// Default: Three dots horizontal
-<ActionMenu actions={actions} />
+import { ActionMenu } from "@/components/ActionMenu";
+import { User, Settings, LogOut } from "lucide-react";
 
-// Vertical dots
-<ActionMenu actions={actions} triggerVariant="dots-vertical" />
+function Example() {
+  return (
+    <ActionMenu
+      customHeader={
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white font-semibold">
+            JD
+          </div>
+          <div className="flex flex-col">
+            <span className="text-sm font-medium">John Doe</span>
+            <span className="text-xs text-muted-foreground">
+              john@example.com
+            </span>
+          </div>
+        </div>
+      }
+import { ActionMenu } from "@/components/ActionMenu";
 
-// Custom trigger
 <ActionMenu
-  actions={actions}
-  trigger={<button className="px-4 py-2 bg-blue-500 text-white rounded">Actions</button>}
+  items={[
+    { id: "edit", label: "Edit", onClick: () => {} },
+    { id: "archive", label: "Archive", onClick: () => {}, disabled: true },
+    { id: "delete", label: "Delete", onClick: () => {}, variant: "destructive" },
+  ]}
 />
-
-// With align option
-<ActionMenu actions={actions} align="end" />
-```
-
-### Disabled Items
-
-Disable specific menu items:
-
-```tsx
-const actions: ActionMenuAction[] = [
-  { label: "Edit", onClick: () => {} },
-  { label: "Archive", onClick: () => {}, disabled: true },
-  { label: "Delete", onClick: () => {}, variant: "destructive" },
-];
 ```
 
 ### Keyboard Shortcuts
@@ -379,6 +395,73 @@ const actions: ActionMenuAction[] = [
 Display keyboard shortcut hints:
 
 ```tsx
+import { ActionMenu } from "@/components/ActionMenu";
+
+<ActionMenu
+  items={[
+    { id: "new", label: "New File", shortcut: "⌘N", onClick: () => {} },
+    { id: "open", label: "Open", shortcut: "⌘O", onClick: () => {} },
+    { id: "save", label: "Save", shortcut: "⌘S", onClick: () => {} },
+    { id: "saveas", label: "Save As...", shortcut: "⇧⌘S", onClick: () => {} },
+  ]}  | Type                                 | Default        | Description                                                      |
+| ------------------ | ------------------------------------ | -------------- | ---------------------------------------------------------------- |
+| `items`            | `ActionMenuItem[]`                   | `undefined`    | Simple action items                                              |
+| `groups`           | `ActionMenuGroup[]`                  | `undefined`    | Grouped action items                                             |
+| `checkboxItems`    | `ActionMenuCheckboxItem[]`           | `undefined`    | Checkbox items                                                   |
+| `radioGroups`      | `ActionMenuRadioGroup[]`             | `undefined`    | Radio button groups                                              |
+| `submenus`         | `ActionMenuSubmenu[]`                | `undefined`    | Nested submenus                                                  |
+| `menuLabel`        | `string`                             | `undefined`    | Simple text header at the top of the menu                        |
+| `customHeader`     | `ReactNode`                          | `undefined`    | Custom JSX header for complex layouts (user profiles, stats, etc.) |
+| `trigger`          | `ReactNode`                          | Dots icon      | Custom trigger element                                           |
+| `triggerVariant`   | `"horizontal" \| "vertical"`         | `"horizontal"` | Built-in trigger style                                           |
+| `buttonVariant`    | `"default" \| "ghost" \| "outline" \| "secondary"` | `"ghost"` | Trigger button variant                                   |
+| `buttonSize` Item
+
+| Prop        | Type                         | Description                            |
+| ----------- | ---------------------------- | -------------------------------------- |
+| `id`        | `string`                     | Unique identifier for the item         |
+| `label`     | `string`                     | Display text                           |
+| `icon`      | `LucideIcon`                 | Optional icon component                |
+| `onClick`   | `() => void`                 | Click handler                          |
+| `disabled`  | `boolean`                    | Whether the item is disabled           |
+| `shortcut`  | `string`                     | Keyboard shortcut display (e.g., "⌘K") |
+| `variant`   | `"default" \| "destructive"` | Destructive/danger styling             |
+| `separator` | `boolean`                    | Whether to show separator after item   |
+
+#### ActionMenuGroup
+
+| Prop    | Type               | Description          |
+| ------- | ------------------ | -------------------- |
+| `label` | `string`           | Optional group label |
+| `items` | `ActionMenuItem[]` | Actions in the group |
+
+#### ActionMenuCheckboxItem
+
+| Prop              | Type                         | Description                |
+| ----------------- | ---------------------------- | -------------------------- |
+| `id`              | `string`                     | Unique identifier          |
+| `label`           | `string`                     | Display text               |
+| `checked`         | `boolean`                    | Whether checked            |
+| `onCheckedChange` | `(checked: boolean) => void` | Change handler             |
+| `disabled`        | `boolean`                    | Whether the item is disabled |
+| `icon`            | `LucideIcon`                 | Optional icon component    |
+
+#### ActionMenuRadioGroup
+
+| Prop            | Type                                                                         | Description            |
+| --------------- | ---------------------------------------------------------------------------- | ---------------------- |
+| `label`         | `string`                                                                     | Optional group label   |
+| `value`         | `string`                                                                     | Current selected value |
+| `onValueChange` | `(value: string) => void`                                                    | Change handler         |
+| `options`       | `{ id: string; label: string; icon?: LucideIcon; disabled?: boolean }[]`    | Radio options          |
+
+#### ActionMenuSubmenu
+
+| Prop    | Type               | Description          |
+| ------- | ------------------ | -------------------- |
+| `label` | `string`           | Submenu trigger text |
+| `icon`  | `LucideIcon`       | Optional icon for the trigger |
+| `items` | `ActionMenuItem
 const actions: ActionMenuAction[] = [
   { label: "New File", shortcut: "⌘N", onClick: () => {} },
   { label: "Open", shortcut: "⌘O", onClick: () => {} },
@@ -393,18 +476,85 @@ const actions: ActionMenuAction[] = [
 
 | Prop             | Type                                   | Default             | Description            |
 | ---------------- | -------------------------------------- | ------------------- | ---------------------- |
-| `actions`        | `ActionMenuAction[]`                   | `undefined`         | Simple action items    |
-| `groups`         | `ActionMenuGroup[]`                    | `undefined`         | Grouped action items   |
-| `checkboxItems`  | `ActionMenuCheckbox[]`                 | `undefined`         | Checkbox items         |
-| `radioItems`     | `ActionMenuRadio`                      | `undefined`         | Radio button group     |
-| `submenus`       | `ActionMenuSubmenu[]`                  | `undefined`         | Nested submenus        |
-| `trigger`        | `ReactNode`                            | Dots icon           | Custom trigger element |
-| `triggerVariant` | `"dots-horizontal" \| "dots-vertical"` | `"dots-horizontal"` | Built-in trigger style |
-| `align`          | `"start" \| "center" \| "end"`         | `"end"`             | Dropdown alignment     |
-| `className`      | `string`                               | `undefined`         | Additional CSS classes |
+| `actitems={[
+        { id: "edit", label: "Edit", onClick: () => editUser(row) },
+        { id: "view", label: "View Profile", onClick: () => viewProfile(row) },
+        {
+          id: "delete",
+          label: "Delete",
+          variant: "destructive",
+          onClick: () => deleteUser(row),
+        },
+      ]}
+    />
+  )}
+/>;
+```
 
-#### ActionMenuAction
+### User Profile Menu with Custom Header
 
+```tsx
+import { ActionMenu } from "@/components/ActionMenu";
+import { User, Settings, HelpCircle, LogOut } from "lucide-react";
+
+function UserMenu({ user }) {
+  return (
+    <ActionMenu
+      customHeader={
+        <div className="flex items-center gap-3">
+          <img
+            src={user.avatar}
+            alt={user.name}
+            className="h-10 w-10 rounded-full"
+          />
+          <div className="flex flex-col">
+            <span className="text-sm font-medium">{user.name}</span>
+            <span className="text-xs text-muted-foreground">{user.email}</span>
+          </div>
+        </div>
+      }
+      groups={[
+        {
+          items: [
+            {
+              id: "profile",
+              label: "Profile",
+              icon: User,
+              onClick: () => navigateToProfile(),
+            },
+            {
+              id: "settings",
+              label: "Settings",
+              icon: Settings,
+              onClick: () => navigateToSettings(),
+            },
+          ],
+        },
+        {
+          items: [
+            {
+              id: "help",
+              label: "Help & Support",
+              icon: HelpCircle,
+              onClick: () => openHelpCenter(),
+            },
+          ],
+        },
+        {
+          items: [
+            {
+              id: "logout",
+              label: "Log out",
+              icon: LogOut,
+              variant: "destructive",
+              onClick: () => handleLogout(),
+            },
+          ],
+        },
+      ]}
+    />
+  );
+}
 | Prop       | Type                         | Description                        |
 | ---------- | ---------------------------- | ---------------------------------- |
 | `label`    | `string`                     | Display text                       |

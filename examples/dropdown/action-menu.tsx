@@ -366,6 +366,60 @@ export function ActionMenuExamples() {
         />
       </div>
 
+      {/* Custom Header */}
+      <div>
+        <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-gray-100">
+          Custom Header
+        </h3>
+        <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
+          Using customHeader for complex menu headers with user info
+        </p>
+        <ActionMenu
+          customHeader={
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white font-semibold">
+                JD
+              </div>
+              <div className="flex flex-col">
+                <span className="text-sm font-medium">John Doe</span>
+                <span className="text-xs text-muted-foreground">
+                  john@example.com
+                </span>
+              </div>
+            </div>
+          }
+          groups={[
+            {
+              items: [
+                {
+                  id: "profile",
+                  label: "View Profile",
+                  icon: User,
+                  onClick: () => toast.info("Profile"),
+                },
+                {
+                  id: "settings",
+                  label: "Settings",
+                  icon: Settings,
+                  onClick: () => toast.info("Settings"),
+                },
+              ],
+            },
+            {
+              items: [
+                {
+                  id: "logout",
+                  label: "Log out",
+                  icon: LogOut,
+                  variant: "destructive",
+                  onClick: () => toast.info("Logged out"),
+                },
+              ],
+            },
+          ]}
+        />
+      </div>
+
       {/* Vertical Trigger Variant */}
       <div>
         <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-gray-100">
