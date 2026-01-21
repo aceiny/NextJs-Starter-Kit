@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import ReactApexChart from "./DynamicApexChart";
 import { useTheme } from "next-themes";
 import { tooltipWithTitle } from "./tooltip";
@@ -18,7 +18,6 @@ export default function ApexLineChart({
 }: ApexLineChartProps) {
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
-
 
   const options: any = {
     chart: {
@@ -40,11 +39,36 @@ export default function ApexLineChart({
     yaxis: { labels: { show: false } },
     tooltip: {
       custom: function ({ series, seriesIndex, dataPointIndex, w }: any) {
-        const title = (w && w.config && w.config.xaxis && w.config.xaxis.categories && w.config.xaxis.categories[dataPointIndex]) || "";
-        const label = (w && w.config && w.config.series && w.config.series[seriesIndex] && w.config.series[seriesIndex].name) || "";
-        const value = (series && series[seriesIndex] && series[seriesIndex][dataPointIndex]) || (w && w.globals && w.globals.series && w.globals.series[seriesIndex] && w.globals.series[seriesIndex][dataPointIndex]) || "";
-        const color = (w && w.config && w.config.colors && w.config.colors[seriesIndex]) || colors[seriesIndex] || "#000";
-        const isDarkLocal = (w && w.config && w.config.theme && w.config.theme.mode) === "dark";
+        const title =
+          (w &&
+            w.config &&
+            w.config.xaxis &&
+            w.config.xaxis.categories &&
+            w.config.xaxis.categories[dataPointIndex]) ||
+          "";
+        const label =
+          (w &&
+            w.config &&
+            w.config.series &&
+            w.config.series[seriesIndex] &&
+            w.config.series[seriesIndex].name) ||
+          "";
+        const value =
+          (series &&
+            series[seriesIndex] &&
+            series[seriesIndex][dataPointIndex]) ||
+          (w &&
+            w.globals &&
+            w.globals.series &&
+            w.globals.series[seriesIndex] &&
+            w.globals.series[seriesIndex][dataPointIndex]) ||
+          "";
+        const color =
+          (w && w.config && w.config.colors && w.config.colors[seriesIndex]) ||
+          colors[seriesIndex] ||
+          "#000";
+        const isDarkLocal =
+          (w && w.config && w.config.theme && w.config.theme.mode) === "dark";
         return tooltipWithTitle(title, label, value, color, isDarkLocal);
       },
     },
@@ -57,7 +81,12 @@ export default function ApexLineChart({
   return (
     <div className="w-full" style={{ height }}>
       {/* @ts-ignore */}
-      <ReactApexChart options={options} series={series} type="line" height={height} />
+      <ReactApexChart
+        options={options}
+        series={series}
+        type="line"
+        height={height}
+      />
     </div>
   );
 }

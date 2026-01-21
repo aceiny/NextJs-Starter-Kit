@@ -1,6 +1,12 @@
 "use client";
 import { useForm } from "react-hook-form";
-import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+  useRef,
+} from "react";
 import { cn } from "@/lib/utils";
 import { Form, Field } from "@/components/form";
 import {
@@ -474,7 +480,11 @@ export default function UniversalFilters({
             "bg-popover rounded-lg shadow-lg border border-border",
             "z-[100]",
           )}
-          style={{ maxHeight: "80vh", display: "flex", flexDirection: "column" }}
+          style={{
+            maxHeight: "80vh",
+            display: "flex",
+            flexDirection: "column",
+          }}
           onClick={(e) => {
             // Stop propagation to prevent closing when clicking inside
             e.stopPropagation();

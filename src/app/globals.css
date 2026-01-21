@@ -142,3 +142,14 @@ input[type="reset"]:disabled,
 }
 
 /* End Add cursor styles to buttons and inputs */
+
+@keyframes ripple {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}

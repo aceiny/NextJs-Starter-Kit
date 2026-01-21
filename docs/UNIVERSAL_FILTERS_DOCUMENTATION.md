@@ -110,18 +110,18 @@ Every filter is defined by a `FilterConfig` object with the following properties
 
 ```typescript
 interface FilterConfig {
-  name: string;              // Display label
-  param: string;             // URL parameter name
-  type: FilterType;          // Input type
-  placeholder?: string;      // Placeholder text
-  helperText?: string;       // Helper text below input
-  required?: boolean;        // Mark as required
-  disabled?: boolean;        // Disable the filter
-  defaultValue?: any;        // Default value
-  options?: SelectOption[];  // For select/multiselect/radio/checkbox-group
-  min?: number;              // For number/date inputs
-  max?: number;              // For number/date inputs
-  step?: number;             // For number inputs
+  name: string; // Display label
+  param: string; // URL parameter name
+  type: FilterType; // Input type
+  placeholder?: string; // Placeholder text
+  helperText?: string; // Helper text below input
+  required?: boolean; // Mark as required
+  disabled?: boolean; // Disable the filter
+  defaultValue?: any; // Default value
+  options?: SelectOption[]; // For select/multiselect/radio/checkbox-group
+  min?: number; // For number/date inputs
+  max?: number; // For number/date inputs
+  step?: number; // For number inputs
 }
 ```
 
@@ -135,6 +135,7 @@ All filter values are automatically synchronized with URL parameters:
 - **Sharing URL** → Filters preserved
 
 Example URL with filters:
+
 ```
 /users?search=john&status=active&role=admin&startDate=2024-01-01
 ```
@@ -150,6 +151,7 @@ Text inputs (text, email, phone, number, search, url) are automatically debounce
 ### Tabs Mode (Default)
 
 Displays filters horizontally in a grid layout. Best for:
+
 - Desktop applications
 - 4-6 filters or less
 - Always-visible filters
@@ -159,6 +161,7 @@ Displays filters horizontally in a grid layout. Best for:
 ```
 
 **Features:**
+
 - Responsive grid (1-4 columns based on screen size)
 - Clear visual separation
 - Active filter count badge
@@ -167,6 +170,7 @@ Displays filters horizontally in a grid layout. Best for:
 ### Dropdown Mode
 
 Displays filters in a compact dropdown menu. Best for:
+
 - Mobile applications
 - Many filters (7+)
 - Limited screen space
@@ -182,6 +186,7 @@ Displays filters in a compact dropdown menu. Best for:
 ```
 
 **Features:**
+
 - Compact button with active count badge
 - Scrollable filter list
 - Click outside to close
@@ -195,6 +200,7 @@ Displays filters in a compact dropdown menu. Best for:
 ### 1. Text-Based Inputs
 
 #### Text
+
 ```tsx
 {
   name: "Search",
@@ -205,6 +211,7 @@ Displays filters in a compact dropdown menu. Best for:
 ```
 
 #### Email
+
 ```tsx
 {
   name: "Email",
@@ -215,6 +222,7 @@ Displays filters in a compact dropdown menu. Best for:
 ```
 
 #### Phone
+
 ```tsx
 {
   name: "Phone",
@@ -225,6 +233,7 @@ Displays filters in a compact dropdown menu. Best for:
 ```
 
 #### URL
+
 ```tsx
 {
   name: "Website",
@@ -235,6 +244,7 @@ Displays filters in a compact dropdown menu. Best for:
 ```
 
 #### Search
+
 ```tsx
 {
   name: "Quick Search",
@@ -245,6 +255,7 @@ Displays filters in a compact dropdown menu. Best for:
 ```
 
 #### Textarea
+
 ```tsx
 {
   name: "Description",
@@ -272,6 +283,7 @@ Displays filters in a compact dropdown menu. Best for:
 ### 3. Date Inputs
 
 #### Date
+
 ```tsx
 {
   name: "Start Date",
@@ -281,6 +293,7 @@ Displays filters in a compact dropdown menu. Best for:
 ```
 
 #### DateTime-Local
+
 ```tsx
 {
   name: "Appointment",
@@ -380,22 +393,22 @@ Displays filters in a compact dropdown menu. Best for:
 interface FiltersConfig {
   /** Array of filter configurations */
   filters: FilterConfig[];
-  
+
   /** Show reset button */
   showReset?: boolean;
-  
+
   /** Custom text for reset button */
   resetButtonText?: string;
-  
+
   /** Show apply button (dropdown mode) */
   showApplyButton?: boolean;
-  
+
   /** Custom text for apply button */
   applyButtonText?: string;
-  
+
   /** Callback when filters are reset */
   onReset?: () => void;
-  
+
   /** Callback when apply is clicked (dropdown mode) */
   onApply?: (values: Record<string, any>) => void;
 }
@@ -407,19 +420,19 @@ interface FiltersConfig {
 interface UniversalFiltersProps {
   /** Filter configuration */
   config: FiltersConfig;
-  
+
   /** Display mode: tabs (horizontal) or dropdown */
   mode?: "tabs" | "dropdown";
-  
+
   /** Custom className for the container */
   className?: string;
-  
+
   /** Button text for dropdown mode */
   dropdownButtonText?: string;
-  
+
   /** Custom icon for dropdown button */
   dropdownIcon?: React.ReactNode;
-  
+
   /** Button size for dropdown mode */
   dropdownButtonSize?: "sm" | "md" | "lg";
 }
@@ -465,17 +478,17 @@ import { useAllSearchParams } from "@/hooks/shared/use-query-params";
 
 export default function UsersPage() {
   const params = useAllSearchParams();
-  
+
   // Access filter values
   const search = params.search || "";
   const status = params.status || "all";
-  
+
   // Use in API calls
   const { data } = useQuery({
     queryKey: ["users", params],
     queryFn: () => fetchUsers(params),
   });
-  
+
   return (
     <div>
       <UniversalFilters config={filtersConfig} />
@@ -504,14 +517,14 @@ export default function UsersPage() {
 
 **Props:**
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `config` | `FiltersConfig` | Required | Filter configuration object |
-| `mode` | `"tabs" \| "dropdown"` | `"tabs"` | Display mode |
-| `className` | `string` | `""` | Additional CSS classes |
-| `dropdownButtonText` | `string` | `"Filters"` | Dropdown button label |
-| `dropdownIcon` | `React.ReactNode` | `<Filter />` | Dropdown button icon |
-| `dropdownButtonSize` | `"sm" \| "md" \| "lg"` | `"md"` | Dropdown button size |
+| Prop                 | Type                   | Default      | Description                 |
+| -------------------- | ---------------------- | ------------ | --------------------------- |
+| `config`             | `FiltersConfig`        | Required     | Filter configuration object |
+| `mode`               | `"tabs" \| "dropdown"` | `"tabs"`     | Display mode                |
+| `className`          | `string`               | `""`         | Additional CSS classes      |
+| `dropdownButtonText` | `string`               | `"Filters"`  | Dropdown button label       |
+| `dropdownIcon`       | `React.ReactNode`      | `<Filter />` | Dropdown button icon        |
+| `dropdownButtonSize` | `"sm" \| "md" \| "lg"` | `"md"`       | Dropdown button size        |
 
 ### useAllSearchParams Hook
 
@@ -585,7 +598,7 @@ const userFilters: FiltersConfig = {
   resetButtonText: "Clear All",
 };
 
-<UniversalFilters config={userFilters} mode="tabs" />
+<UniversalFilters config={userFilters} mode="tabs" />;
 ```
 
 ### Example 2: E-Commerce Product Filters
@@ -647,7 +660,7 @@ const productFilters: FiltersConfig = {
   config={productFilters}
   mode="dropdown"
   dropdownButtonSize="lg"
-/>
+/>;
 ```
 
 ### Example 3: Dropdown Mode with Custom Icon
@@ -662,7 +675,7 @@ import { SlidersHorizontal } from "lucide-react";
   dropdownIcon={<SlidersHorizontal />}
   dropdownButtonSize="md"
   className="mb-4"
-/>
+/>;
 ```
 
 ### Example 4: Event Filters
@@ -707,7 +720,7 @@ const eventFilters: FiltersConfig = {
   showReset: true,
 };
 
-<UniversalFilters config={eventFilters} mode="tabs" />
+<UniversalFilters config={eventFilters} mode="tabs" />;
 ```
 
 ---
@@ -769,6 +782,7 @@ filters: [
 ### 5. Limit Filter Count in Dropdown Mode
 
 For better UX, limit to 6-8 filters in dropdown mode. For more filters, consider:
+
 - Using tabs mode instead
 - Categorizing filters into multiple dropdowns
 - Progressive disclosure (show more/less)
@@ -805,11 +819,17 @@ The component automatically debounces text inputs (500ms). For real-time filteri
 ```tsx
 // Text inputs are debounced by 500ms
 // Consider this in your UX design
-{ type: "text" }  // Debounced
+{
+  type: "text";
+} // Debounced
 
 // Select/checkbox update immediately
-{ type: "select" }    // Immediate
-{ type: "checkbox" }  // Immediate
+{
+  type: "select";
+} // Immediate
+{
+  type: "checkbox";
+} // Immediate
 ```
 
 ---
@@ -929,18 +949,13 @@ If you need custom filter behavior, you can extend the component:
 // Wrap UniversalFilters with custom logic
 export function CustomFilters() {
   const params = useAllSearchParams();
-  
+
   useEffect(() => {
     // Custom side effect when filters change
     console.log("Filters changed:", params);
   }, [params]);
-  
-  return (
-    <UniversalFilters
-      config={filtersConfig}
-      mode="tabs"
-    />
-  );
+
+  return <UniversalFilters config={filtersConfig} mode="tabs" />;
 }
 ```
 
@@ -952,12 +967,12 @@ import { useAllSearchParams } from "@/hooks/shared/use-query-params";
 
 export default function UsersPage() {
   const params = useAllSearchParams();
-  
+
   const { data, isLoading } = useQuery({
     queryKey: ["users", params],
     queryFn: () => fetchUsers(params),
   });
-  
+
   return (
     <>
       <UniversalFilters config={userFilters} />
@@ -974,6 +989,7 @@ export default function UsersPage() {
 ### From Custom Filters to UniversalFilters
 
 Before:
+
 ```tsx
 const [search, setSearch] = useState("");
 const [status, setStatus] = useState("all");
@@ -985,6 +1001,7 @@ const [status, setStatus] = useState("all");
 ```
 
 After:
+
 ```tsx
 const filtersConfig: FiltersConfig = {
   filters: [
@@ -1001,6 +1018,7 @@ const filtersConfig: FiltersConfig = {
 ## Support
 
 For issues, questions, or contributions:
+
 - GitHub Issues: [Report an issue](https://github.com/aceiny/NextJs-Starter-Kit/issues)
 - Documentation: [Full documentation](https://github.com/aceiny/NextJs-Starter-Kit/tree/main/docs)
 - Examples: [See examples](https://github.com/aceiny/NextJs-Starter-Kit/tree/main/examples)

@@ -160,8 +160,8 @@ export function RHFUniversalInput<T extends FieldValues>({
             : placeholder && isFloating
               ? true
               : field.value !== undefined &&
-                  field.value !== null &&
-                  field.value !== "";
+                field.value !== null &&
+                field.value !== "";
 
         // Theme-aware classes
         const bgClass = getThemeClasses(
@@ -364,7 +364,7 @@ export function RHFUniversalInput<T extends FieldValues>({
                     type={type}
                     value={field.value || ""}
                     onChange={(e) => {
-                      const value = e.target.value; 
+                      const value = e.target.value;
                       field.onChange(value);
                       onChangeSideEffect?.(value);
                     }}

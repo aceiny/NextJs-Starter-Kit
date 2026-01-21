@@ -1,22 +1,53 @@
-"use client";;
+"use client";
 import AnalyticsWidgetSummary from "@/components/ui/analytics-widget-summary";
 import { Users, Podcast } from "lucide-react";
+import { ActionButton } from "@/components/ui/action-button";
+import { RippleButton } from "@/components/form/ripple-button";
 import {
-    HorizontalBarChart,
-    AreaChart,
-    PieChart,
-    ApexLineChart,
-    ApexHorizontalBarChart,
-    ApexPieChart,
-    ApexBarChart,
-    ApexStackedBarChart,
-    ApexAreaChart,
-    ApexStackedHorizontalBarChart
+  HorizontalBarChart,
+  AreaChart,
+  PieChart,
+  ApexLineChart,
+  ApexHorizontalBarChart,
+  ApexPieChart,
+  ApexBarChart,
+  ApexStackedBarChart,
+  ApexAreaChart,
+  ApexStackedHorizontalBarChart,
 } from "@/components/chart";
 export default function ChartsExamplesPage() {
   return (
     <div className="container min-w-screen min-h-screen  p-10 space-y-8 ">
       <h1 className="text-2xl font-bold">Charts & Analytics Examples</h1>
+      <div className="mt-4 flex items-center gap-3">
+        <ActionButton
+          btn={{
+            text: "Refresh",
+            variant: "default",
+            size: "sm",
+            onClick: () => alert("Refresh clicked"),
+            ripple: true,
+          }}
+        />
+        <ActionButton
+          btn={{
+            text: "Export",
+            variant: "outline",
+            size: "sm",
+            onClick: () => alert("Export clicked"),
+          }}
+        />
+        <RippleButton variant="outline" size="sm">
+          Ripple
+        </RippleButton>
+
+        <RippleButton variant="ghost" size="md">
+          Ripple
+        </RippleButton>
+        <RippleButton variant="default" size="lg">
+          Ripple
+        </RippleButton>
+      </div>
 
       <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <AnalyticsWidgetSummary
@@ -25,7 +56,13 @@ export default function ChartsExamplesPage() {
           percent={2.6}
           icon={<Users />}
           chartType="mini-bars"
-          chartData={[{ label: "Mon", visits: 40 }, { label: "Tue", visits: 60 }, { label: "Wed", visits: 45 }, { label: "Thu", visits: 70 }, { label: "Fri", visits: 55 }]}
+          chartData={[
+            { label: "Mon", visits: 40 },
+            { label: "Tue", visits: 60 },
+            { label: "Wed", visits: 45 },
+            { label: "Thu", visits: 70 },
+            { label: "Fri", visits: 55 },
+          ]}
           dataKey="visits"
         />
 
@@ -36,10 +73,16 @@ export default function ChartsExamplesPage() {
           percent={-12}
           icon={<Podcast />}
           chartType="sparkline"
-          chartData={[{ label: "Mon", visits: 40 }, { label: "Tue", visits: 60 }, { label: "Wed", visits: 45 }, { label: "Thu", visits: 70 }, { label: "Fri", visits: 55 }]}
+          chartData={[
+            { label: "Mon", visits: 40 },
+            { label: "Tue", visits: 60 },
+            { label: "Wed", visits: 45 },
+            { label: "Thu", visits: 70 },
+            { label: "Fri", visits: 55 },
+          ]}
           dataKey="visits"
         />
-        </section>
+      </section>
 
       <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="p-4 bg-card rounded-md">
@@ -88,7 +131,9 @@ export default function ChartsExamplesPage() {
           <ApexStackedBarChart />
         </div>
         <div className="p-4 bg-card rounded-md">
-          <h3 className="font-medium mb-2">Apex Stacked Horizontal Bar (minimal)</h3>
+          <h3 className="font-medium mb-2">
+            Apex Stacked Horizontal Bar (minimal)
+          </h3>
           {/* @ts-ignore */}
           <ApexStackedHorizontalBarChart />
         </div>
@@ -98,8 +143,6 @@ export default function ChartsExamplesPage() {
           <ApexAreaChart />
         </div>
       </div>
-
-     
     </div>
   );
 }

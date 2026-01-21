@@ -22,20 +22,50 @@ export const Editor: React.FC<EditorProps> = ({
 }) => {
   const currentTheme = useThemeMode(theme);
   const editorRef = React.useRef<HTMLDivElement>(null);
-  const [activeFormats, setActiveFormats] = React.useState<Set<string>>(new Set());
+  const [activeFormats, setActiveFormats] = React.useState<Set<string>>(
+    new Set(),
+  );
   const [showLinkInput, setShowLinkInput] = React.useState(false);
   const [linkUrl, setLinkUrl] = React.useState("https://");
   const linkInputRef = React.useRef<HTMLInputElement>(null);
   const savedSelectionRef = React.useRef<Range | null>(null);
 
-  const borderClass = getThemeClasses("border-gray-200", "border-gray-800", currentTheme);
+  const borderClass = getThemeClasses(
+    "border-gray-200",
+    "border-gray-800",
+    currentTheme,
+  );
   const bgClass = getThemeClasses("bg-white", "bg-gray-950", currentTheme);
-  const toolbarBgClass = getThemeClasses("bg-gray-50", "bg-gray-900", currentTheme);
-  const textClass = getThemeClasses("text-gray-700", "text-gray-300", currentTheme);
-  const hoverClass = getThemeClasses("hover:bg-gray-200", "hover:bg-gray-700", currentTheme);
-  const activeClass = getThemeClasses("bg-gray-900 text-white", "bg-gray-100 text-gray-900", currentTheme);
-  const mainTextClass = getThemeClasses("text-gray-900", "text-gray-100", currentTheme);
-  const disabledBgClass = getThemeClasses("disabled:bg-gray-50", "disabled:bg-gray-900", currentTheme);
+  const toolbarBgClass = getThemeClasses(
+    "bg-gray-50",
+    "bg-gray-900",
+    currentTheme,
+  );
+  const textClass = getThemeClasses(
+    "text-gray-700",
+    "text-gray-300",
+    currentTheme,
+  );
+  const hoverClass = getThemeClasses(
+    "hover:bg-gray-200",
+    "hover:bg-gray-700",
+    currentTheme,
+  );
+  const activeClass = getThemeClasses(
+    "bg-gray-900 text-white",
+    "bg-gray-100 text-gray-900",
+    currentTheme,
+  );
+  const mainTextClass = getThemeClasses(
+    "text-gray-900",
+    "text-gray-100",
+    currentTheme,
+  );
+  const disabledBgClass = getThemeClasses(
+    "disabled:bg-gray-50",
+    "disabled:bg-gray-900",
+    currentTheme,
+  );
 
   // Initialize editor content
   React.useEffect(() => {
@@ -51,7 +81,8 @@ export const Editor: React.FC<EditorProps> = ({
     if (document.queryCommandState("bold")) formats.add("bold");
     if (document.queryCommandState("italic")) formats.add("italic");
     if (document.queryCommandState("underline")) formats.add("underline");
-    if (document.queryCommandState("strikeThrough")) formats.add("strikethrough");
+    if (document.queryCommandState("strikeThrough"))
+      formats.add("strikethrough");
     if (document.queryCommandState("insertUnorderedList")) formats.add("ul");
     if (document.queryCommandState("insertOrderedList")) formats.add("ol");
     if (document.queryCommandState("justifyLeft")) formats.add("left");
@@ -150,20 +181,40 @@ export const Editor: React.FC<EditorProps> = ({
   );
 
   return (
-    <div className={`border ${borderClass} ${bgClass} rounded-lg ${className || ""}`}>
-      <div className={`${toolbarBgClass} px-3 py-2 border-b ${borderClass} rounded-t-lg`}>
+    <div
+      className={`border ${borderClass} ${bgClass} rounded-lg ${className || ""}`}
+    >
+      <div
+        className={`${toolbarBgClass} px-3 py-2 border-b ${borderClass} rounded-t-lg`}
+      >
         <div className="flex flex-wrap gap-1">
           {/* Text Formatting */}
-          <ToolbarButton onClick={() => execCommand("bold")} title="Bold (Ctrl+B)" isActive={activeFormats.has("bold")}>
+          <ToolbarButton
+            onClick={() => execCommand("bold")}
+            title="Bold (Ctrl+B)"
+            isActive={activeFormats.has("bold")}
+          >
             <strong>B</strong>
           </ToolbarButton>
-          <ToolbarButton onClick={() => execCommand("italic")} title="Italic (Ctrl+I)" isActive={activeFormats.has("italic")}>
+          <ToolbarButton
+            onClick={() => execCommand("italic")}
+            title="Italic (Ctrl+I)"
+            isActive={activeFormats.has("italic")}
+          >
             <em>I</em>
           </ToolbarButton>
-          <ToolbarButton onClick={() => execCommand("underline")} title="Underline (Ctrl+U)" isActive={activeFormats.has("underline")}>
+          <ToolbarButton
+            onClick={() => execCommand("underline")}
+            title="Underline (Ctrl+U)"
+            isActive={activeFormats.has("underline")}
+          >
             <u>U</u>
           </ToolbarButton>
-          <ToolbarButton onClick={() => execCommand("strikeThrough")} title="Strikethrough" isActive={activeFormats.has("strikethrough")}>
+          <ToolbarButton
+            onClick={() => execCommand("strikeThrough")}
+            title="Strikethrough"
+            isActive={activeFormats.has("strikethrough")}
+          >
             <s>S</s>
           </ToolbarButton>
 
@@ -171,19 +222,54 @@ export const Editor: React.FC<EditorProps> = ({
           <div className={`w-px ${borderClass} mx-1 my-1`} />
 
           {/* Headings */}
-          <ToolbarButton onClick={() => execCommand("formatBlock", "h1")} title="Heading 1" isActive={activeFormats.has("h1")}> <span className="font-bold text-base">H1</span> </ToolbarButton>
-          <ToolbarButton onClick={() => execCommand("formatBlock", "h2")} title="Heading 2" isActive={activeFormats.has("h2")}> <span className="font-bold text-sm">H2</span> </ToolbarButton>
-          <ToolbarButton onClick={() => execCommand("formatBlock", "h3")} title="Heading 3" isActive={activeFormats.has("h3")}> <span className="font-bold text-xs">H3</span> </ToolbarButton>
-          <ToolbarButton onClick={() => execCommand("formatBlock", "p")} title="Paragraph"> <span className="text-xs">P</span> </ToolbarButton>
+          <ToolbarButton
+            onClick={() => execCommand("formatBlock", "h1")}
+            title="Heading 1"
+            isActive={activeFormats.has("h1")}
+          >
+            {" "}
+            <span className="font-bold text-base">H1</span>{" "}
+          </ToolbarButton>
+          <ToolbarButton
+            onClick={() => execCommand("formatBlock", "h2")}
+            title="Heading 2"
+            isActive={activeFormats.has("h2")}
+          >
+            {" "}
+            <span className="font-bold text-sm">H2</span>{" "}
+          </ToolbarButton>
+          <ToolbarButton
+            onClick={() => execCommand("formatBlock", "h3")}
+            title="Heading 3"
+            isActive={activeFormats.has("h3")}
+          >
+            {" "}
+            <span className="font-bold text-xs">H3</span>{" "}
+          </ToolbarButton>
+          <ToolbarButton
+            onClick={() => execCommand("formatBlock", "p")}
+            title="Paragraph"
+          >
+            {" "}
+            <span className="text-xs">P</span>{" "}
+          </ToolbarButton>
 
           {/* Divider */}
           <div className={`w-px ${borderClass} mx-1 my-1`} />
 
           {/* Lists */}
-          <ToolbarButton onClick={() => execCommand("insertUnorderedList")} title="Bullet List" isActive={activeFormats.has("ul")}>
+          <ToolbarButton
+            onClick={() => execCommand("insertUnorderedList")}
+            title="Bullet List"
+            isActive={activeFormats.has("ul")}
+          >
             <span className="text-base">•</span>
           </ToolbarButton>
-          <ToolbarButton onClick={() => execCommand("insertOrderedList")} title="Numbered List" isActive={activeFormats.has("ol")}>
+          <ToolbarButton
+            onClick={() => execCommand("insertOrderedList")}
+            title="Numbered List"
+            isActive={activeFormats.has("ol")}
+          >
             <span className="text-xs font-semibold">1.</span>
           </ToolbarButton>
 
@@ -191,15 +277,37 @@ export const Editor: React.FC<EditorProps> = ({
           <div className={`w-px ${borderClass} mx-1 my-1`} />
 
           {/* Alignment */}
-          <ToolbarButton onClick={() => execCommand("justifyLeft")} title="Align Left" isActive={activeFormats.has("left")}> <span className="text-xs">⇤</span> </ToolbarButton>
-          <ToolbarButton onClick={() => execCommand("justifyCenter")} title="Align Center" isActive={activeFormats.has("center")}> <span className="text-xs">⇥</span> </ToolbarButton>
-          <ToolbarButton onClick={() => execCommand("justifyRight")} title="Align Right" isActive={activeFormats.has("right")}> <span className="text-xs">⇥</span> </ToolbarButton>
+          <ToolbarButton
+            onClick={() => execCommand("justifyLeft")}
+            title="Align Left"
+            isActive={activeFormats.has("left")}
+          >
+            {" "}
+            <span className="text-xs">⇤</span>{" "}
+          </ToolbarButton>
+          <ToolbarButton
+            onClick={() => execCommand("justifyCenter")}
+            title="Align Center"
+            isActive={activeFormats.has("center")}
+          >
+            {" "}
+            <span className="text-xs">⇥</span>{" "}
+          </ToolbarButton>
+          <ToolbarButton
+            onClick={() => execCommand("justifyRight")}
+            title="Align Right"
+            isActive={activeFormats.has("right")}
+          >
+            {" "}
+            <span className="text-xs">⇥</span>{" "}
+          </ToolbarButton>
 
           {/* Divider */}
           <div className={`w-px ${borderClass} mx-1 my-1`} />
 
           {/* Link */}
-          <ToolbarButton onClick={() => {
+          <ToolbarButton
+            onClick={() => {
               const selection = window.getSelection();
               if (!selection || selection.rangeCount === 0) return;
 
@@ -211,21 +319,40 @@ export const Editor: React.FC<EditorProps> = ({
               // Save the current selection so we can restore it later
               savedSelectionRef.current = selection.getRangeAt(0).cloneRange();
               setShowLinkInput(true);
-            }} title="Insert Link (Select text first)">
+            }}
+            title="Insert Link (Select text first)"
+          >
             <span className="text-xs">🔗</span>
           </ToolbarButton>
 
           {/* Remove Formatting */}
-          <ToolbarButton onClick={() => execCommand("removeFormat")} title="Clear Formatting"> <span className="text-xs">✕</span> </ToolbarButton>
+          <ToolbarButton
+            onClick={() => execCommand("removeFormat")}
+            title="Clear Formatting"
+          >
+            {" "}
+            <span className="text-xs">✕</span>{" "}
+          </ToolbarButton>
 
           {/* Info */}
-          <div className="ml-auto flex items-center"> <span className={`text-xs ${textClass} opacity-60`}> HTML Editor</span> </div>
+          <div className="ml-auto flex items-center">
+            {" "}
+            <span className={`text-xs ${textClass} opacity-60`}>
+              {" "}
+              HTML Editor
+            </span>{" "}
+          </div>
         </div>
 
         {/* Link Input UI */}
         {showLinkInput && (
-          <div className={`flex items-center gap-2 px-3 py-2 border-b ${borderClass}`}>
-            <span className="text-sm text-gray-600 dark:text-gray-400"> URL: </span>
+          <div
+            className={`flex items-center gap-2 px-3 py-2 border-b ${borderClass}`}
+          >
+            <span className="text-sm text-gray-600 dark:text-gray-400">
+              {" "}
+              URL:{" "}
+            </span>
             <input
               ref={linkInputRef}
               type="text"
@@ -249,12 +376,30 @@ export const Editor: React.FC<EditorProps> = ({
               `}
               placeholder="https://example.com"
             />
-            <button type="button" onClick={handleLinkCreate} className={`
+            <button
+              type="button"
+              onClick={handleLinkCreate}
+              className={`
                 px-3 py-1 text-sm rounded
                 bg-blue-600 text-white hover:bg-blue-700
                 transition-colors
-              `}> Insert</button>
-            <button type="button" onClick={() => { setShowLinkInput(false); setLinkUrl("https://"); savedSelectionRef.current = null; }} className={` px-3 py-1 text-sm rounded ${toolbarBgClass} ${textClass} ${hoverClass} transition-colors `}> Cancel</button>
+              `}
+            >
+              {" "}
+              Insert
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setShowLinkInput(false);
+                setLinkUrl("https://");
+                savedSelectionRef.current = null;
+              }}
+              className={` px-3 py-1 text-sm rounded ${toolbarBgClass} ${textClass} ${hoverClass} transition-colors `}
+            >
+              {" "}
+              Cancel
+            </button>
           </div>
         )}
       </div>
@@ -281,7 +426,9 @@ export const Editor: React.FC<EditorProps> = ({
           overflowWrap: "break-word",
         }}
       />
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
         [contenteditable][data-placeholder]:empty:before {
           content: attr(data-placeholder);
           color: ${currentTheme === "dark" ? "#6b7280" : "#9ca3af"};
@@ -302,7 +449,9 @@ export const Editor: React.FC<EditorProps> = ({
           color: ${currentTheme === "dark" ? "#93c5fd" : "#1e40af"} !important;
           background-color: ${currentTheme === "dark" ? "rgba(96, 165, 250, 0.25)" : "rgba(37, 99, 235, 0.2)"} !important;
         }
-      ` }} />
+      `,
+        }}
+      />
     </div>
   );
 };

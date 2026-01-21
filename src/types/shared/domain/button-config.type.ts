@@ -10,4 +10,5 @@ export type ButtonConfig = {
     | "ghost"
     | "link";
   size?: "default" | "sm" | "lg" | "icon" | "icon-sm" | "icon-lg";
+  ripple?: boolean;
 };

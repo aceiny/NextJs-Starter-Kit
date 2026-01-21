@@ -23,7 +23,6 @@ export default function ApexPieChart({
   const tooltipBg = isDark ? "#0f1724" : "#fff";
   const tooltipColor = isDark ? "#E6EDF3" : "#0f1724";
 
-
   const options: any = {
     chart: { toolbar: { show: false }, background: "transparent" },
     labels,
@@ -35,10 +34,21 @@ export default function ApexPieChart({
     tooltip: {
       // single-line tooltip (dot + label: value) with translucent blurry background and rounded-xl
       custom: function ({ series, seriesIndex, dataPointIndex, w }: any) {
-        const label = (w && w.config && w.config.labels && w.config.labels[seriesIndex]) || "";
-        const value = (w && w.globals && w.globals.series && w.globals.series[seriesIndex]) || series[seriesIndex];
-        const color = (w && w.config && w.config.colors && w.config.colors[seriesIndex]) || colors[seriesIndex] || "#000";
-        const isDarkLocal = (w && w.config && w.config.theme && w.config.theme.mode) === "dark";
+        const label =
+          (w && w.config && w.config.labels && w.config.labels[seriesIndex]) ||
+          "";
+        const value =
+          (w &&
+            w.globals &&
+            w.globals.series &&
+            w.globals.series[seriesIndex]) ||
+          series[seriesIndex];
+        const color =
+          (w && w.config && w.config.colors && w.config.colors[seriesIndex]) ||
+          colors[seriesIndex] ||
+          "#000";
+        const isDarkLocal =
+          (w && w.config && w.config.theme && w.config.theme.mode) === "dark";
         return tooltipOneLine(label, value, color, isDarkLocal);
       },
     },
@@ -48,7 +58,12 @@ export default function ApexPieChart({
   return (
     <div className="w-full" style={{ height }}>
       {/* @ts-ignore */}
-      <ReactApexChart options={options} series={series} type="donut" height={height} />
+      <ReactApexChart
+        options={options}
+        series={series}
+        type="donut"
+        height={height}
+      />
     </div>
   );
 }

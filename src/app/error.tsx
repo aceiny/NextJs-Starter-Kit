@@ -8,6 +8,5 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-
-  return <InternalServerErrorView />
+  return <InternalServerErrorView />;
 }

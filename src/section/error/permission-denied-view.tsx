@@ -19,19 +19,37 @@ export default function PermissionDeniedView({
   title = "403 — Permission Denied",
   description = "Oops — you do not have permission to access this page.",
   showButtons = true,
-  primaryButton = { text: "Go back home", href: APP_PATHS.BASE, variant: "default", size: "lg" },
-  secondaryButton = { text: "Contact support", href: APP_PATHS.CONTACT, variant: "ghost", size: "lg" },
+  primaryButton = {
+    text: "Go back home",
+    href: APP_PATHS.BASE,
+    variant: "default",
+    size: "lg",
+    ripple: true,
+  },
+  secondaryButton = {
+    text: "Contact support",
+    href: APP_PATHS.CONTACT,
+    variant: "ghost",
+    size: "lg",
+    ripple: true,
+  },
   showIllustration = true,
   illustrationSrc = illistration403Src,
 }: PermissionDeniedViewProps = {}) {
-
   return (
-    <div className={cn("min-h-screen flex items-center justify-center py-12 px-4 bg-background")}>
-
+    <div
+      className={cn(
+        "min-h-screen flex items-center justify-center py-12 px-4 bg-background",
+      )}
+    >
       <div className="container mx-auto max-w-2xl xs:max-w-3xl flex flex-col items-center gap-8">
         <div className="text-center">
-          <h1 className="text-3xl sm:text-5xl font-extrabold mb-4 text-foreground">{title}</h1>
-          <p className=" text-sm sm:text-lg text-muted-foreground mb-6 max-w-xl">{description}</p>
+          <h1 className="text-3xl sm:text-5xl font-extrabold mb-4 text-foreground">
+            {title}
+          </h1>
+          <p className=" text-sm sm:text-lg text-muted-foreground mb-6 max-w-xl">
+            {description}
+          </p>
         </div>
 
         {showIllustration && (

@@ -161,7 +161,7 @@ export default function ComprehensiveFormExample() {
                   label="Age"
                   min={18}
                   max={120}
-                                    labelMode="static"
+                  labelMode="static"
                   required
                 />
 
@@ -170,8 +170,7 @@ export default function ComprehensiveFormExample() {
                   type="date"
                   label="Birth Date"
                   required
-                              labelMode="static"
-
+                  labelMode="static"
                 />
                 <Field.Input
                   name="birthDate"

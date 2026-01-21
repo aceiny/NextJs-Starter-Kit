@@ -355,7 +355,7 @@ function Example() {
 
 Built-in trigger styles:
 
-```tCustom Header
+````tCustom Header
 
 Use `customHeader` for complex menu headers with JSX content:
 
@@ -388,7 +388,7 @@ import { ActionMenu } from "@/components/ActionMenu";
     { id: "delete", label: "Delete", onClick: () => {}, variant: "destructive" },
   ]}
 />
-```
+````
 
 ### Keyboard Shortcuts
 
@@ -474,22 +474,24 @@ const actions: ActionMenuAction[] = [
 
 #### ActionMenu Props
 
-| Prop             | Type                                   | Default             | Description            |
-| ---------------- | -------------------------------------- | ------------------- | ---------------------- |
+| Prop | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+
 | `actitems={[
-        { id: "edit", label: "Edit", onClick: () => editUser(row) },
-        { id: "view", label: "View Profile", onClick: () => viewProfile(row) },
-        {
-          id: "delete",
-          label: "Delete",
-          variant: "destructive",
-          onClick: () => deleteUser(row),
-        },
-      ]}
-    />
-  )}
+{ id: "edit", label: "Edit", onClick: () => editUser(row) },
+{ id: "view", label: "View Profile", onClick: () => viewProfile(row) },
+{
+id: "delete",
+label: "Delete",
+variant: "destructive",
+onClick: () => deleteUser(row),
+},
+]}
+/>
+)}
 />;
-```
+
+````
 
 ### User Profile Menu with Custom Header
 
@@ -628,7 +630,7 @@ const columns = [
     />
   )}
 />;
-```
+````
 
 ### Form Field with Tooltip
 

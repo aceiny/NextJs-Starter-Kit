@@ -1,35 +1,35 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import type { ButtonConfig } from "@/types/shared/domain/button-config.type";
+import { RippleButton } from "../form/ripple-button";
 
 type ActionButtonProps = {
   btn?: ButtonConfig;
 };
+
 const DEFAULT_BTN: Required<Pick<ButtonConfig, "text" | "variant" | "size">> = {
   text: "OK",
   variant: "default",
   size: "default",
 };
-/**
- * Button component that can function as a link or a 
- * button based on the provided configuration.
- * @param btn @type {ButtonConfig} - Button configuration 
- * @returns 
- */
+
 export function ActionButton({ btn }: ActionButtonProps) {
   const b: ButtonConfig & typeof DEFAULT_BTN = {
     ...DEFAULT_BTN,
     ...(btn ?? {}),
   };
 
+  const Component = b.ripple ? RippleButton : Button;
+
   const buttonEl = (
-    <Button
+    <Component
+      type="button" // ✅ safe default
       onClick={b.onClick}
       variant={b.variant as any}
       size={b.size as any}
     >
       {b.text}
-    </Button>
+    </Component>
   );
 
   // Link mode (only when no onClick)
@@ -37,6 +37,5 @@ export function ActionButton({ btn }: ActionButtonProps) {
     return <Link href={b.href}>{buttonEl}</Link>;
   }
 
-  // Button mode (or both provided -> prioritize onClick)
   return buttonEl;
 }

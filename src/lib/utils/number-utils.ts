@@ -2,7 +2,7 @@ export type InputNumberValue = string | number | null | undefined;
 
 type Options = Intl.NumberFormatOptions;
 
-const DEFAULT_LOCALE = { code: 'en-US', currency: 'USD' };
+const DEFAULT_LOCALE = { code: "en-US", currency: "USD" };
 
 function processInput(inputValue: InputNumberValue): number | null {
   if (inputValue == null || Number.isNaN(inputValue)) return null;
@@ -15,7 +15,7 @@ export function fNumber(inputValue: InputNumberValue, options?: Options) {
   const locale = DEFAULT_LOCALE;
 
   const number = processInput(inputValue);
-  if (number === null) return '';
+  if (number === null) return "";
 
   const fm = new Intl.NumberFormat(locale.code, {
     minimumFractionDigits: 0,
@@ -32,10 +32,10 @@ export function fCurrency(inputValue: InputNumberValue, options?: Options) {
   const locale = DEFAULT_LOCALE;
 
   const number = processInput(inputValue);
-  if (number === null) return '';
+  if (number === null) return "";
 
   const fm = new Intl.NumberFormat(locale.code, {
-    style: 'currency',
+    style: "currency",
     currency: locale.currency,
     minimumFractionDigits: 0,
     maximumFractionDigits: 2,
@@ -51,10 +51,10 @@ export function fPercent(inputValue: InputNumberValue, options?: Options) {
   const locale = DEFAULT_LOCALE;
 
   const number = processInput(inputValue);
-  if (number === null) return '';
+  if (number === null) return "";
 
   const fm = new Intl.NumberFormat(locale.code, {
-    style: 'percent',
+    style: "percent",
     minimumFractionDigits: 0,
     maximumFractionDigits: 1,
     ...options,
@@ -65,14 +65,17 @@ export function fPercent(inputValue: InputNumberValue, options?: Options) {
 
 // ----------------------------------------------------------------------
 
-export function fShortenNumber(inputValue: InputNumberValue, options?: Options) {
+export function fShortenNumber(
+  inputValue: InputNumberValue,
+  options?: Options,
+) {
   const locale = DEFAULT_LOCALE;
 
   const number = processInput(inputValue);
-  if (number === null) return '';
+  if (number === null) return "";
 
   const fm = new Intl.NumberFormat(locale.code, {
-    notation: 'compact',
+    notation: "compact",
     maximumFractionDigits: 2,
     ...options,
   }).format(number);

@@ -24,8 +24,15 @@ export default function ApexStackedHorizontalBarChart({
   const isDark = resolvedTheme === "dark";
 
   const options: any = {
-    chart: { toolbar: { show: false }, animations: { enabled: true }, background: "transparent", stacked: true },
-    plotOptions: { bar: { horizontal: true, barHeight: "45%", borderRadius: 6 } },
+    chart: {
+      toolbar: { show: false },
+      animations: { enabled: true },
+      background: "transparent",
+      stacked: true,
+    },
+    plotOptions: {
+      bar: { horizontal: true, barHeight: "45%", borderRadius: 6 },
+    },
     dataLabels: { enabled: false },
     xaxis: {
       categories,
@@ -38,11 +45,40 @@ export default function ApexStackedHorizontalBarChart({
     tooltip: {
       // show centered title and one-line content under it
       custom: function ({ series, seriesIndex, dataPointIndex, w }: any) {
-        const title = (w && w.config && w.config.xaxis && w.config.xaxis.categories && w.config.xaxis.categories[dataPointIndex]) || "";
-        const label = (w && w.config && w.config.series && w.config.series[seriesIndex] && w.config.series[seriesIndex].name) || (w && w.globals && w.globals.seriesNames && w.globals.seriesNames[seriesIndex]) || "";
-        const value = (series && series[seriesIndex] && series[seriesIndex][dataPointIndex]) || (w && w.globals && w.globals.series && w.globals.series[seriesIndex] && w.globals.series[seriesIndex][dataPointIndex]) || "";
-        const color = (w && w.config && w.config.colors && w.config.colors[seriesIndex]) || colors[seriesIndex] || "#000";
-        const isDarkLocal = (w && w.config && w.config.theme && w.config.theme.mode) === "dark";
+        const title =
+          (w &&
+            w.config &&
+            w.config.xaxis &&
+            w.config.xaxis.categories &&
+            w.config.xaxis.categories[dataPointIndex]) ||
+          "";
+        const label =
+          (w &&
+            w.config &&
+            w.config.series &&
+            w.config.series[seriesIndex] &&
+            w.config.series[seriesIndex].name) ||
+          (w &&
+            w.globals &&
+            w.globals.seriesNames &&
+            w.globals.seriesNames[seriesIndex]) ||
+          "";
+        const value =
+          (series &&
+            series[seriesIndex] &&
+            series[seriesIndex][dataPointIndex]) ||
+          (w &&
+            w.globals &&
+            w.globals.series &&
+            w.globals.series[seriesIndex] &&
+            w.globals.series[seriesIndex][dataPointIndex]) ||
+          "";
+        const color =
+          (w && w.config && w.config.colors && w.config.colors[seriesIndex]) ||
+          colors[seriesIndex] ||
+          "#000";
+        const isDarkLocal =
+          (w && w.config && w.config.theme && w.config.theme.mode) === "dark";
         return tooltipWithTitle(title, label, value, color, isDarkLocal);
       },
     },
@@ -54,7 +90,12 @@ export default function ApexStackedHorizontalBarChart({
   return (
     <div className="w-full" style={{ height }}>
       {/* @ts-ignore */}
-      <ReactApexChart options={options} series={series} type="bar" height={height} />
+      <ReactApexChart
+        options={options}
+        series={series}
+        type="bar"
+        height={height}
+      />
     </div>
   );
 }

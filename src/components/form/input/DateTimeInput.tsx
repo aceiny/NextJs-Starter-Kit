@@ -2,8 +2,8 @@
 
 import * as React from "react";
 import { getThemeClasses, useThemeMode } from "../useThemeMode";
-import { CalendarDate } from '@solar-icons/react-perf/BoldDuotone';
-
+import { CalendarDate } from "@solar-icons/react-perf/BoldDuotone";
+import { RippleButton } from "../ripple-button";
 
 export interface DateTimeInputProps {
   value?: string;
@@ -26,12 +26,36 @@ export const DateTimeInput: React.FC<DateTimeInputProps> = ({
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const bgClass = getThemeClasses("bg-white", "bg-gray-950", currentTheme);
-  const borderClass = getThemeClasses("border-gray-200", "border-gray-800", currentTheme);
-  const textClass = getThemeClasses("text-gray-900", "text-gray-100", currentTheme);
-  const ringClass = getThemeClasses("focus:ring-gray-900", "focus:ring-gray-100", currentTheme);
-  const disabledBgClass = getThemeClasses("disabled:bg-gray-50", "disabled:bg-gray-900", currentTheme);
-  const iconColor = getThemeClasses("text-gray-400", "text-gray-500", currentTheme);
-  const hoverBgClass = getThemeClasses("hover:bg-gray-100/50", "hover:bg-gray-800/50", currentTheme);
+  const borderClass = getThemeClasses(
+    "border-gray-200",
+    "border-gray-800",
+    currentTheme,
+  );
+  const textClass = getThemeClasses(
+    "text-gray-900",
+    "text-gray-100",
+    currentTheme,
+  );
+  const ringClass = getThemeClasses(
+    "focus:ring-gray-900",
+    "focus:ring-gray-100",
+    currentTheme,
+  );
+  const disabledBgClass = getThemeClasses(
+    "disabled:bg-gray-50",
+    "disabled:bg-gray-900",
+    currentTheme,
+  );
+  const iconColor = getThemeClasses(
+    "text-gray-400",
+    "text-gray-500",
+    currentTheme,
+  );
+  const hoverBgClass = getThemeClasses(
+    "hover:bg-gray-100/50",
+    "hover:bg-gray-800/50",
+    currentTheme,
+  );
 
   const handleIconClick = () => {
     if (!disabled && inputRef.current) {
@@ -59,12 +83,12 @@ export const DateTimeInput: React.FC<DateTimeInputProps> = ({
         placeholder={placeholder}
         className={`w-full px-3 py-2.5 pr-12 ${bgClass} border ${borderClass} ${textClass} rounded-lg focus:outline-none focus:ring-2 ${ringClass} focus:border-transparent ${disabledBgClass} disabled:cursor-not-allowed disabled:opacity-50 transition-all`}
       />
-      <span 
+      <RippleButton
         onClick={handleIconClick}
-        className={`absolute right-3 top-1/2 -translate-y-1/2 ${hoverBgClass} p-1 rounded-xl cursor-pointer duration-300 transition-colors ${iconColor} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+        className={`absolute right-3 top-1/2 -translate-y-1/2 ${hoverBgClass} p-1 rounded-xl cursor-pointer duration-300 transition-colors ${iconColor} ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
       >
         <CalendarDate size={26} />
-      </span>
+      </RippleButton>
     </div>
   );
 };

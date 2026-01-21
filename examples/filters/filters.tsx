@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import UniversalFilters from "@/components/shared/universal-filters";
 import { FiltersConfig } from "@/types/shared/interface/filter-config.interface";
 import { useAllSearchParams } from "@/hooks/shared/use-query-params";
@@ -273,11 +273,11 @@ export default function UniversalFiltersExample() {
               {JSON.stringify(
                 Object.fromEntries(
                   Object.entries(params).filter(([key]) =>
-                    key.startsWith("user")
-                  )
+                    key.startsWith("user"),
+                  ),
                 ),
                 null,
-                2
+                2,
               )}
             </pre>
           </div>
@@ -307,8 +307,8 @@ export default function UniversalFiltersExample() {
             />
 
             <div className="text-sm text-gray-600 dark:text-gray-400">
-              <span className="font-medium">Tip:</span> Click the button to
-              open filters
+              <span className="font-medium">Tip:</span> Click the button to open
+              filters
             </div>
           </div>
 
@@ -320,11 +320,11 @@ export default function UniversalFiltersExample() {
               {JSON.stringify(
                 Object.fromEntries(
                   Object.entries(params).filter(([key]) =>
-                    key.startsWith("product")
-                  )
+                    key.startsWith("product"),
+                  ),
                 ),
                 null,
-                2
+                2,
               )}
             </pre>
           </div>
@@ -354,11 +354,11 @@ export default function UniversalFiltersExample() {
               {JSON.stringify(
                 Object.fromEntries(
                   Object.entries(params).filter(([key]) =>
-                    key.startsWith("event")
-                  )
+                    key.startsWith("event"),
+                  ),
                 ),
                 null,
-                2
+                2,
               )}
             </pre>
           </div>
@@ -389,11 +389,11 @@ export default function UniversalFiltersExample() {
               {JSON.stringify(
                 Object.fromEntries(
                   Object.entries(params).filter(([key]) =>
-                    key.startsWith("order")
-                  )
+                    key.startsWith("order"),
+                  ),
                 ),
                 null,
-                2
+                2,
               )}
             </pre>
           </div>

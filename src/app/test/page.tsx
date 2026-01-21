@@ -10,36 +10,59 @@ import {
   ApexBarChart,
   ApexStackedBarChart,
   ApexAreaChart,
-  ApexStackedHorizontalBarChart
+  ApexStackedHorizontalBarChart,
 } from "@/components/chart";
+import { RippleButton } from "@/components/form/ripple-button";
 export default function page() {
   return (
     <div className=" container p-6">
+      <div className="mb-21">
+        <RippleButton>Solid</RippleButton>
 
-      <div className='flex flex-row gap-4'>
+        <RippleButton variant="outline">Outline</RippleButton>
+
+        <RippleButton variant="ghost">Ghost</RippleButton>
+
+        <RippleButton className="bg-indigo-600 hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400">
+          Custom
+        </RippleButton>
+      </div>
+      <div className="flex flex-row gap-4">
+        <AnalyticsWidgetSummary title="User" total={18765} percent={2.6} />
         <AnalyticsWidgetSummary
-        title="User"
-        total={18765}
-        percent={2.6}
+          title="User"
+          total={18765}
+          percent={2.6}
+          icon={<Users />}
+          chartType="mini-bars"
+          chartData={[
+            { label: "Mon", visits: 40 },
+            { label: "Tue", visits: 60 },
+            { label: "Wed", visits: 45 },
+            { label: "Thu", visits: 70 },
+            { label: "Fri", visits: 55 },
+            { label: "Sat", visits: 75 },
+            { label: "Sun", visits: 65 },
+          ]}
+          dataKey="visits"
         />
-                <AnalyticsWidgetSummary
-        title="User"
-        total={18765}
-        percent={2.6}
-        icon={<Users />}
-        chartType="mini-bars"
-        chartData={[{label:'Mon', visits:40},{label:'Tue', visits:60},{label:'Wed', visits:45},{label:'Thu', visits:70},{label:'Fri', visits:55},{label:'Sat', visits:75},{label:'Sun', visits:65}]}
-        dataKey="visits"
-/>
         <AnalyticsWidgetSummary
-        title="Posts"
-        total={3232323}
-        color="#FFE1D1"
-        percent={-12}
-        icon={<Podcast />}
-        chartType="sparkline"
-        chartData={[{label:'Mon', visits:40},{label:'Tue', visits:60},{label:'Wed', visits:45},{label:'Thu', visits:70},{label:'Fri', visits:55},{label:'Sat', visits:75},{label:'Sun', visits:65}]}
-        dataKey="visits"
+          title="Posts"
+          total={3232323}
+          color="#FFE1D1"
+          percent={-12}
+          icon={<Podcast />}
+          chartType="sparkline"
+          chartData={[
+            { label: "Mon", visits: 40 },
+            { label: "Tue", visits: 60 },
+            { label: "Wed", visits: 45 },
+            { label: "Thu", visits: 70 },
+            { label: "Fri", visits: 55 },
+            { label: "Sat", visits: 75 },
+            { label: "Sun", visits: 65 },
+          ]}
+          dataKey="visits"
         />
         <AnalyticsWidgetSummary
           title="Sessions"
@@ -49,7 +72,6 @@ export default function page() {
           icon={<Users />}
         />
       </div>
-
 
       <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="p-4 bg-card rounded-md">
@@ -98,7 +120,9 @@ export default function page() {
           <ApexStackedBarChart />
         </div>
         <div className="p-4 bg-card rounded-md">
-          <h3 className="font-medium mb-2">Apex Stacked Horizontal Bar (minimal)</h3>
+          <h3 className="font-medium mb-2">
+            Apex Stacked Horizontal Bar (minimal)
+          </h3>
           {/* @ts-ignore */}
           <ApexStackedHorizontalBarChart />
         </div>
@@ -108,7 +132,6 @@ export default function page() {
           <ApexAreaChart />
         </div>
       </div>
-
     </div>
-  )
+  );
 }

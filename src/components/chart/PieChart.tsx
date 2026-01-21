@@ -19,7 +19,12 @@ function getNivoTheme(resolvedTheme: string | undefined) {
   const isDark = resolvedTheme === "dark";
   return {
     labels: { text: { fill: isDark ? "#e6edf3" : "#222222" } },
-    tooltip: { container: { background: isDark ? "#0f1724" : "#fff", color: isDark ? "#e6edf3" : "#111827" } },
+    tooltip: {
+      container: {
+        background: isDark ? "#0f1724" : "#fff",
+        color: isDark ? "#e6edf3" : "#111827",
+      },
+    },
   };
 }
 
@@ -29,7 +34,8 @@ export default function PieChart({
   colors = ["#2065D1", "#FFB020", "#06D6A0"],
 }: PieChartProps) {
   const { resolvedTheme } = useTheme();
-  const tooltipBg = resolvedTheme === "dark" ? 'rgba(15,23,36,0.92)' : 'rgba(255,255,255,0.98)';
+  const tooltipBg =
+    resolvedTheme === "dark" ? "rgba(15,23,36,0.92)" : "rgba(255,255,255,0.98)";
   const tooltipColor = resolvedTheme === "dark" ? "#E6EDF3" : "#0f1724";
 
   return (
@@ -51,9 +57,39 @@ export default function PieChart({
         arcLinkLabelsThickness={2}
         arcLinkLabelsColor={{ from: "color" }}
         tooltip={({ datum }) => (
-          <div style={{ padding: 10, borderRadius: 16, background: tooltipBg, color: tooltipColor, display: "flex", alignItems: "center", gap: 8, minWidth: 140, backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', boxShadow: 'none' }}>
-            <span style={{ width: 10, height: 10, borderRadius: "50%", background: (datum && (datum as any).color) || colors[0], display: "inline-block", flexShrink: 0 }} />
-            <div style={{ whiteSpace: 'nowrap', fontSize: 13, fontWeight: 600 }}>{(datum && (datum as any).label) || datum.id}: <span style={{ fontWeight: 400, marginLeft: 6 }}>{(datum && (datum as any).value) ?? datum.value}</span></div>
+          <div
+            style={{
+              padding: 10,
+              borderRadius: 16,
+              background: tooltipBg,
+              color: tooltipColor,
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              minWidth: 140,
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
+              boxShadow: "none",
+            }}
+          >
+            <span
+              style={{
+                width: 10,
+                height: 10,
+                borderRadius: "50%",
+                background: (datum && (datum as any).color) || colors[0],
+                display: "inline-block",
+                flexShrink: 0,
+              }}
+            />
+            <div
+              style={{ whiteSpace: "nowrap", fontSize: 13, fontWeight: 600 }}
+            >
+              {(datum && (datum as any).label) || datum.id}:{" "}
+              <span style={{ fontWeight: 400, marginLeft: 6 }}>
+                {(datum && (datum as any).value) ?? datum.value}
+              </span>
+            </div>
           </div>
         )}
         animate={true}

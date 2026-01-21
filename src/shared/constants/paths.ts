@@ -22,7 +22,7 @@ export const APP_PATHS = {
   /** Base path of the application */
   BASE: "/",
   EXAMPLE: "/example",
-  CONTACT : "/contact",
+  CONTACT: "/contact",
 
   /** Authentication-related routes */
   AUTH: {

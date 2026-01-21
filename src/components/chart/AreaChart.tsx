@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import { ResponsiveLine } from "@nivo/line";
 import { useTheme } from "next-themes";
 
@@ -26,8 +26,15 @@ function getNivoTheme(resolvedTheme: string | undefined) {
   return {
     textColor: isDark ? "#e6edf3" : "#222222",
     axis: { domain: { line: { stroke: isDark ? "#334155" : "#e6eef8" } } },
-    grid: { line: { stroke: isDark ? "rgba(255,255,255,0.04)" : "rgba(2,6,23,0.06)" } },
-    tooltip: { container: { background: isDark ? "#0f1724" : "#fff", color: isDark ? "#e6edf3" : "#111827" } },
+    grid: {
+      line: { stroke: isDark ? "rgba(255,255,255,0.04)" : "rgba(2,6,23,0.06)" },
+    },
+    tooltip: {
+      container: {
+        background: isDark ? "#0f1724" : "#fff",
+        color: isDark ? "#e6edf3" : "#111827",
+      },
+    },
   };
 }
 
