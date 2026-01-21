@@ -37,15 +37,15 @@ export default function ChartsExamplesPage() {
             onClick: () => alert("Export clicked"),
           }}
         />
-        <RippleButton variant="outline" size="sm">
-          Ripple
+        <RippleButton variant="default" size="sm">
+          Ripple sm default
         </RippleButton>
 
-        <RippleButton variant="ghost" size="md">
-          Ripple
+        <RippleButton variant="ghost" size="default">
+          Ripple default ghost
         </RippleButton>
-        <RippleButton variant="default" size="lg">
-          Ripple
+        <RippleButton variant="outline" size="lg">
+          Ripple lg outline
         </RippleButton>
       </div>
 
