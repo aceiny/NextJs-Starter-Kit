@@ -29,6 +29,7 @@ interface ExampleFormData {
 
   // Select
   country: string;
+  countryFloating?: string;
   skills: string[];
 
   // Checkbox
@@ -63,6 +64,7 @@ export default function ComprehensiveFormExample() {
       bio: "",
       description: "",
       country: "",
+      countryFloating: "",
       skills: [],
       acceptTerms: false,
       newsletter: false,
@@ -110,6 +112,7 @@ export default function ComprehensiveFormExample() {
                   type="text"
                   label="Last Name"
                   placeholder="Doe"
+                  labelMode="static"
                   required
                 />
               </div>
@@ -158,6 +161,7 @@ export default function ComprehensiveFormExample() {
                   label="Age"
                   min={18}
                   max={120}
+                                    labelMode="static"
                   required
                 />
 
@@ -216,6 +220,32 @@ export default function ComprehensiveFormExample() {
               <h2 className="text-2xl font-semibold border-b-2 border-gray-300 dark:border-gray-700 pb-2 text-gray-900 dark:text-gray-100 transition-colors duration-300">
                 Select Dropdowns
               </h2>
+
+              {/* Floating label pair example: text input + select side-by-side */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Field.Input
+                  name="firstName"
+                  type="text"
+                  label="First Name"
+                  placeholder="John"
+                  labelMode="floating"
+                />
+
+                <Field.Select
+                  name="countryFloating"
+                  label="Country"
+                  isMulti
+                  labelMode="floating"
+                  placeholder="Select your country"
+                  options={[
+                    { label: "United States", value: "us" },
+                    { label: "United Kingdom", value: "uk" },
+                    { label: "Canada", value: "ca" },
+                    { label: "Australia", value: "au" },
+                    { label: "Germany", value: "de" },
+                  ]}
+                />
+              </div>
 
               <Field.Select
                 name="country"

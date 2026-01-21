@@ -120,3 +120,25 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Add cursor styles to buttons and inputs */
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  cursor: pointer;
+}
+
+a[role="button"] {
+  cursor: pointer;
+}
+
+button:disabled,
+input[type="button"]:disabled,
+input[type="submit"]:disabled,
+input[type="reset"]:disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
+/* End Add cursor styles to buttons and inputs */

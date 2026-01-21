@@ -2,16 +2,16 @@ import Link from "next/link";
 import { APP_PATHS } from "@/shared/constants/paths";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import {
-    Github,
-    ArrowRight,
-    FileText,
-    Database,
-    Globe,
-    Moon,
-    Table,
-    MessageSquare,
-    Menu,
-    Filter,
+  Github,
+  ArrowRight,
+  FileText,
+  Database,
+  Globe,
+  Moon,
+  Table,
+  MessageSquare,
+  Menu,
+  Filter,
 } from "lucide-react";
 
 export default function Home() {
@@ -224,7 +224,7 @@ export default function Home() {
             Ready to start building?
           </h3>
           <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
-            Check out the example page to see all components in action
+            Check out the example page to see all components in action — including the new Charts & Analytics demos.
           </p>
           <Link
             href={APP_PATHS.EXAMPLE}

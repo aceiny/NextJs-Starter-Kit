@@ -324,10 +324,10 @@ Comprehensive guides for all features:
 | ---------------------- | -------------------------------------------------------------------------- | --------------------------------------------------------- |
 | **Form System**        | Complete guide to all 13 form components, input types, validation, theming | [View Docs](./docs/FORM_SYSTEM_DOCUMENTATION.md)          |
 | **Modal/Dialog**       | Dialog system with per-button loading, async handlers, and customization   | [View Docs](./docs/MODAL_DIALOG_DOCUMENTATION.md)         |
-| **Tooltip & Dropdown** | CustomTooltip variants, ActionMenu with groups, checkboxes, submenus       | [View Docs](./docs/TOOLTIP_AND_DROPDOWN_DOCUMENTATION.md) |
-| **API & Axios**        | HTTP clients setup, interceptors, error handling, authentication           | [View Docs](./docs/API_DOCUMENTATION.md)                  |
+| **Tooltip & Dropdown** | CustomTooltip variants, ActionMenu with groups, checkboxes, submenus       | [View Docs](./docs/TOOLTIP_AND_DROPDOWN_DOCUMENTATION.md) || **Charts & Analytics** | Compact ApexCharts-based sparklines and mini-bar charts with dashboard widgets | [View Docs](./docs/CHARTS_AND_ANALYTICS.md) || **API & Axios**        | HTTP clients setup, interceptors, error handling, authentication           | [View Docs](./docs/API_DOCUMENTATION.md)                  |
 | **State & Utilities**  | Zustand stores, React Query, Toasts, Path constants                        | [View Docs](./docs/STATE_AND_UTILITIES.md)                |
 | **Universal Filters**  | 13 filter types with URL sync, tabs/dropdown modes, TypeScript examples    | [View Docs](./docs/UNIVERSAL_FILTERS_DOCUMENTATION.md)    |
+| **Charts & Analytics**  | Sparkline, mini-bar charts, `AnalyticsWidgetSummary` and `AnalyticsCard` examples  | [View Docs](./docs/CHARTS_AND_ANALYTICS.md)  |
 
 ## Custom React Hooks
 

@@ -1,0 +1,58 @@
+import { cn } from "@/lib/utils";
+import Image from "next/image";
+import illistration404Src from "@/../public/illustrations/illustration-404.svg";
+import { ButtonConfig } from "@/types/shared/domain/button-config.type";
+import { APP_PATHS } from "@/shared/constants/paths";
+import { ActionButton } from "@/components/ui/action-button";
+
+export interface NotFoundViewProps {
+  title?: string;
+  description?: string;
+  showButtons?: boolean;
+  primaryButton?: ButtonConfig;
+  secondaryButton?: ButtonConfig;
+  showIllustration?: boolean;
+  illustrationSrc?: any;
+}
+
+export default function NotFoundView({
+  title = "404 — Page not found",
+  description = "Oops — we can’t find the page you’re looking for. It might have been removed or the URL may be incorrect.",
+  showButtons = true,
+  primaryButton = { text: "Go back home", href: APP_PATHS.BASE, variant: "default", size: "lg" },
+  secondaryButton = { text: "Contact support", href: APP_PATHS.CONTACT, variant: "ghost", size: "lg" },
+  showIllustration = true,
+  illustrationSrc = illistration404Src,
+}: NotFoundViewProps = {}) {
+
+  return (
+    <div className={cn("min-h-screen flex items-center justify-center py-12 px-4 bg-background")}>
+
+      <div className="container mx-auto max-w-2xl xs:max-w-3xl flex flex-col items-center gap-8">
+        <div className="text-center">
+          <h1 className="text-3xl sm:text-5xl font-extrabold mb-4 text-foreground">{title}</h1>
+          <p className=" text-sm sm:text-lg text-muted-foreground mb-6 max-w-xl">{description}</p>
+        </div>
+
+        {showIllustration && (
+          <div className="w-full flex items-center justify-center">
+            <Image
+              src={illustrationSrc}
+              alt="Not Found Illustration"
+              width={420}
+              height={320}
+              className="w-full h-auto max-w-md"
+            />
+          </div>
+        )}
+
+        {showButtons && (
+          <div className="flex sm:flex-row flex-col items-center justify-center gap-3">
+            <ActionButton btn={primaryButton} />
+            <ActionButton btn={secondaryButton} />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

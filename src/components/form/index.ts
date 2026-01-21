@@ -23,6 +23,11 @@ export { RHFSearchableCheckboxGroup } from "./RHFSearchableCheckboxGroup";
 export { RHFRadioGroup } from "./RHFRadioGroup";
 export { RHFUpload } from "./RHFUpload";
 
+// Specialized inputs
+export { PasswordInput } from "./input/PasswordInput";
+export { DateInput } from "./input/DateInput";
+export { DateTimeInput } from "./input/DateTimeInput";
+
 // Type exports
 export type { SelectOption } from "./RHFSelect";
 export type { CheckboxOption } from "./RHFCheckboxGroup";
@@ -36,6 +41,9 @@ import { RHFCheckboxGroup } from "./RHFCheckboxGroup";
 import { RHFSearchableCheckboxGroup } from "./RHFSearchableCheckboxGroup";
 import { RHFRadioGroup } from "./RHFRadioGroup";
 import { RHFUpload } from "./RHFUpload";
+import { PasswordInput } from "./input/PasswordInput";
+import { DateInput } from "./input/DateInput";
+import { DateTimeInput } from "./input/DateTimeInput";
 
 /**
  * Field object - Convenient access to all form field components
@@ -94,4 +102,8 @@ export const Field = {
    * Supports single/multiple files, max file size, max count, and file type restrictions
    */
   Upload: RHFUpload,
+  // Convenient access to specialized inputs
+  Password: PasswordInput,
+  Date: DateInput,
+  DateTime: DateTimeInput,
 } as const;

@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import {
-    Table2,
-    MessageSquare,
-    FormInput,
-    LayoutGrid,
-    ChevronRight,
-    Menu,
-    Filter,
+  Table2,
+  MessageSquare,
+  FormInput,
+  LayoutGrid,
+  ChevronRight,
+  Menu,
+  Filter,
 } from "lucide-react";
 
 interface ExampleCardProps {
@@ -84,6 +84,14 @@ const examples: ExampleCardProps[] = [
       "Toast notifications powered by Sonner and customizable tooltips with variants, sizes, and positioning options.",
     href: "/example/toast",
     icon: <MessageSquare className="h-6 w-6" />,
+  },
+  {
+    title: "Charts & Analytics",
+    description:
+      "Compact sparkline & mini-bar charts and analytics widgets used for dashboards and KPI cards.",
+    href: "/example/charts",
+    icon: <LayoutGrid className="h-6 w-6" />,
+    docPath: "docs/CHARTS_AND_ANALYTICS.md",
   },
   {
     title: "Form System",
@@ -208,6 +216,14 @@ export default function ExamplesPage() {
                 </code>
                 <span className="ml-2 text-gray-500 dark:text-gray-400">
                   - API client documentation
+                </span>
+              </li>
+              <li>
+                <code className="rounded bg-gray-100 px-2 py-1 font-mono text-xs dark:bg-gray-800">
+                  docs/CHARTS_AND_ANALYTICS.md
+                </code>
+                <span className="ml-2 text-gray-500 dark:text-gray-400">
+                  - Charts & Analytics documentation
                 </span>
               </li>
             </ul>
