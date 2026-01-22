@@ -12,20 +12,14 @@ import {
   ApexAreaChart,
   ApexStackedHorizontalBarChart,
 } from "@/components/chart";
-import { RippleButton } from "@/components/form/ripple-button";
+import { Button as Bb } from '@heroui/button';
+
 export default function page() {
   return (
     <div className=" container p-6">
       <div className="mb-21">
-        <RippleButton>Solid</RippleButton>
+        <Bb>Hero Button</Bb>
 
-        <RippleButton variant="outline">Outline</RippleButton>
-
-        <RippleButton variant="ghost">Ghost</RippleButton>
-
-        <RippleButton className="bg-indigo-600 hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400">
-          Custom
-        </RippleButton>
       </div>
       <div className="flex flex-row gap-4">
         <AnalyticsWidgetSummary title="User" total={18765} percent={2.6} />

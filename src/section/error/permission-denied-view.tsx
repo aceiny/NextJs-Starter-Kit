@@ -22,7 +22,7 @@ export default function PermissionDeniedView({
   primaryButton = {
     text: "Go back home",
     href: APP_PATHS.BASE,
-    variant: "default",
+    variant: "faded",
     size: "lg",
     ripple: true,
   },

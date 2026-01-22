@@ -10,6 +10,7 @@
     "cleanup": "bash scripts/cleanup.sh"
   },
   "dependencies": {
+    "@heroui/react": "^2.8.7",
     "@hookform/resolvers": "^5.2.2",
     "@lexical/react": "^0.39.0",
     "@lexical/rich-text": "^0.39.0",
@@ -35,7 +36,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.19",
-    "framer-motion": "^12.23.26",
+    "framer-motion": "^12.28.1",
     "jest": "^30.2.0",
     "lexical": "^0.39.0",
     "lucide-react": "^0.562.0",

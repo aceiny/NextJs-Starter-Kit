@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import type { ButtonConfig } from "@/types/shared/domain/button-config.type";
-import { RippleButton } from "../form/ripple-button";
+import { Button as RippleButton } from '@heroui/button';
 
 type ActionButtonProps = {
   btn?: ButtonConfig;
@@ -23,7 +23,7 @@ export function ActionButton({ btn }: ActionButtonProps) {
 
   const buttonEl = (
     <Component
-      type="button" // ✅ safe default
+      type="button" 
       onClick={b.onClick}
       variant={b.variant as any}
       size={b.size as any}

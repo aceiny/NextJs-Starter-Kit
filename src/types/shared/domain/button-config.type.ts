@@ -8,7 +8,14 @@ export type ButtonConfig = {
     | "outline"
     | "secondary"
     | "ghost"
-    | "link";
+    | "link"
+    | "solid"
+    | "faded"
+    | "bordered"
+    | "light"
+    | "flat"
+    | "ghost" 
+    | "shadow"
   size?: "default" | "sm" | "lg" | "icon" | "icon-sm" | "icon-lg";
   ripple?: boolean;
 };
