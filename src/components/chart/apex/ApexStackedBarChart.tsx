@@ -2,13 +2,15 @@
 
 import ReactApexChart from "./DynamicApexChart";
 import { useTheme } from "next-themes";
-import { tooltipWithTitle } from "./tooltip";
+import { apexChartTooltipWithTitle } from "./tooltip";
 
 export interface ApexStackedBarChartProps {
   series?: { name: string; data: number[] }[];
   categories?: string[];
   height?: number;
   colors?: string[];
+  /** columnWidth accepts values like '55%' or '20px' or a number (treated as px) */
+  columnWidth?: string | number;
 }
 
 export default function ApexStackedBarChart({
@@ -19,7 +21,10 @@ export default function ApexStackedBarChart({
   categories = ["Mon", "Tue", "Wed", "Thu", "Fri"],
   height = 320,
   colors = ["#2065D1", "#FFB020"],
+  columnWidth = "55%",
 }: ApexStackedBarChartProps) {
+  const resolvedColumnWidth =
+    typeof columnWidth === "number" ? `${columnWidth}px` : columnWidth;
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
 
@@ -30,8 +35,13 @@ export default function ApexStackedBarChart({
       background: "transparent",
       stacked: true,
     },
+
     plotOptions: {
-      bar: { horizontal: false, columnWidth: "55%", borderRadius: 6 },
+      bar: {
+        horizontal: false,
+        columnWidth: resolvedColumnWidth,
+        borderRadius: 6,
+      },
     },
     dataLabels: { enabled: false },
     xaxis: {
@@ -74,7 +84,13 @@ export default function ApexStackedBarChart({
           "#000";
         const isDarkLocal =
           (w && w.config && w.config.theme && w.config.theme.mode) === "dark";
-        return tooltipWithTitle(title, label, value, color, isDarkLocal);
+        return apexChartTooltipWithTitle(
+          title,
+          label,
+          value,
+          color,
+          isDarkLocal,
+        );
       },
     },
     colors,

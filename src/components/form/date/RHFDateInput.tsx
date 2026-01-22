@@ -1,11 +1,16 @@
-"use client";;
+"use client";
 import { Controller, FieldValues, useFormContext } from "react-hook-form";
 import { DateInput } from "@heroui/react";
 import { toDateValue } from "@/lib/utils/time-utills";
-import { RHF_BASE_DEFAULTS, RHF_DATE_LIKE_DEFAULTS } from "../../../config/rhf/rhf-date-defaults.config";
+import {
+  RHF_BASE_DEFAULTS,
+  RHF_DATE_LIKE_DEFAULTS,
+} from "../../../config/rhf/rhf-date-defaults.config";
 import { RHFDateLikeFieldProps } from "@/types/shared/interface/rhf-date-base.interface";
 
-interface RHFDateInputProps<T extends FieldValues> extends RHFDateLikeFieldProps<T> {
+interface RHFDateInputProps<
+  T extends FieldValues,
+> extends RHFDateLikeFieldProps<T> {
   granularity?: "day" | "hour" | "minute" | "second";
   popoverProps?: any;
 }

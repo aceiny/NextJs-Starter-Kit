@@ -11,7 +11,7 @@ import {
   RefreshCw,
   type LucideIcon,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@heroui/react";
 import { extractErrorMessage } from "@/lib/utils/error.utils";
 
 export type ErrorStateVariant =
@@ -111,7 +111,7 @@ const sizeClasses = {
   },
 };
 
-export function ErrorState({
+export default function ErrorState({
   icon,
   variant = "default",
   title = "Something went wrong",
@@ -220,7 +220,7 @@ export function ErrorState({
       <div
         className={cn(
           "relative mb-6 flex items-center justify-center rounded-full transition-all duration-500",
-          "bg-gradient-to-br shadow-lg backdrop-blur-sm",
+          "bg-linear-to-br shadow-lg backdrop-blur-sm",
           config.bgGradient,
           "ring-1",
           config.ringColor,
@@ -260,7 +260,7 @@ export function ErrorState({
         <div
           className={cn(
             "absolute inset-0 rounded-full opacity-40",
-            "animate-pulse bg-gradient-to-tr from-white/30 to-transparent",
+            "animate-pulse bg-linear-to-tr from-white/30 to-transparent",
           )}
         />
 
@@ -285,7 +285,7 @@ export function ErrorState({
 
         {/* Dynamic glow pulse */}
         {enableCursorEffect && isHovering && (
-          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 to-transparent blur-md animate-pulse" />
+          <div className="absolute inset-0 rounded-full bg-linear-to-br from-white/20 to-transparent blur-md animate-pulse" />
         )}
       </div>
 
@@ -319,9 +319,9 @@ export function ErrorState({
         <div className="mt-6 flex items-center gap-3 relative z-10">
           {onRetry && (
             <Button
-              variant="outline"
+              variant="bordered"
               size="sm"
-              onClick={onRetry}
+              onPress={onRetry}
               disabled={isRetrying}
               className="gap-2 transition-all duration-300 hover:scale-105"
             >

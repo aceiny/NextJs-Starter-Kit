@@ -1,7 +1,7 @@
 "use client";
 
 import "@/shared/styles/click-theme-switcher.css";
-import { Button } from "./button";
+import { Button } from "@heroui/react";
 
 interface ThemeToggleSmallProps {
   checked: boolean;
@@ -14,9 +14,8 @@ export default function ClickThemeToggleSmall({
 }: ThemeToggleSmallProps) {
   return (
     <Button
-      variant={checked ? "secondary" : "outline"}
+      variant={checked ? "light" : "bordered"}
       className="p-0 h-10 w-10 flex items-center justify-center rounded-xl bg-secondary hover:bg-secondary/80 transition-all"
-      size={"icon"}
       onClick={onChange}
     >
       <label className="toggle-container">

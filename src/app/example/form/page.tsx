@@ -3,7 +3,7 @@ import { ComprehensiveFormExample } from "@/../examples";
 
 export default function FormExamplePage() {
   return (
-    <div className="container mx-auto my-8 max-w-6xl px-4">
+    <div className=" p-10 ">
       {/* Page Header */}
       <div className="mb-8 flex items-center justify-between">
         <div>

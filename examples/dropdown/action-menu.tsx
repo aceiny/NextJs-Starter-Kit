@@ -7,10 +7,7 @@ import {
   Trash2,
   Share,
   Download,
-  Star,
   Archive,
-  Mail,
-  MessageSquare,
   Users,
   Settings,
   LogOut,
@@ -20,537 +17,639 @@ import {
   Cloud,
   LifeBuoy,
   Plus,
+  Sun,
+  Moon,
+  Monitor,
+  FileText,
+  Image as ImageIcon,
+  Video,
+  Music,
 } from "lucide-react";
-import { ActionMenu } from "@/components/ActionMenu";
-import { Button } from "@/components/ui/button";
+import { Button, Avatar } from "@heroui/react";
 import { toast } from "sonner";
+import ActionMenu from "@/components/shared/DropdownActionMenu";
 
 export function ActionMenuExamples() {
-  const [showStatus, setShowStatus] = useState(true);
-  const [showActivity, setShowActivity] = useState(false);
   const [selectedTheme, setSelectedTheme] = useState("system");
+  const [selectedFormat, setSelectedFormat] = useState("json");
+  const [selectedFiles, setSelectedFiles] = useState<Set<React.Key>>(new Set());
+  const [autoSave, setAutoSave] = useState(false);
 
   return (
-    <div className="space-y-12">
-      {/* Basic Action Menu */}
-      <div>
-        <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-gray-100">
-          Basic Action Menu
-        </h3>
-        <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
-          Simple dropdown with action items
-        </p>
-        <div className="flex items-center gap-4">
-          <ActionMenu
-            items={[
-              {
-                id: "copy",
-                label: "Copy",
-                icon: Copy,
-                onClick: () => toast.info("Copied!"),
-              },
-              {
-                id: "edit",
-                label: "Edit",
-                icon: Edit,
-                onClick: () => toast.info("Edit clicked"),
-              },
-              {
-                id: "share",
-                label: "Share",
-                icon: Share,
-                onClick: () => toast.info("Share clicked"),
-              },
-              {
-                id: "download",
-                label: "Download",
-                icon: Download,
-                onClick: () => toast.info("Download clicked"),
-                separator: true,
-              },
-              {
-                id: "delete",
-                label: "Delete",
-                icon: Trash2,
-                variant: "destructive",
-                onClick: () => toast.error("Deleted!"),
-              },
-            ]}
-          />
-
-          <span className="text-sm text-muted-foreground">
-            ← Click the menu icon
-          </span>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 p-8">
+      <div className="max-w-6xl mx-auto">
+        <div className="mb-12">
+          <h1 className="text-4xl font-bold mb-2 text-gray-900 dark:text-gray-100">
+            HeroUI Action Menu Examples
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400">
+            Comprehensive dropdown menu component built with HeroUI
+          </p>
         </div>
-      </div>
 
-      {/* With Menu Label */}
-      <div>
-        <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-gray-100">
-          With Menu Label
-        </h3>
-        <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
-          Menu with a header label and shortcuts
-        </p>
-        <ActionMenu
-          menuLabel="Actions"
-          items={[
-            {
-              id: "copy",
-              label: "Copy",
-              icon: Copy,
-              shortcut: "⌘C",
-              onClick: () => toast.info("Copied!"),
-            },
-            {
-              id: "paste",
-              label: "Paste",
-              icon: Edit,
-              shortcut: "⌘V",
-              onClick: () => toast.info("Pasted!"),
-            },
-            {
-              id: "cut",
-              label: "Cut",
-              icon: Trash2,
-              shortcut: "⌘X",
-              onClick: () => toast.info("Cut!"),
-            },
-          ]}
-        />
-      </div>
+        <div className="space-y-12">
+          {/* Basic Action Menu */}
+          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-800">
+            <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
+              Basic Action Menu
+            </h3>
+            <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
+              Simple dropdown with action items
+            </p>
+            <div className="flex items-center gap-4">
+              <ActionMenu
+                items={[
+                  {
+                    id: "copy",
+                    label: "Copy",
+                    icon: Copy,
+                    onClick: () => toast.info("Copied!"),
+                  },
+                  {
+                    id: "edit",
+                    label: "Edit",
+                    icon: Edit,
+                    onClick: () => toast.info("Edit clicked"),
+                  },
+                  {
+                    id: "share",
+                    label: "Share",
+                    icon: Share,
+                    onClick: () => toast.info("Share clicked"),
+                  },
+                  {
+                    id: "download",
+                    label: "Download",
+                    icon: Download,
+                    onClick: () => toast.info("Download clicked"),
+                    showDivider: true,
+                  },
+                  {
+                    id: "delete",
+                    label: "Delete",
+                    icon: Trash2,
+                    variant: "destructive",
+                    onClick: () => toast.error("Deleted!"),
+                  },
+                ]}
+              />
+              <span className="text-sm text-gray-500 dark:text-gray-400">
+                ← Click the menu icon
+              </span>
+            </div>
+          </div>
 
-      {/* Custom Trigger */}
-      <div>
-        <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-gray-100">
-          Custom Trigger
-        </h3>
-        <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
-          Using a custom button as the trigger
-        </p>
-        <ActionMenu
-          trigger={
-            <Button variant="outline" size="sm">
-              <Plus className="mr-2 h-4 w-4" />
-              Add New
-            </Button>
-          }
-          items={[
-            {
-              id: "user",
-              label: "New User",
-              icon: User,
-              onClick: () => toast.info("New user"),
-            },
-            {
-              id: "team",
-              label: "New Team",
-              icon: Users,
-              onClick: () => toast.info("New team"),
-            },
-            {
-              id: "project",
-              label: "New Project",
-              icon: Archive,
-              onClick: () => toast.info("New project"),
-            },
-          ]}
-        />
-      </div>
-
-      {/* Grouped Items */}
-      <div>
-        <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-gray-100">
-          Grouped Items
-        </h3>
-        <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
-          Items organized in labeled groups
-        </p>
-        <ActionMenu
-          menuLabel="My Account"
-          groups={[
-            {
-              label: "Profile",
-              items: [
+          {/* With Menu Label & Shortcuts */}
+          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-800">
+            <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
+              With Menu Label & Shortcuts
+            </h3>
+            <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
+              Menu with a header label and keyboard shortcuts
+            </p>
+            <ActionMenu
+              menuLabel="Edit Actions"
+              items={[
                 {
-                  id: "profile",
-                  label: "View Profile",
+                  id: "copy",
+                  label: "Copy",
+                  icon: Copy,
+                  shortcut: "⌘C",
+                  onClick: () => toast.info("Copied!"),
+                },
+                {
+                  id: "paste",
+                  label: "Paste",
+                  icon: Edit,
+                  shortcut: "⌘V",
+                  onClick: () => toast.info("Pasted!"),
+                },
+                {
+                  id: "cut",
+                  label: "Cut",
+                  icon: Trash2,
+                  shortcut: "⌘X",
+                  onClick: () => toast.info("Cut!"),
+                },
+              ]}
+              variant="bordered"
+            />
+          </div>
+
+          {/* Custom Trigger */}
+          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-800">
+            <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
+              Custom Trigger
+            </h3>
+            <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
+              Using a custom button as the trigger
+            </p>
+            <ActionMenu
+              trigger={
+                <Button variant="bordered" size="sm">
+                  <Plus className="mr-2 h-4 w-4" />
+                  Add New
+                </Button>
+              }
+              items={[
+                {
+                  id: "user",
+                  label: "New User",
                   icon: User,
-                  onClick: () => toast.info("Profile"),
+                  onClick: () => toast.info("New user"),
                 },
                 {
-                  id: "billing",
-                  label: "Billing",
-                  icon: CreditCard,
-                  onClick: () => toast.info("Billing"),
-                },
-                {
-                  id: "settings",
-                  label: "Settings",
-                  icon: Settings,
-                  shortcut: "⌘S",
-                  onClick: () => toast.info("Settings"),
-                },
-                {
-                  id: "shortcuts",
-                  label: "Keyboard Shortcuts",
-                  icon: Keyboard,
-                  shortcut: "⌘K",
-                  onClick: () => toast.info("Shortcuts"),
-                },
-              ],
-            },
-            {
-              label: "Help",
-              items: [
-                {
-                  id: "support",
-                  label: "Support",
-                  icon: LifeBuoy,
-                  onClick: () => toast.info("Support"),
-                },
-                {
-                  id: "api",
-                  label: "API",
-                  icon: Cloud,
-                  onClick: () => toast.info("API"),
-                },
-              ],
-            },
-            {
-              items: [
-                {
-                  id: "logout",
-                  label: "Log out",
-                  icon: LogOut,
-                  shortcut: "⇧⌘Q",
-                  onClick: () => toast.info("Logged out"),
-                },
-              ],
-            },
-          ]}
-        />
-      </div>
-
-      {/* Checkbox Items */}
-      <div>
-        <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-gray-100">
-          Checkbox Items
-        </h3>
-        <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
-          Toggle options with checkboxes
-        </p>
-        <div className="flex items-center gap-4">
-          <ActionMenu
-            menuLabel="View Options"
-            checkboxItems={[
-              {
-                id: "status",
-                label: "Show Status Bar",
-                checked: showStatus,
-                onCheckedChange: setShowStatus,
-              },
-              {
-                id: "activity",
-                label: "Show Activity Log",
-                checked: showActivity,
-                onCheckedChange: setShowActivity,
-              },
-            ]}
-          />
-          <span className="text-sm text-muted-foreground">
-            Status: {showStatus ? "On" : "Off"}, Activity:{" "}
-            {showActivity ? "On" : "Off"}
-          </span>
-        </div>
-      </div>
-
-      {/* Radio Groups */}
-      <div>
-        <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-gray-100">
-          Radio Groups
-        </h3>
-        <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
-          Single selection from a list of options
-        </p>
-        <div className="flex items-center gap-4">
-          <ActionMenu
-            menuLabel="Appearance"
-            radioGroups={[
-              {
-                label: "Theme",
-                value: selectedTheme,
-                onValueChange: setSelectedTheme,
-                options: [
-                  { id: "light", label: "Light" },
-                  { id: "dark", label: "Dark" },
-                  { id: "system", label: "System" },
-                ],
-              },
-            ]}
-          />
-          <span className="text-sm text-muted-foreground">
-            Selected theme: {selectedTheme}
-          </span>
-        </div>
-      </div>
-
-      {/* With Submenus */}
-      <div>
-        <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-gray-100">
-          With Submenus
-        </h3>
-        <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
-          Nested dropdown menus
-        </p>
-        <ActionMenu
-          items={[
-            {
-              id: "new",
-              label: "New File",
-              icon: Plus,
-              onClick: () => toast.info("New file"),
-            },
-            {
-              id: "save",
-              label: "Save",
-              icon: Download,
-              shortcut: "⌘S",
-              onClick: () => toast.info("Saved"),
-            },
-          ]}
-          submenus={[
-            {
-              label: "Share",
-              icon: Share,
-              items: [
-                {
-                  id: "email",
-                  label: "Email",
-                  icon: Mail,
-                  onClick: () => toast.info("Share via email"),
-                },
-                {
-                  id: "message",
-                  label: "Message",
-                  icon: MessageSquare,
-                  onClick: () => toast.info("Share via message"),
-                },
-                {
-                  id: "teams",
-                  label: "Share with Team",
+                  id: "team",
+                  label: "New Team",
                   icon: Users,
-                  onClick: () => toast.info("Share with team"),
+                  onClick: () => toast.info("New team"),
                 },
-              ],
-            },
-            {
-              label: "More Actions",
-              icon: Settings,
-              items: [
                 {
-                  id: "star",
-                  label: "Star",
-                  icon: Star,
-                  onClick: () => toast.info("Starred"),
+                  id: "project",
+                  label: "New Project",
+                  icon: Archive,
+                  onClick: () => toast.info("New project"),
+                },
+              ]}
+            />
+          </div>
+
+          {/* Grouped/Sectioned Items */}
+          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-800">
+            <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
+              Grouped/Sectioned Items
+            </h3>
+            <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
+              Items organized in labeled sections
+            </p>
+            <ActionMenu
+              menuLabel="My Account"
+              sections={[
+                {
+                  id: "profile-section",
+                  title: "Profile",
+                  items: [
+                    {
+                      id: "profile",
+                      label: "View Profile",
+                      icon: User,
+                      onClick: () => toast.info("Profile"),
+                    },
+                    {
+                      id: "billing",
+                      label: "Billing",
+                      icon: CreditCard,
+                      onClick: () => toast.info("Billing"),
+                    },
+                    {
+                      id: "settings",
+                      label: "Settings",
+                      icon: Settings,
+                      shortcut: "⌘S",
+                      onClick: () => toast.info("Settings"),
+                    },
+                    {
+                      id: "shortcuts",
+                      label: "Keyboard Shortcuts",
+                      icon: Keyboard,
+                      shortcut: "⌘K",
+                      onClick: () => toast.info("Shortcuts"),
+                    },
+                  ],
+                },
+                {
+                  id: "help-section",
+                  title: "Help",
+                  showDivider: true,
+                  items: [
+                    {
+                      id: "support",
+                      label: "Support",
+                      icon: LifeBuoy,
+                      onClick: () => toast.info("Support"),
+                    },
+                    {
+                      id: "api",
+                      label: "API",
+                      icon: Cloud,
+                      onClick: () => toast.info("API"),
+                    },
+                  ],
+                },
+                {
+                  id: "logout-section",
+                  showDivider: true,
+                  items: [
+                    {
+                      id: "logout",
+                      label: "Log out",
+                      icon: LogOut,
+                      shortcut: "⇧⌘Q",
+                      variant: "destructive",
+                      onClick: () => toast.info("Logged out"),
+                    },
+                  ],
+                },
+              ]}
+              variant="shadow"
+            />
+          </div>
+
+          {/* Single Selection (Radio) */}
+          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-800">
+            <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
+              Single Selection (Radio)
+            </h3>
+            <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
+              Single selection from a list of options
+            </p>
+            <div className="flex items-center gap-4">
+              <ActionMenu
+                menuLabel="Theme"
+                selectionMode="single"
+                selectedKeys={new Set([selectedTheme])}
+                onSelectionChange={(keys: any) => {
+                  const selected = Array.from(keys)[0];
+                  if (selected) {
+                    setSelectedTheme(String(selected));
+                    toast.success(`Theme changed to ${selected}`);
+                  }
+                }}
+                items={[
+                  { id: "light", label: "Light", icon: Sun },
+                  { id: "dark", label: "Dark", icon: Moon },
+                  { id: "system", label: "System", icon: Monitor },
+                ]}
+                variant="flat"
+                color="primary"
+              />
+              <span className="text-sm text-gray-500 dark:text-gray-400">
+                Selected: <strong>{selectedTheme}</strong>
+              </span>
+            </div>
+          </div>
+
+          {/* Selection with Custom Trigger Showing Selected Value */}
+          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-800">
+            <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
+              Selection with Value in Trigger
+            </h3>
+            <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
+              Display the selected value in the trigger button
+            </p>
+            <ActionMenu
+              trigger={<Button variant="bordered">{selectedTheme}</Button>}
+              selectionMode="single"
+              selectedKeys={new Set([selectedTheme])}
+              onSelectionChange={(keys: any) => {
+                const selected = Array.from(keys)[0];
+                if (selected) {
+                  setSelectedTheme(String(selected));
+                  toast.success(`Theme changed to ${selected}`);
+                }
+              }}
+              items={[
+                { id: "light", label: "Light", icon: Sun },
+                { id: "dark", label: "Dark", icon: Moon },
+                { id: "system", label: "System", icon: Monitor },
+              ]}
+            />
+          </div>
+
+          {/* Multiple Selection with Count in Trigger */}
+          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-800">
+            <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
+              Multiple Selection with Count in Trigger
+            </h3>
+            <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
+              Show selected count in the trigger button
+            </p>
+            <ActionMenu
+              trigger={
+                <Button variant="bordered">
+                  {selectedFiles.size === 0 ? (
+                    <>
+                      <FileText className="w-4 h-4 mr-2" />
+                      Select Files
+                    </>
+                  ) : (
+                    <>
+                      <FileText className="w-4 h-4 mr-2" />
+                      {selectedFiles.size} Selected
+                    </>
+                  )}
+                </Button>
+              }
+              selectionMode="multiple"
+              selectedKeys={selectedFiles}
+              onSelectionChange={(keys: any) => {
+                setSelectedFiles(keys as Set<React.Key>);
+                toast.info(`${(keys as Set<React.Key>).size} items selected`);
+              }}
+              items={[
+                { id: "images", label: "Images", icon: ImageIcon },
+                { id: "videos", label: "Videos", icon: Video },
+                { id: "audio", label: "Audio", icon: Music },
+                { id: "documents", label: "Documents", icon: FileText },
+              ]}
+            />
+          </div>
+
+          {/* Multiple Selection */}
+          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-800">
+            <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
+              Multiple Selection
+            </h3>
+            <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
+              Select multiple items at once
+            </p>
+            <div className="flex items-center gap-4">
+              <ActionMenu
+                menuLabel="Select File Types"
+                selectionMode="multiple"
+                selectedKeys={selectedFiles}
+                onSelectionChange={(keys: any) => {
+                  setSelectedFiles(keys as Set<React.Key>);
+                  toast.info(`${(keys as Set<React.Key>).size} items selected`);
+                }}
+                items={[
+                  { id: "images", label: "Images", icon: ImageIcon },
+                  { id: "videos", label: "Videos", icon: Video },
+                  { id: "audio", label: "Audio", icon: Music },
+                  { id: "documents", label: "Documents", icon: FileText },
+                ]}
+                variant="bordered"
+              />
+              <span className="text-sm text-gray-500 dark:text-gray-400">
+                Selected: <strong>{selectedFiles.size} items</strong>
+              </span>
+            </div>
+          </div>
+
+          {/* With Descriptions */}
+          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-800">
+            <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
+              With Descriptions
+            </h3>
+            <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
+              Menu items with helpful descriptions
+            </p>
+            <ActionMenu
+              items={[
+                {
+                  id: "download",
+                  label: "Download",
+                  description: "Save file to your device",
+                  icon: Download,
+                  onClick: () => toast.info("Download started"),
+                },
+                {
+                  id: "share",
+                  label: "Share",
+                  description: "Share with your team",
+                  icon: Share,
+                  onClick: () => toast.info("Share dialog opened"),
                 },
                 {
                   id: "archive",
                   label: "Archive",
+                  description: "Move to archive folder",
                   icon: Archive,
                   onClick: () => toast.info("Archived"),
                 },
-              ],
-            },
-          ]}
-        />
-      </div>
+              ]}
+              variant="faded"
+            />
+          </div>
 
-      {/* Custom Header */}
-      <div>
-        <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-gray-100">
-          Custom Header
-        </h3>
-        <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
-          Using customHeader for complex menu headers with user info
-        </p>
-        <ActionMenu
-          customHeader={
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white font-semibold">
-                JD
+          {/* Custom Header */}
+          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-800">
+            <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
+              Custom Header
+            </h3>
+            <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
+              Using customHeader for complex headers with user info
+            </p>
+            <ActionMenu
+              customHeader={
+                <div className="flex items-center gap-3 px-1 py-2">
+                  <Avatar
+                    src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
+                    size="md"
+                  />
+                  <div className="flex flex-col">
+                    <span className="text-sm font-semibold">John Doe</span>
+                    <span className="text-xs text-gray-500 dark:text-gray-400">
+                      john@example.com
+                    </span>
+                  </div>
+                </div>
+              }
+              sections={[
+                {
+                  id: "account",
+                  items: [
+                    {
+                      id: "profile",
+                      label: "View Profile",
+                      icon: User,
+                      onClick: () => toast.info("Profile"),
+                    },
+                    {
+                      id: "settings",
+                      label: "Settings",
+                      icon: Settings,
+                      onClick: () => toast.info("Settings"),
+                    },
+                  ],
+                },
+                {
+                  id: "logout",
+                  showDivider: true,
+                  items: [
+                    {
+                      id: "logout",
+                      label: "Log out",
+                      icon: LogOut,
+                      variant: "destructive",
+                      onClick: () => toast.info("Logged out"),
+                    },
+                  ],
+                },
+              ]}
+            />
+          </div>
+
+          {/* Trigger Variants */}
+          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-800">
+            <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
+              Trigger Variants
+            </h3>
+            <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
+              Horizontal vs Vertical dot menu triggers
+            </p>
+            <div className="flex items-center gap-8">
+              <div className="flex flex-col items-center gap-2">
+                <ActionMenu
+                  triggerVariant="horizontal"
+                  items={[
+                    {
+                      id: "edit",
+                      label: "Edit",
+                      icon: Edit,
+                      onClick: () => toast.info("Edit"),
+                    },
+                    {
+                      id: "delete",
+                      label: "Delete",
+                      icon: Trash2,
+                      variant: "destructive",
+                      onClick: () => toast.error("Delete"),
+                    },
+                  ]}
+                />
+                <span className="text-xs text-gray-500 dark:text-gray-400">
+                  Horizontal
+                </span>
               </div>
-              <div className="flex flex-col">
-                <span className="text-sm font-medium">John Doe</span>
-                <span className="text-xs text-muted-foreground">
-                  john@example.com
+              <div className="flex flex-col items-center gap-2">
+                <ActionMenu
+                  triggerVariant="vertical"
+                  items={[
+                    {
+                      id: "edit",
+                      label: "Edit",
+                      icon: Edit,
+                      onClick: () => toast.info("Edit"),
+                    },
+                    {
+                      id: "delete",
+                      label: "Delete",
+                      icon: Trash2,
+                      variant: "destructive",
+                      onClick: () => toast.error("Delete"),
+                    },
+                  ]}
+                />
+                <span className="text-xs text-gray-500 dark:text-gray-400">
+                  Vertical
                 </span>
               </div>
             </div>
-          }
-          groups={[
-            {
-              items: [
-                {
-                  id: "profile",
-                  label: "View Profile",
-                  icon: User,
-                  onClick: () => toast.info("Profile"),
-                },
-                {
-                  id: "settings",
-                  label: "Settings",
-                  icon: Settings,
-                  onClick: () => toast.info("Settings"),
-                },
-              ],
-            },
-            {
-              items: [
-                {
-                  id: "logout",
-                  label: "Log out",
-                  icon: LogOut,
-                  variant: "destructive",
-                  onClick: () => toast.info("Logged out"),
-                },
-              ],
-            },
-          ]}
-        />
-      </div>
-
-      {/* Vertical Trigger Variant */}
-      <div>
-        <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-gray-100">
-          Trigger Variants
-        </h3>
-        <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
-          Horizontal vs Vertical dot menu triggers
-        </p>
-        <div className="flex items-center gap-8">
-          <div className="flex flex-col items-center gap-2">
-            <ActionMenu
-              triggerVariant="horizontal"
-              items={[
-                {
-                  id: "edit",
-                  label: "Edit",
-                  icon: Edit,
-                  onClick: () => toast.info("Edit"),
-                },
-                {
-                  id: "delete",
-                  label: "Delete",
-                  icon: Trash2,
-                  variant: "destructive",
-                  onClick: () => toast.error("Delete"),
-                },
-              ]}
-            />
-            <span className="text-xs text-muted-foreground">Horizontal</span>
           </div>
-          <div className="flex flex-col items-center gap-2">
+
+          {/* Different Colors & Variants */}
+          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-800">
+            <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
+              Colors & Variants
+            </h3>
+            <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
+              Different visual styles
+            </p>
+            <div className="flex items-center gap-4 flex-wrap">
+              <ActionMenu
+                variant="solid"
+                color="primary"
+                buttonColor="primary"
+                items={[
+                  { id: "edit", label: "Edit", icon: Edit },
+                  { id: "delete", label: "Delete", icon: Trash2 },
+                ]}
+              />
+              <ActionMenu
+                variant="bordered"
+                color="success"
+                buttonColor="success"
+                items={[
+                  { id: "edit", label: "Edit", icon: Edit },
+                  { id: "delete", label: "Delete", icon: Trash2 },
+                ]}
+              />
+              <ActionMenu
+                variant="flat"
+                color="warning"
+                buttonColor="warning"
+                items={[
+                  { id: "edit", label: "Edit", icon: Edit },
+                  { id: "delete", label: "Delete", icon: Trash2 },
+                ]}
+              />
+              <ActionMenu
+                variant="shadow"
+                color="danger"
+                buttonColor="danger"
+                items={[
+                  { id: "edit", label: "Edit", icon: Edit },
+                  { id: "delete", label: "Delete", icon: Trash2 },
+                ]}
+              />
+            </div>
+          </div>
+
+          {/* Complex Combined Example */}
+          <div className=" dark:from-gray-900 dark:to-gray-800 rounded-xl shadow-lg p-6 border border-blue-200 dark:border-gray-700">
+            <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
+              Complete Example
+            </h3>
+            <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
+              Combining multiple features: sections, selections, custom trigger
+            </p>
             <ActionMenu
-              triggerVariant="vertical"
-              items={[
+              trigger={
+                <Button variant="shadow" color="primary" size="md">
+                  <Settings className="mr-2 h-4 w-4" />
+                  File Options
+                </Button>
+              }
+              sections={[
                 {
-                  id: "edit",
-                  label: "Edit",
-                  icon: Edit,
-                  onClick: () => toast.info("Edit"),
+                  id: "actions",
+                  title: "Actions",
+                  items: [
+                    {
+                      id: "open",
+                      label: "Open",
+                      shortcut: "⌘O",
+                      icon: FileText,
+                      onClick: () => toast.info("Open"),
+                    },
+                    {
+                      id: "save",
+                      label: "Save",
+                      icon: Download,
+                      shortcut: "⌘S",
+                      onClick: () => toast.info("Save"),
+                    },
+                  ],
                 },
                 {
-                  id: "delete",
-                  label: "Delete",
-                  icon: Trash2,
-                  variant: "destructive",
-                  onClick: () => toast.error("Delete"),
+                  id: "format",
+                  title: "Export Format",
+                  showDivider: true,
+                  items: [
+                    {
+                      id: "pdf",
+                      label: "PDF",
+                      onClick: () => toast.info("Export as PDF"),
+                    },
+                    {
+                      id: "csv",
+                      label: "CSV",
+                      onClick: () => toast.info("Export as CSV"),
+                    },
+                    {
+                      id: "xlsx",
+                      label: "Excel",
+                      onClick: () => toast.info("Export as Excel"),
+                    },
+                  ],
                 },
               ]}
+              variant="shadow"
+              placement="bottom-start"
             />
-            <span className="text-xs text-muted-foreground">Vertical</span>
           </div>
         </div>
-      </div>
-
-      {/* Complex Example */}
-      <div>
-        <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-gray-100">
-          Complete Example
-        </h3>
-        <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">
-          Combining multiple features
-        </p>
-        <ActionMenu
-          menuLabel="File Options"
-          buttonVariant="outline"
-          buttonSize="sm"
-          trigger={
-            <Button variant="outline" size="sm">
-              <Settings className="mr-2 h-4 w-4" />
-              Options
-            </Button>
-          }
-          items={[
-            {
-              id: "open",
-              label: "Open",
-              shortcut: "⌘O",
-              onClick: () => toast.info("Open"),
-            },
-            {
-              id: "save",
-              label: "Save",
-              icon: Download,
-              shortcut: "⌘S",
-              onClick: () => toast.info("Save"),
-            },
-          ]}
-          checkboxItems={[
-            {
-              id: "autosave",
-              label: "Auto-save enabled",
-              checked: showStatus,
-              onCheckedChange: setShowStatus,
-            },
-          ]}
-          radioGroups={[
-            {
-              label: "Format",
-              value: selectedTheme,
-              onValueChange: setSelectedTheme,
-              options: [
-                { id: "light", label: "JSON" },
-                { id: "dark", label: "XML" },
-                { id: "system", label: "YAML" },
-              ],
-            },
-          ]}
-          submenus={[
-            {
-              label: "Export As",
-              icon: Share,
-              items: [
-                {
-                  id: "pdf",
-                  label: "PDF",
-                  onClick: () => toast.info("Export as PDF"),
-                },
-                {
-                  id: "csv",
-                  label: "CSV",
-                  onClick: () => toast.info("Export as CSV"),
-                },
-                {
-                  id: "xlsx",
-                  label: "Excel",
-                  onClick: () => toast.info("Export as Excel"),
-                },
-              ],
-            },
-          ]}
-        />
       </div>
     </div>
   );

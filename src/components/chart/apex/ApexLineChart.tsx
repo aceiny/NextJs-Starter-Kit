@@ -1,7 +1,7 @@
 "use client";
 import ReactApexChart from "./DynamicApexChart";
 import { useTheme } from "next-themes";
-import { tooltipWithTitle } from "./tooltip";
+import { apexChartTooltipWithTitle } from "./tooltip";
 
 export interface ApexLineChartProps {
   series?: { name: string; data: number[] }[];
@@ -69,7 +69,13 @@ export default function ApexLineChart({
           "#000";
         const isDarkLocal =
           (w && w.config && w.config.theme && w.config.theme.mode) === "dark";
-        return tooltipWithTitle(title, label, value, color, isDarkLocal);
+        return apexChartTooltipWithTitle(
+          title,
+          label,
+          value,
+          color,
+          isDarkLocal,
+        );
       },
     },
 

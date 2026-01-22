@@ -8,7 +8,13 @@ interface RHFOtpProps<T extends FieldValues> extends RHFBaseFieldProps<T> {
   length?: number;
   allowedKeys?: string;
   variant?: "flat" | "bordered" | "faded" | "underlined";
-  color?: "default" | "primary" | "secondary" | "success" | "warning" | "danger";
+  color?:
+    | "default"
+    | "primary"
+    | "secondary"
+    | "success"
+    | "warning"
+    | "danger";
   size?: "sm" | "md" | "lg";
   radius?: "none" | "sm" | "md" | "lg" | "full";
   description?: React.ReactNode;

@@ -2,44 +2,27 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import {
-  Inbox,
-  FileX,
-  SearchX,
-  FolderOpen,
-  Database,
-  type LucideIcon,
-} from "lucide-react";
+import { Loader2, type LucideIcon } from "lucide-react";
+import { Progress } from "@heroui/react";
 
-export type EmptyStateVariant =
-  | "default"
-  | "search"
-  | "folder"
-  | "file"
-  | "database";
-
-const variantIcons: Record<EmptyStateVariant, LucideIcon> = {
-  default: Inbox,
-  search: SearchX,
-  folder: FolderOpen,
-  file: FileX,
-  database: Database,
-};
-
-export interface EmptyStateProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface LoadingStateProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Custom icon component to display */
   icon?: LucideIcon;
-  /** Predefined variant for common empty states */
-  variant?: EmptyStateVariant;
   /** Main title text */
   title?: string;
   /** Description text below the title */
   description?: string;
   /** Optional action element (button, link, etc.) */
   action?: React.ReactNode;
-  /** Size of the empty state */
+  /** Size of the state */
   size?: "sm" | "md" | "lg";
-  /** Enable cursor follow effect */
+  /** Whether to show a subtle spinner (inline with icon) */
+  showSpinner?: boolean;
+  /** Show a progress bar */
+  showProgress?: boolean;
+  /** Progress value (0-100) */
+  progress?: number;
+  /** Enable cursor follow / subtle motion effect (keeps consistent with other states) */
   enableCursorEffect?: boolean;
 }
 
@@ -67,18 +50,20 @@ const sizeClasses = {
   },
 };
 
-export function EmptyState({
+export default function LoadingState({
   icon,
-  variant = "default",
-  title = "No data found",
-  description = "There's nothing to display at the moment.",
+  title = "Loading",
+  description = "Please wait while we load the data.",
   action,
   size = "md",
+  showSpinner = true,
+  showProgress = false,
+  progress = 0,
   enableCursorEffect = true,
   className,
   ...props
-}: EmptyStateProps) {
-  const IconComponent = icon || variantIcons[variant];
+}: LoadingStateProps) {
+  const IconComponent = icon || Loader2;
   const sizes = sizeClasses[size];
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = React.useState({ x: 0, y: 0 });
@@ -104,6 +89,8 @@ export function EmptyState({
     }
   }, [enableCursorEffect]);
 
+  const progressClamped = Math.max(0, Math.min(100, Number(progress || 0)));
+
   return (
     <div
       ref={containerRef}
@@ -122,7 +109,7 @@ export function EmptyState({
         <div
           className="absolute inset-0 transition-opacity duration-500 pointer-events-none"
           style={{
-            background: `radial-gradient(800px circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(100, 116, 139, 0.08), transparent 50%)`,
+            background: `radial-gradient(800px circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(100, 116, 139, 0.06), transparent 50%)`,
             opacity: isHovering ? 1 : 0,
           }}
         />
@@ -133,17 +120,17 @@ export function EmptyState({
         <div
           className="absolute inset-0 rounded-lg pointer-events-none transition-opacity duration-300"
           style={{
-            background: `radial-gradient(600px circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(148, 163, 184, 0.1), transparent 40%)`,
+            background: `radial-gradient(600px circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(148, 163, 184, 0.08), transparent 40%)`,
             opacity: 0.6,
           }}
         />
       )}
 
-      {/* Animated icon container */}
+      {/* Animated icon wrapper */}
       <div
         className={cn(
           "relative mb-6 flex items-center justify-center rounded-full transition-all duration-500",
-          "bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800/50 dark:to-gray-900/50",
+          "bg-linear-to-br from-gray-50 to-gray-100 dark:from-gray-800/50 dark:to-gray-900/50",
           "shadow-lg shadow-gray-200/50 dark:shadow-gray-950/50",
           "ring-1 ring-gray-200/70 dark:ring-gray-700/50",
           "backdrop-blur-sm",
@@ -164,16 +151,20 @@ export function EmptyState({
           <div
             className="absolute inset-0 rounded-full opacity-40 blur-xl transition-opacity duration-300"
             style={{
-              background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(148, 163, 184, 0.4), transparent 70%)`,
+              background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(148, 163, 184, 0.35), transparent 70%)`,
             }}
           />
         )}
 
         {/* Animated gradient overlay */}
-        <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-white/30 via-transparent to-gray-200/20 dark:from-gray-700/20 dark:to-gray-800/10" />
+        <div className="absolute inset-0 rounded-full bg-linear-to-tr from-white/30 via-transparent to-gray-200/20 dark:from-gray-700/20 dark:to-gray-800/10" />
 
         {/* Subtle shimmer effect */}
-        <div className="absolute inset-0 rounded-full opacity-0 animate-pulse bg-gradient-to-br from-gray-100/40 via-transparent to-gray-200/40 dark:from-gray-700/30 dark:to-gray-600/20" />
+        <div className="absolute inset-0 rounded-full opacity-0 animate-pulse bg-linear-to-br from-gray-100/40 via-transparent to-gray-200/40 dark:from-gray-700/30 dark:to-gray-600/20" />
+
+        {showSpinner && (
+          <div className="absolute inset-0 rounded-full opacity-40 blur-xl" />
+        )}
 
         <IconComponent
           className={cn(
@@ -182,13 +173,14 @@ export function EmptyState({
               enableCursorEffect &&
               "text-gray-500 dark:text-gray-400",
             sizes.icon,
+            showSpinner && "animate-spin",
           )}
           strokeWidth={1.5}
         />
 
         {/* Glow effect */}
         {enableCursorEffect && isHovering && (
-          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-gray-300/20 to-transparent blur-md animate-pulse" />
+          <div className="absolute inset-0 rounded-full bg-linear-to-br from-gray-300/20 to-transparent blur-md animate-pulse" />
         )}
       </div>
 
@@ -218,6 +210,20 @@ export function EmptyState({
       >
         {description}
       </p>
+
+      {/* Optional progress bar (HeroUI Progress) */}
+      {showProgress && (
+        <div className="w-full max-w-xs mt-4 px-4 relative z-10">
+          {/* Using HeroUI Progress for consistent styling and accessibility */}
+          {/* @ts-ignore - HeroUI types are available at runtime */}
+          <Progress
+            value={progressClamped}
+            size="sm"
+            color="primary"
+            showValueLabel
+          />
+        </div>
+      )}
 
       {/* Optional action */}
       {action && <div className="mt-6 relative z-10">{action}</div>}

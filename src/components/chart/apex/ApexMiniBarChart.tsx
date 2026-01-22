@@ -1,7 +1,7 @@
 "use client";
 import ReactApexChart from "./DynamicApexChart";
 import { useTheme } from "next-themes";
-import { tooltipWithTitle } from "./tooltip";
+import { apexChartTooltipWithTitle } from "./tooltip";
 
 export interface ApexMiniBarChartProps {
   data?: number[] | Record<string, any>[];
@@ -63,7 +63,13 @@ export default function ApexMiniBarChart({
           "#000";
         const isDarkLocal =
           (w && w.config && w.config.theme && w.config.theme.mode) === "dark";
-        return tooltipWithTitle(title, label, value, colorLocal, isDarkLocal);
+        return apexChartTooltipWithTitle(
+          title,
+          label,
+          value,
+          colorLocal,
+          isDarkLocal,
+        );
       },
     },
     colors: [color],

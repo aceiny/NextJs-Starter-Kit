@@ -18,11 +18,9 @@ import { Switch } from "@/components/ui/switch";
 import {
   EmptyState,
   type EmptyStateVariant,
-} from "@/components/ui/empty-state";
-import {
   ErrorState,
   type ErrorStateVariant,
-} from "@/components/ui/error-state";
+} from "@/components/state";
 import {
   ChevronUp,
   ChevronDown,

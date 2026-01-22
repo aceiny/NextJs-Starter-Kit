@@ -14,8 +14,8 @@ export type ButtonConfig = {
     | "bordered"
     | "light"
     | "flat"
-    | "ghost" 
-    | "shadow"
+    | "ghost"
+    | "shadow";
   size?: "default" | "sm" | "lg" | "icon" | "icon-sm" | "icon-lg";
   ripple?: boolean;
 };

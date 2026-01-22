@@ -24,7 +24,12 @@ export { RHFRadioGroup } from "./RHFRadioGroup";
 export { RHFUpload } from "./RHFUpload";
 
 // Specialized inputs
-export { RHFDatePicker, RHFDateRangePicker, RHFDateInput, RHFTimeInput } from "./date";
+export {
+  RHFDatePicker,
+  RHFDateRangePicker,
+  RHFDateInput,
+  RHFTimeInput,
+} from "./date";
 
 // Type exports
 export type { CheckboxOption } from "./RHFCheckboxGroup";
@@ -37,7 +42,12 @@ import { RHFCheckboxGroup } from "./RHFCheckboxGroup";
 import { RHFSearchableCheckboxGroup } from "./RHFSearchableCheckboxGroup";
 import { RHFRadioGroup } from "./RHFRadioGroup";
 import { RHFUpload } from "./RHFUpload";
-import { RHFDatePicker, RHFDateRangePicker, RHFDateInput, RHFTimeInput } from "./date";
+import {
+  RHFDatePicker,
+  RHFDateRangePicker,
+  RHFDateInput,
+  RHFTimeInput,
+} from "./date";
 import { RHFInput, RHFOtp, RHFTextarea } from "./input";
 
 /**
@@ -63,19 +73,18 @@ export const Field = {
    */
   Input: RHFInput,
 
-    /**
+  /**
    * HeroUI Textarea component
    * Supports: text, email, password, search, tel, url, number
    * Modern, clean design with full HeroUI integration
    */
   Textarea: RHFTextarea,
-  
+
   /**
    * OTP (One-Time Password) input component
    * For entering verification codes, 2FA codes, etc.
    */
   Otp: RHFOtp,
-
 
   /**
    * Select component supporting single and multi-select modes
@@ -113,12 +122,11 @@ export const Field = {
    */
   Upload: RHFUpload,
 
-
   /**   * HeroUI DatePicker component
    * For selecting single dates
    */
   DatePicker: RHFDatePicker,
-  
+
   /**   * HeroUI DateRangePicker component
    * For selecting date ranges
    */

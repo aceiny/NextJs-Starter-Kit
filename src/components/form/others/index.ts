@@ -1,1 +1,1 @@
-export {default as RHFSelect}   from "./RHFSelect";
+export { default as RHFSelect } from "./RHFSelect";

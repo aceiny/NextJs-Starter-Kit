@@ -1,36 +1,40 @@
 "use client";
+
 import ReactApexChart from "./DynamicApexChart";
 import { useTheme } from "next-themes";
 import { apexChartTooltipMultipleEntries } from "./tooltip";
 
-export interface ApexAreaChartProps {
+export interface ApexSplineAreaChartProps {
   series?: { name: string; data: number[] }[];
   categories?: string[];
   height?: number;
   colors?: string[];
+  // controls whether numeric labels show on the y-axis
+  showYAxisLabels?: boolean;
+  // controls whether numeric labels show near the data points on the line
+  showDataLabels?: boolean;
   // show or hide the background grid
   showGrid?: boolean;
   // control the area fill opacity (0 to 1)
   areaOpacity?: number;
   // control the gradient shade intensity (1 default)
   areaShadeIntensity?: number;
-  // controls whether numeric labels show on the y-axis
-  showYAxisLabels?: boolean;
-  // controls whether numeric labels show near the data points on the line
-  showDataLabels?: boolean;
 }
 
-export default function ApexAreaChart({
-  series = [{ name: "Series A", data: [2, 4, 3, 5, 6] }],
-  categories = ["Mon", "Tue", "Wed", "Thu", "Fri"],
-  height = 280,
-  colors = ["#2065D1"],
-  showGrid = false,
-  areaOpacity = 0.16,
-  areaShadeIntensity = 1,
+export default function ApexSplineAreaChart({
+  series = [
+    { name: "Series A", data: [31, 40, 28, 51, 42, 109, 100] },
+    { name: "Series B", data: [11, 32, 45, 32, 34, 52, 41] },
+  ],
+  categories = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+  height = 320,
+  colors = ["#2065D1", "#FFB020"],
   showYAxisLabels = true,
   showDataLabels = false,
-}: ApexAreaChartProps) {
+  showGrid = false,
+  areaOpacity = 0.28,
+  areaShadeIntensity = 1,
+}: ApexSplineAreaChartProps) {
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
 
@@ -60,7 +64,7 @@ export default function ApexAreaChart({
         opacityTo: Math.max(0.01, areaOpacity * 0.2),
       },
     },
-    markers: { size: 0 },
+    markers: { size: 3 },
     grid: {
       show: showGrid,
       borderColor: isDark ? "rgba(255,255,255,0.04)" : "rgba(15,23,42,0.04)",

@@ -60,48 +60,50 @@ function MyForm() {
 ## Props
 
 ### RHFBaseFieldProps (Shared)
+
 These props are inherited from `RHFBaseFieldProps` and shared across all RHF components:
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `name` | `Path<T>` | **required** | Field name matching form schema |
-| `disabled` | `boolean` | `false` | Disable the input |
-| `className` | `string` | `""` | Additional CSS classes |
-| `label` | `ReactNode` | - | Label text |
-| `description` | `ReactNode` | - | Helper text below input |
-| `errorMessage` | `ReactNode` | - | Custom error message |
-| `isInvalid` | `boolean` | - | Force invalid state |
-| `isRequired` | `boolean` | `false` | Mark as required |
-| `isReadOnly` | `boolean` | `false` | Make read-only |
-| `variant` | `"flat" \| "bordered" \| "faded" \| "underlined"` | `"bordered"` | Input variant |
-| `color` | `"default" \| "primary" \| "secondary" \| "success" \| "warning" \| "danger"` | `"default"` | Color theme |
-| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Input size |
-| `radius` | `"none" \| "sm" \| "md" \| "lg" \| "full"` | `"md"` | Border radius |
-| `labelPlacement` | `"inside" \| "outside" \| "outside-left"` | `"inside"` | Label position |
-| `startContent` | `ReactNode` | - | Content before input |
-| `endContent` | `ReactNode` | - | Content after input |
-| `autoFocus` | `boolean` | `false` | Auto-focus on mount |
-| `disableAnimation` | `boolean` | `false` | Disable animations |
-| `classNames` | `object` | - | Custom class names for parts |
-| `onChangeSideEffect` | `function` | - | Side effect on change |
+| Prop                 | Type                                                                          | Default      | Description                     |
+| -------------------- | ----------------------------------------------------------------------------- | ------------ | ------------------------------- |
+| `name`               | `Path<T>`                                                                     | **required** | Field name matching form schema |
+| `disabled`           | `boolean`                                                                     | `false`      | Disable the input               |
+| `className`          | `string`                                                                      | `""`         | Additional CSS classes          |
+| `label`              | `ReactNode`                                                                   | -            | Label text                      |
+| `description`        | `ReactNode`                                                                   | -            | Helper text below input         |
+| `errorMessage`       | `ReactNode`                                                                   | -            | Custom error message            |
+| `isInvalid`          | `boolean`                                                                     | -            | Force invalid state             |
+| `isRequired`         | `boolean`                                                                     | `false`      | Mark as required                |
+| `isReadOnly`         | `boolean`                                                                     | `false`      | Make read-only                  |
+| `variant`            | `"flat" \| "bordered" \| "faded" \| "underlined"`                             | `"bordered"` | Input variant                   |
+| `color`              | `"default" \| "primary" \| "secondary" \| "success" \| "warning" \| "danger"` | `"default"`  | Color theme                     |
+| `size`               | `"sm" \| "md" \| "lg"`                                                        | `"md"`       | Input size                      |
+| `radius`             | `"none" \| "sm" \| "md" \| "lg" \| "full"`                                    | `"md"`       | Border radius                   |
+| `labelPlacement`     | `"inside" \| "outside" \| "outside-left"`                                     | `"inside"`   | Label position                  |
+| `startContent`       | `ReactNode`                                                                   | -            | Content before input            |
+| `endContent`         | `ReactNode`                                                                   | -            | Content after input             |
+| `autoFocus`          | `boolean`                                                                     | `false`      | Auto-focus on mount             |
+| `disableAnimation`   | `boolean`                                                                     | `false`      | Disable animations              |
+| `classNames`         | `object`                                                                      | -            | Custom class names for parts    |
+| `onChangeSideEffect` | `function`                                                                    | -            | Side effect on change           |
 
 ### Input-Specific Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `type` | `"text" \| "email" \| "password" \| "search" \| "tel" \| "url" \| "number"` | `"text"` | Input type |
-| `placeholder` | `string` | - | Placeholder text |
-| `isClearable` | `boolean` | `false` | Show clear button |
-| `fullWidth` | `boolean` | `true` | Take full width |
-| `minLength` | `number` | - | Min character length |
-| `maxLength` | `number` | - | Max character length |
-| `pattern` | `string` | - | Validation pattern (regex) |
-| `onClear` | `() => void` | - | Clear button callback |
-| `onValueChange` | `(value: string) => void` | - | Value change callback |
+| Prop            | Type                                                                        | Default  | Description                |
+| --------------- | --------------------------------------------------------------------------- | -------- | -------------------------- |
+| `type`          | `"text" \| "email" \| "password" \| "search" \| "tel" \| "url" \| "number"` | `"text"` | Input type                 |
+| `placeholder`   | `string`                                                                    | -        | Placeholder text           |
+| `isClearable`   | `boolean`                                                                   | `false`  | Show clear button          |
+| `fullWidth`     | `boolean`                                                                   | `true`   | Take full width            |
+| `minLength`     | `number`                                                                    | -        | Min character length       |
+| `maxLength`     | `number`                                                                    | -        | Max character length       |
+| `pattern`       | `string`                                                                    | -        | Validation pattern (regex) |
+| `onClear`       | `() => void`                                                                | -        | Clear button callback      |
+| `onValueChange` | `(value: string) => void`                                                   | -        | Value change callback      |
 
 ## Examples
 
 ### Basic Text Input
+
 ```tsx
 <Field.Input
   name="username"
@@ -114,6 +116,7 @@ These props are inherited from `RHFBaseFieldProps` and shared across all RHF com
 ```
 
 ### Email with Validation
+
 ```tsx
 <Field.Input
   name="email"
@@ -126,6 +129,7 @@ These props are inherited from `RHFBaseFieldProps` and shared across all RHF com
 ```
 
 ### Password Input
+
 ```tsx
 <Field.Input
   name="password"
@@ -139,6 +143,7 @@ These props are inherited from `RHFBaseFieldProps` and shared across all RHF com
 ```
 
 ### Search with Clear Button
+
 ```tsx
 <Field.Input
   name="search"
@@ -151,6 +156,7 @@ These props are inherited from `RHFBaseFieldProps` and shared across all RHF com
 ```
 
 ### Phone Number
+
 ```tsx
 <Field.Input
   name="phone"
@@ -162,6 +168,7 @@ These props are inherited from `RHFBaseFieldProps` and shared across all RHF com
 ```
 
 ### URL Input
+
 ```tsx
 <Field.Input
   name="website"
@@ -173,6 +180,7 @@ These props are inherited from `RHFBaseFieldProps` and shared across all RHF com
 ```
 
 ### Number Input
+
 ```tsx
 <Field.Input
   name="age"
@@ -184,6 +192,7 @@ These props are inherited from `RHFBaseFieldProps` and shared across all RHF com
 ```
 
 ### With Start Content (Icon)
+
 ```tsx
 <Field.Input
   name="email"
@@ -199,6 +208,7 @@ These props are inherited from `RHFBaseFieldProps` and shared across all RHF com
 ```
 
 ### With End Content
+
 ```tsx
 <Field.Input
   name="price"
@@ -211,6 +221,7 @@ These props are inherited from `RHFBaseFieldProps` and shared across all RHF com
 ```
 
 ### With URL Prefix/Suffix
+
 ```tsx
 <Field.Input
   name="website"
@@ -223,6 +234,7 @@ These props are inherited from `RHFBaseFieldProps` and shared across all RHF com
 ```
 
 ### Custom Variant & Color
+
 ```tsx
 <Field.Input
   name="highlight"
@@ -235,6 +247,7 @@ These props are inherited from `RHFBaseFieldProps` and shared across all RHF com
 ```
 
 ### Outside Label Placement
+
 ```tsx
 <Field.Input
   name="firstName"
@@ -246,6 +259,7 @@ These props are inherited from `RHFBaseFieldProps` and shared across all RHF com
 ```
 
 ### Disabled State
+
 ```tsx
 <Field.Input
   name="locked"
@@ -257,6 +271,7 @@ These props are inherited from `RHFBaseFieldProps` and shared across all RHF com
 ```
 
 ### Read-Only State
+
 ```tsx
 <Field.Input
   name="readonly"
@@ -268,6 +283,7 @@ These props are inherited from `RHFBaseFieldProps` and shared across all RHF com
 ```
 
 ### With Side Effect
+
 ```tsx
 <Field.Input
   name="username"
@@ -282,6 +298,7 @@ These props are inherited from `RHFBaseFieldProps` and shared across all RHF com
 ## Integration with Form Validation
 
 ### With Zod Schema
+
 ```tsx
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -303,7 +320,12 @@ function MyForm() {
   return (
     <Form form={form} onSubmit={(data) => console.log(data)}>
       <Field.Input name="email" type="email" label="Email" isRequired />
-      <Field.Input name="password" type="password" label="Password" isRequired />
+      <Field.Input
+        name="password"
+        type="password"
+        label="Password"
+        isRequired
+      />
       <Field.Input name="age" type="number" label="Age" isRequired />
     </Form>
   );
@@ -312,16 +334,16 @@ function MyForm() {
 
 ## Comparison: RHFInput vs RHFUniversalInput
 
-| Feature | RHFInput (HeroUI) | RHFUniversalInput (Legacy) |
-|---------|-------------------|----------------------------|
-| Design System | HeroUI | Custom/Mixed |
-| Types Supported | text, email, password, search, tel, url, number | text, password, email, phone, number, search, url, OTP, textarea, editor |
-| Clear Button | ✅ Native | ❌ Manual |
-| Icon Support | ✅ startContent/endContent | ❌ |
-| Animations | ✅ HeroUI animations | ✅ Custom |
-| Theme Integration | ✅ Full HeroUI theming | ⚠️ Partial |
-| File Size | Smaller | Larger |
-| Recommended For | Standard inputs | OTP, textarea, rich text editor |
+| Feature           | RHFInput (HeroUI)                               | RHFUniversalInput (Legacy)                                               |
+| ----------------- | ----------------------------------------------- | ------------------------------------------------------------------------ |
+| Design System     | HeroUI                                          | Custom/Mixed                                                             |
+| Types Supported   | text, email, password, search, tel, url, number | text, password, email, phone, number, search, url, OTP, textarea, editor |
+| Clear Button      | ✅ Native                                       | ❌ Manual                                                                |
+| Icon Support      | ✅ startContent/endContent                      | ❌                                                                       |
+| Animations        | ✅ HeroUI animations                            | ✅ Custom                                                                |
+| Theme Integration | ✅ Full HeroUI theming                          | ⚠️ Partial                                                               |
+| File Size         | Smaller                                         | Larger                                                                   |
+| Recommended For   | Standard inputs                                 | OTP, textarea, rich text editor                                          |
 
 **Recommendation:** Use `Field.Input` (RHFInput) for standard inputs, and `Field.UniversalInput` only for OTP, textarea, or rich text editor.
 
@@ -360,12 +382,13 @@ interface MyFormData {
   name="email" // ✅ Autocomplete works
   type="email"
   label="Email"
-/>
+/>;
 ```
 
 ## Architecture
 
 ### File Structure
+
 ```
 src/components/form/
   ├── RHFInput.tsx              # Main component
@@ -381,11 +404,13 @@ src/config/rhf/
 ```
 
 ### Shared Interface Pattern
+
 `RHFInput` uses the `RHFBaseFieldProps` interface, which is shared across all RHF components. This ensures consistency and reduces code duplication.
 
 ## Best Practices
 
 1. **Use Field.Input for standard inputs**
+
    ```tsx
    // ✅ Recommended
    <Field.Input name="email" type="email" label="Email" />
@@ -395,6 +420,7 @@ src/config/rhf/
    ```
 
 2. **Use type prop correctly**
+
    ```tsx
    // ✅ Good
    <Field.Input name="email" type="email" />
@@ -404,6 +430,7 @@ src/config/rhf/
    ```
 
 3. **Leverage startContent/endContent**
+
    ```tsx
    // ✅ Great for icons, units, prefixes
    <Field.Input
@@ -415,6 +442,7 @@ src/config/rhf/
    ```
 
 4. **Use isClearable for search**
+
    ```tsx
    // ✅ Good UX
    <Field.Input name="search" type="search" isClearable />
@@ -432,17 +460,21 @@ src/config/rhf/
 ## Troubleshooting
 
 ### Input value not updating
+
 Ensure you're using the `Form` component wrapper and `useForm` correctly:
+
 ```tsx
 const form = useForm<FormData>();
 
 <Form form={form} onSubmit={onSubmit}>
   <Field.Input name="email" />
-</Form>
+</Form>;
 ```
 
 ### Validation not working
+
 Ensure you're using a resolver (like Zod):
+
 ```tsx
 const form = useForm<FormData>({
   resolver: zodResolver(schema),
@@ -450,7 +482,9 @@ const form = useForm<FormData>({
 ```
 
 ### Type errors with name prop
+
 Ensure your form data type matches:
+
 ```tsx
 interface FormData {
   email: string; // ✅ Must exist
@@ -494,6 +528,7 @@ interface FormData {
 ```
 
 **Key Changes:**
+
 - `required` → `isRequired`
 - `helperText` → `description`
 - `disabled` → keep as `disabled` (both supported, but `isDisabled` also works)

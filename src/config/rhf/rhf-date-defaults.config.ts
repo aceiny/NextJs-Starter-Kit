@@ -5,7 +5,7 @@ export const RHF_BASE_DEFAULTS = {
   isInvalid: false,
   isRequired: false,
   isReadOnly: false,
-  className : "",
+  className: "",
   variant: "bordered" as const,
   color: "default" as const,
   size: "md" as const,

@@ -1,11 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { DataTable, type HeaderConfig } from "@/components/DataTable";
-import { ActionMenu } from "@/components/ActionMenu";
+import { DataTable, type HeaderConfig } from "@/components/shared/DataTable";
+import { ActionMenu } from "@/components/shared/DropdownActionMenu";
 import { Button } from "@/components/ui/button";
-import { EmptyState } from "@/components/ui/empty-state";
-import { ErrorState } from "@/components/ui/error-state";
+import { EmptyState, ErrorState, LoadingState } from "@/components/state";
 import { Edit, Trash2, Eye, Copy, Mail } from "lucide-react";
 import { toast } from "sonner";
 
@@ -339,7 +338,7 @@ export function DataTableExamples() {
             render: (row) => (
               <ActionMenu
                 triggerVariant="horizontal"
-                align="end"
+                placement="bottom-end"
                 items={[
                   {
                     id: "view",
@@ -361,7 +360,7 @@ export function DataTableExamples() {
                       navigator.clipboard.writeText(row.email);
                       toast.success("Email copied to clipboard");
                     },
-                    separator: true,
+                    showDivider: true,
                   },
                   {
                     id: "delete",
@@ -404,6 +403,41 @@ export function DataTableExamples() {
         </p>
 
         <SingleSelectExample />
+      </section>
+
+      {/* Section: Loading State Variants */}
+      <section className="space-y-4">
+        <h2 className="text-xl font-bold text-foreground">
+          Loading State Variants
+        </h2>
+        <p className="text-muted-foreground">
+          Loading states with spinner, progress, and actions.
+        </p>
+
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="rounded-lg border border-border bg-card p-4">
+            <h3 className="mb-4 text-sm font-medium text-muted-foreground">
+              Default
+            </h3>
+            <LoadingState size="sm" />
+          </div>
+          <div className="rounded-lg border border-border bg-card p-4">
+            <h3 className="mb-4 text-sm font-medium text-muted-foreground">
+              With progress
+            </h3>
+            <LoadingState showProgress progress={45} />
+          </div>
+          <div className="rounded-lg border border-border bg-card p-4">
+            <h3 className="mb-4 text-sm font-medium text-muted-foreground">
+              With action
+            </h3>
+            <LoadingState
+              title="Loading data"
+              description="Fetching records..."
+              action={<Button size="sm">Cancel</Button>}
+            />
+          </div>
+        </div>
       </section>
 
       {/* Section: EmptyState Variants */}

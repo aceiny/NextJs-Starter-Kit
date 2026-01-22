@@ -19,7 +19,7 @@ export default function RHFEditor({
   placeholder,
   className,
   theme,
-} : RHFEditorProps) {
+}: RHFEditorProps) {
   const currentTheme = useThemeMode(theme);
   const editorRef = React.useRef<HTMLDivElement>(null);
   const [activeFormats, setActiveFormats] = React.useState<Set<string>>(
@@ -454,4 +454,4 @@ export default function RHFEditor({
       />
     </div>
   );
-};
+}

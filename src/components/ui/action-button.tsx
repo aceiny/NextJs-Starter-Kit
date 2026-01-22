@@ -1,7 +1,8 @@
+"use client";
+
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import type { ButtonConfig } from "@/types/shared/domain/button-config.type";
-import { Button as RippleButton } from '@heroui/button';
+import { Button as RippleButton } from "@heroui/button";
 
 type ActionButtonProps = {
   btn?: ButtonConfig;
@@ -19,17 +20,15 @@ export function ActionButton({ btn }: ActionButtonProps) {
     ...(btn ?? {}),
   };
 
-  const Component = b.ripple ? RippleButton : Button;
-
   const buttonEl = (
-    <Component
-      type="button" 
+    <RippleButton
+      type="button"
       onClick={b.onClick}
       variant={b.variant as any}
       size={b.size as any}
     >
       {b.text}
-    </Component>
+    </RippleButton>
   );
 
   // Link mode (only when no onClick)

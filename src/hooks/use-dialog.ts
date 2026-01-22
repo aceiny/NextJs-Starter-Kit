@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react";
 import React from "react";
-import { DialogCreator } from "@/components/DialogCreator";
+import { DialogCreator } from "@/components/shared/DialogCreator";
 import type { DialogConfig } from "@/types/dialog";
 
 interface UseDialogReturn {

@@ -1,11 +1,11 @@
 import React from "react";
-import { Card } from "@/components/ui/card";
 import { TrendingUp, TrendingDown, ChartColumnBig } from "lucide-react";
 import { darkenColor, hexToRgba } from "@/lib/utils/color.utils";
 import { fNumber, fPercent } from "@/lib/utils/number-utils";
 import { cn } from "@/lib/utils";
 // Charts
 import { ApexSparkline, ApexMiniBarChart } from "@/components/chart";
+import { Card } from "@heroui/react";
 
 // ----------------------------------------------------------------------
 

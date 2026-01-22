@@ -7,7 +7,7 @@ import {
   SuccessTooltip,
   WarningTooltip,
   ErrorTooltip,
-} from "@/components/CustomTooltip";
+} from "@/components/shared/CustomTooltip";
 import {
   Info,
   CheckCircle,

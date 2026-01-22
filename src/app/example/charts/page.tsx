@@ -2,14 +2,14 @@
 import AnalyticsWidgetSummary from "@/components/ui/analytics-widget-summary";
 import { Users, Podcast } from "lucide-react";
 import { ActionButton } from "@/components/ui/action-button";
-import { RippleButton } from "@/components/form/ripple-button";
 import {
   HorizontalBarChart,
-  AreaChart,
   PieChart,
   ApexLineChart,
   ApexHorizontalBarChart,
   ApexPieChart,
+  ApexFilledPieChart,
+  ApexSplineAreaChart,
   ApexBarChart,
   ApexStackedBarChart,
   ApexAreaChart,
@@ -19,36 +19,6 @@ export default function ChartsExamplesPage() {
   return (
     <div className="container min-w-screen min-h-screen  p-10 space-y-8 ">
       <h1 className="text-2xl font-bold">Charts & Analytics Examples</h1>
-      <div className="mt-4 flex items-center gap-3">
-        <ActionButton
-          btn={{
-            text: "Refresh",
-            variant: "default",
-            size: "sm",
-            onClick: () => alert("Refresh clicked"),
-            ripple: true,
-          }}
-        />
-        <ActionButton
-          btn={{
-            text: "Export",
-            variant: "outline",
-            size: "sm",
-            onClick: () => alert("Export clicked"),
-          }}
-        />
-        <RippleButton variant="default" size="sm">
-          Ripple sm default
-        </RippleButton>
-
-        <RippleButton variant="ghost" size="default">
-          Ripple default ghost
-        </RippleButton>
-        <RippleButton variant="outline" size="lg">
-          Ripple lg outline
-        </RippleButton>
-      </div>
-
       <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <AnalyticsWidgetSummary
           title="Users"
@@ -86,9 +56,65 @@ export default function ChartsExamplesPage() {
 
       <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="p-4 bg-card rounded-md">
-          <h3 className="font-medium mb-2">Nivo Area</h3>
-          <AreaChart />
+          <h3 className="font-medium mb-2">Apex Line </h3>
+          {/* @ts-ignore */}
+          <ApexLineChart />
         </div>
+        <div className="p-4 bg-card rounded-md">
+          <h3 className="font-medium mb-2">Apex Horizontal Bar </h3>
+          {/* @ts-ignore */}
+          <ApexHorizontalBarChart />
+        </div>
+        <div className="p-4 bg-card rounded-md">
+          <h3 className="font-medium mb-2">Apex Pie </h3>
+          {/* @ts-ignore */}
+          <ApexPieChart />
+        </div>
+        <div className="p-4 bg-card rounded-md">
+          <h3 className="font-medium mb-2">Apex Filled Pie</h3>
+          {/* @ts-ignore */}
+          <ApexFilledPieChart />
+        </div>
+        <div className="p-4 bg-card rounded-md">
+          {" "}
+          <h3 className="font-medium mb-2">
+            Apex Spline Area (grid + brighter area)
+          </h3>
+          {/* @ts-ignore */}
+          <ApexSplineAreaChart
+            showGrid={true}
+            areaOpacity={1}
+            areaShadeIntensity={1.2}
+          />
+        </div>
+        <div className="p-4 bg-card rounded-md">
+          {" "}
+          <h3 className="font-medium mb-2">Apex Bar </h3>
+          {/* @ts-ignore */}
+          <ApexBarChart />
+        </div>
+        <div className="p-4 bg-card rounded-md">
+          <h3 className="font-medium mb-2">Apex Stacked Bar </h3>
+          {/* @ts-ignore */}
+          <ApexStackedBarChart />
+        </div>
+        <div className="p-4 bg-card rounded-md">
+          <h3 className="font-medium mb-2">Apex Stacked Horizontal Bar</h3>
+          {/* @ts-ignore */}
+          <ApexStackedHorizontalBarChart />
+        </div>
+        <div className="p-4 bg-card rounded-md">
+          <h3 className="font-medium mb-2">Apex Area (grid + brighter area)</h3>
+          {/* @ts-ignore */}
+          <ApexAreaChart
+            showGrid={true}
+            areaOpacity={1}
+            areaShadeIntensity={1.2}
+          />
+        </div>
+      </div>
+
+      <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="p-4 bg-card rounded-md">
           <h3 className="font-medium mb-2">Nivo Horizontal Bar</h3>
           {/* @ts-ignore */}
@@ -98,49 +124,6 @@ export default function ChartsExamplesPage() {
           <h3 className="font-medium mb-2">Nivo Pie</h3>
           {/* @ts-ignore */}
           <PieChart />
-        </div>
-      </div>
-
-      <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="p-4 bg-card rounded-md">
-          <h3 className="font-medium mb-2">Apex Line (minimal)</h3>
-          {/* @ts-ignore */}
-          <ApexLineChart />
-        </div>
-        <div className="p-4 bg-card rounded-md">
-          <h3 className="font-medium mb-2">Apex Horizontal Bar (minimal)</h3>
-          {/* @ts-ignore */}
-          <ApexHorizontalBarChart />
-        </div>
-        <div className="p-4 bg-card rounded-md">
-          <h3 className="font-medium mb-2">Apex Pie (minimal)</h3>
-          {/* @ts-ignore */}
-          <ApexPieChart />
-        </div>
-      </div>
-
-      <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="p-4 bg-card rounded-md">
-          <h3 className="font-medium mb-2">Apex Bar (minimal)</h3>
-          {/* @ts-ignore */}
-          <ApexBarChart />
-        </div>
-        <div className="p-4 bg-card rounded-md">
-          <h3 className="font-medium mb-2">Apex Stacked Bar (minimal)</h3>
-          {/* @ts-ignore */}
-          <ApexStackedBarChart />
-        </div>
-        <div className="p-4 bg-card rounded-md">
-          <h3 className="font-medium mb-2">
-            Apex Stacked Horizontal Bar (minimal)
-          </h3>
-          {/* @ts-ignore */}
-          <ApexStackedHorizontalBarChart />
-        </div>
-        <div className="p-4 bg-card rounded-md">
-          <h3 className="font-medium mb-2">Apex Area (minimal)</h3>
-          {/* @ts-ignore */}
-          <ApexAreaChart />
         </div>
       </div>
     </div>

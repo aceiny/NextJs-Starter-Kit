@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import { Controller, FieldValues } from "react-hook-form";
 import { Input, NumberInput } from "@heroui/react";
 import { RHF_BASE_DEFAULTS } from "@/config/rhf/rhf-date-defaults.config";
@@ -25,7 +25,7 @@ interface RHFInputProps<T extends FieldValues> extends RHFBaseFieldProps<T> {
   onValueChange?: (value: string | number) => void;
   /** Show password visibility toggle button (for password type) */
   showPasswordToggle?: boolean;
-  
+
   // NumberInput specific props
   /** Minimum value (for number inputs) */
   minValue?: number;
@@ -78,9 +78,9 @@ export default function RHFInput<T extends FieldValues>({
   hideStepper,
   isWheelDisabled,
 }: RHFInputProps<T>) {
-//   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  //   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-//   const togglePasswordVisibility = () => setIsPasswordVisible(!isPasswordVisible);
+  //   const togglePasswordVisibility = () => setIsPasswordVisible(!isPasswordVisible);
 
   return (
     <Controller
@@ -134,12 +134,11 @@ export default function RHFInput<T extends FieldValues>({
           );
         }
 
-
         // Use regular Input for all other types
         return (
           <Input
             {...field}
-            value={field.value || ""}
+            value={field.value || undefined}
             type={type}
             label={label}
             placeholder={placeholder}

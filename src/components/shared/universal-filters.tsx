@@ -150,6 +150,23 @@ export default function UniversalFilters({
         clearTimeout(debounceTimers.current[param]);
       }
 
+      // Preprocess date-like values to string format suitable for URL
+      if (filterType === "date") {
+        // CalendarDate-like object
+        if (value && typeof value === "object" && "year" in value) {
+          const y = String((value as any).year).padStart(4, "0");
+          const m = String((value as any).month).padStart(2, "0");
+          const d = String((value as any).day).padStart(2, "0");
+          value = `${y}-${m}-${d}`;
+        } else if (value instanceof Date) {
+          value = value.toISOString().slice(0, 10); // YYYY-MM-DD
+        }
+      } else if (filterType === "datetime-local") {
+        if (value instanceof Date) {
+          value = value.toISOString();
+        }
+      }
+
       const applyFilter = () => {
         const params: Record<string, string | null> = {};
 
@@ -241,35 +258,54 @@ export default function UniversalFilters({
       className: "w-full",
     };
 
-    // Props specifically for input fields (with static label)
+    // Props specifically for input fields
     const inputProps = {
       ...commonProps,
-      labelMode: "static" as const,
     };
 
     switch (filter.type) {
-      case "select":
-        return (
-          <Field.Select
-            {...commonProps}
-            options={filter.options || []}
-            onChangeSideEffect={(value: any) =>
-              handleFilterChange(filter.param, value)
-            }
-          />
-        );
+      case "select": {
+        // Map FilterOption to SelectOption expected by RHFSelect
+        const selectOptions = (filter.options || []).map((o) => ({
+          key: o.value,
+          label: o.label,
+          value: o.value,
+          description: o.description,
+        }));
 
-      case "multiselect":
         return (
           <Field.Select
             {...commonProps}
-            options={filter.options || []}
-            isMulti
+            options={selectOptions}
+            isClearable
             onChangeSideEffect={(value: any) =>
               handleFilterChange(filter.param, value)
             }
           />
         );
+      }
+
+      case "multiselect": {
+        // Map FilterOption to SelectOption and enable multiple selection
+        const selectOptions = (filter.options || []).map((o) => ({
+          key: o.value,
+          label: o.label,
+          value: o.value,
+          description: o.description,
+        }));
+
+        return (
+          <Field.Select
+            {...commonProps}
+            options={selectOptions}
+            selectionMode="multiple"
+            isClearable
+            onChangeSideEffect={(value: any) =>
+              handleFilterChange(filter.param, value)
+            }
+          />
+        );
+      }
 
       case "checkbox":
         return (
@@ -308,10 +344,9 @@ export default function UniversalFilters({
         return (
           <Field.Input
             {...inputProps}
-            labelMode="static"
             type="number"
-            min={filter.min as number}
-            max={filter.max as number}
+            minValue={filter.min as number}
+            maxValue={filter.max as number}
             step={filter.step}
             onChangeSideEffect={(value: any) =>
               handleFilterChange(filter.param, value, "number")
@@ -320,25 +355,32 @@ export default function UniversalFilters({
         );
 
       case "date":
+        return (
+          <Field.DateInput
+            {...inputProps}
+            granularity="day"
+            onChangeSideEffect={(value: any) =>
+              handleFilterChange(filter.param, value, "date")
+            }
+          />
+        );
+
       case "datetime-local":
         return (
-          <Field.Input
+          <Field.DateInput
             {...inputProps}
-            labelMode="static"
-            type={filter.type}
+            granularity="minute"
             onChangeSideEffect={(value: any) =>
-              handleFilterChange(filter.param, value, filter.type)
+              handleFilterChange(filter.param, value, "datetime-local")
             }
           />
         );
 
       case "textarea":
         return (
-          <Field.Input
+          <Field.Textarea
             {...inputProps}
-            type="textarea"
-            labelMode="static"
-            rows={3}
+            minRows={3}
             onChangeSideEffect={(value: any) =>
               handleFilterChange(filter.param, value, "textarea")
             }
@@ -347,11 +389,14 @@ export default function UniversalFilters({
 
       default:
         // text, email, phone, etc.
+        // map 'phone' filter type to input 'tel'
+        const inputType =
+          filter.type === "phone" ? "tel" : (filter.type as any);
+
         return (
           <Field.Input
             {...inputProps}
-            type={filter.type}
-            labelMode="static"
+            type={inputType}
             onChangeSideEffect={(value: any) =>
               handleFilterChange(filter.param, value, filter.type)
             }
@@ -478,7 +523,7 @@ export default function UniversalFilters({
           className={cn(
             "absolute top-full left-0 mt-2 w-96 max-w-[calc(100vw-2rem)]",
             "bg-popover rounded-lg shadow-lg border border-border",
-            "z-[100]",
+            "z-100",
           )}
           style={{
             maxHeight: "80vh",
@@ -500,7 +545,7 @@ export default function UniversalFilters({
             className="flex flex-col min-h-0"
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-4 pb-3 border-b border-border flex-shrink-0">
+            <div className="flex items-center justify-between p-4 pb-3 border-b border-border shrink-0">
               <h3 className="text-sm font-semibold text-popover-foreground">
                 Filters
                 {activeFiltersCount > 0 && (
@@ -529,7 +574,7 @@ export default function UniversalFilters({
 
             {/* Footer Actions */}
             {config.showApplyButton && (
-              <div className="p-4 pt-3 border-t border-border flex-shrink-0">
+              <div className="p-4 pt-3 border-t border-border shrink-0">
                 <button
                   type="button"
                   onClick={handleApply}

@@ -3,10 +3,15 @@
 import * as React from "react";
 import { Controller, FieldValues, useFormContext } from "react-hook-form";
 import { DateRangePicker } from "@heroui/react";
-import { RHF_BASE_DEFAULTS, RHF_DATE_LIKE_DEFAULTS } from "../../../config/rhf/rhf-date-defaults.config";
+import {
+  RHF_BASE_DEFAULTS,
+  RHF_DATE_LIKE_DEFAULTS,
+} from "../../../config/rhf/rhf-date-defaults.config";
 import { RHFDateLikeFieldProps } from "@/types/shared/interface/rhf-date-base.interface";
 
-interface RHFDateRangePickerProps<T extends FieldValues> extends RHFDateLikeFieldProps<T> {
+interface RHFDateRangePickerProps<
+  T extends FieldValues,
+> extends RHFDateLikeFieldProps<T> {
   showMonthAndYearPickers?: boolean;
   visibleMonths?: number;
   firstDayOfWeek?: "sun" | "mon" | "tue" | "wed" | "thu" | "fri" | "sat";

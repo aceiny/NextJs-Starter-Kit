@@ -17,7 +17,7 @@ export interface InternalServerErrorViewProps {
 
 export default function InternalServerErrorView({
   title = "500 — Internal Server Error",
-  description = "Oops — something went wrong on our end. Please try again later.",
+  description = "Oops — something went wrong on our end. Please try again .",
   showButtons = true,
   primaryButton = {
     text: "Go back home",

@@ -14,7 +14,13 @@ export interface RHFBaseFieldProps<T extends FieldValues = FieldValues> {
   isRequired?: boolean;
   isReadOnly?: boolean;
   variant?: "flat" | "bordered" | "faded" | "underlined";
-  color?: "default" | "primary" | "secondary" | "success" | "warning" | "danger";
+  color?:
+    | "default"
+    | "primary"
+    | "secondary"
+    | "success"
+    | "warning"
+    | "danger";
   size?: "sm" | "md" | "lg";
   radius?: "none" | "sm" | "md" | "lg" | "full";
   labelPlacement?: "inside" | "outside" | "outside-left" | "outside-top";
@@ -27,7 +33,9 @@ export interface RHFBaseFieldProps<T extends FieldValues = FieldValues> {
 }
 
 // Props that are common to all date/time HeroUI components
-export interface RHFDateLikeFieldProps<T extends FieldValues = FieldValues> extends RHFBaseFieldProps<T> {
+export interface RHFDateLikeFieldProps<
+  T extends FieldValues = FieldValues,
+> extends RHFBaseFieldProps<T> {
   minValue?: any;
   maxValue?: any;
   placeholderValue?: any;
