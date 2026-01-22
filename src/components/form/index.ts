@@ -15,8 +15,8 @@ export { FormDescription } from "./FormDescription";
 export { FormMessage } from "./FormMessage";
 
 // Form field components
-export { RHFUniversalInput } from "./RHFUniversalInput";
-export { RHFSelect } from "./RHFSelect";
+export { default as RHFInput } from "./input/RHFInput";
+export { RHFSelect } from "./others";
 export { RHFCheckbox } from "./RHFCheckbox";
 export { RHFCheckboxGroup } from "./RHFCheckboxGroup";
 export { RHFSearchableCheckboxGroup } from "./RHFSearchableCheckboxGroup";
@@ -24,26 +24,21 @@ export { RHFRadioGroup } from "./RHFRadioGroup";
 export { RHFUpload } from "./RHFUpload";
 
 // Specialized inputs
-export { PasswordInput } from "./input/PasswordInput";
-export { DateInput } from "./input/DateInput";
-export { DateTimeInput } from "./input/DateTimeInput";
+export { RHFDatePicker, RHFDateRangePicker, RHFDateInput, RHFTimeInput } from "./date";
 
 // Type exports
-export type { SelectOption } from "./RHFSelect";
 export type { CheckboxOption } from "./RHFCheckboxGroup";
 export type { RadioOption } from "./RHFRadioGroup";
 
 // Import field components for Field object
-import { RHFUniversalInput } from "./RHFUniversalInput";
-import { RHFSelect } from "./RHFSelect";
+import { RHFSelect } from "./others";
 import { RHFCheckbox } from "./RHFCheckbox";
 import { RHFCheckboxGroup } from "./RHFCheckboxGroup";
 import { RHFSearchableCheckboxGroup } from "./RHFSearchableCheckboxGroup";
 import { RHFRadioGroup } from "./RHFRadioGroup";
 import { RHFUpload } from "./RHFUpload";
-import { PasswordInput } from "./input/PasswordInput";
-import { DateInput } from "./input/DateInput";
-import { DateTimeInput } from "./input/DateTimeInput";
+import { RHFDatePicker, RHFDateRangePicker, RHFDateInput, RHFTimeInput } from "./date";
+import { RHFInput, RHFOtp, RHFTextarea } from "./input";
 
 /**
  * Field object - Convenient access to all form field components
@@ -62,10 +57,25 @@ import { DateTimeInput } from "./input/DateTimeInput";
  */
 export const Field = {
   /**
-   * Universal input component supporting all input types
-   * Includes: text, password, email, phone, number, date, search, url, datetime-local, otp, textarea, editor
+   * HeroUI Input component (recommended)
+   * Supports: text, email, password, search, tel, url, number
+   * Modern, clean design with full HeroUI integration
    */
-  Input: RHFUniversalInput,
+  Input: RHFInput,
+
+    /**
+   * HeroUI Textarea component
+   * Supports: text, email, password, search, tel, url, number
+   * Modern, clean design with full HeroUI integration
+   */
+  Textarea: RHFTextarea,
+  
+  /**
+   * OTP (One-Time Password) input component
+   * For entering verification codes, 2FA codes, etc.
+   */
+  Otp: RHFOtp,
+
 
   /**
    * Select component supporting single and multi-select modes
@@ -102,8 +112,25 @@ export const Field = {
    * Supports single/multiple files, max file size, max count, and file type restrictions
    */
   Upload: RHFUpload,
-  // Convenient access to specialized inputs
-  Password: PasswordInput,
-  Date: DateInput,
-  DateTime: DateTimeInput,
+
+
+  /**   * HeroUI DatePicker component
+   * For selecting single dates
+   */
+  DatePicker: RHFDatePicker,
+  
+  /**   * HeroUI DateRangePicker component
+   * For selecting date ranges
+   */
+  DateRangePicker: RHFDateRangePicker,
+
+  /**   * HeroUI DateInput component
+   * For entering dates via text input
+   */
+  DateInput: RHFDateInput,
+
+  /**   * HeroUI TimeInput component
+   * For entering times via text input
+   */
+  TimeInput: RHFTimeInput,
 } as const;

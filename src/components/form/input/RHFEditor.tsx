@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useThemeMode, getThemeClasses } from "../useThemeMode";
 
-interface EditorProps {
+interface RHFEditorProps {
   value: string;
   onChange: (value: string) => void;
   disabled?: boolean;
@@ -12,14 +12,14 @@ interface EditorProps {
   theme?: "light" | "dark";
 }
 
-export const Editor: React.FC<EditorProps> = ({
+export default function RHFEditor({
   value,
   onChange,
   disabled,
   placeholder,
   className,
   theme,
-}) => {
+} : RHFEditorProps) {
   const currentTheme = useThemeMode(theme);
   const editorRef = React.useRef<HTMLDivElement>(null);
   const [activeFormats, setActiveFormats] = React.useState<Set<string>>(

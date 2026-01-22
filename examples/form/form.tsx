@@ -9,7 +9,8 @@
 
 import { useForm } from "react-hook-form";
 import { Form, Field } from "@/components/form";
-
+import { InboxLine } from '@solar-icons/react-perf/BoldDuotone';
+import { Button } from "@heroui/react";
 // Define your form data type
 interface ExampleFormData {
   // Text inputs
@@ -21,8 +22,9 @@ interface ExampleFormData {
   website: string;
   age: number;
   birthDate: string;
+  searchQuery: string;
 
-  // OTP and textarea
+  // OTP and textarea (UniversalInput only)
   verificationCode: string;
   bio: string;
   description: string;
@@ -60,6 +62,7 @@ export default function ComprehensiveFormExample() {
       website: "",
       age: 18,
       birthDate: "",
+      searchQuery: "",
       verificationCode: "",
       bio: "",
       description: "",
@@ -93,18 +96,14 @@ export default function ComprehensiveFormExample() {
           <Form form={form} onSubmit={onSubmit} className="space-y-8">
             {/* Section 1: Text Inputs */}
             <section className="space-y-4">
-              <h2 className="text-2xl font-semibold border-b-2 border-gray-300 dark:border-gray-700 pb-2 text-gray-900 dark:text-gray-100 transition-colors duration-300">
-                Text Inputs
-              </h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Field.Input
                   name="firstName"
                   type="text"
-                  placeholder="dsda"
-                  label="First Name static label"
-                  labelMode="static"
-                  required
+                  placeholder="John"
+                  label="First Name"
+                  isRequired
                 />
 
                 <Field.Input
@@ -112,8 +111,7 @@ export default function ComprehensiveFormExample() {
                   type="text"
                   label="Last Name"
                   placeholder="Doe"
-                  labelMode="static"
-                  required
+                  isRequired
                 />
               </div>
 
@@ -122,8 +120,14 @@ export default function ComprehensiveFormExample() {
                 type="email"
                 label="Email Address"
                 placeholder="john.doe@example.com"
-                required
-                helperText="We'll never share your email with anyone else"
+                isRequired
+                isClearable={false}
+                description="We'll never share your email with anyone else"
+                endContent={
+                  <Button variant="light" isIconOnly size="sm" radius="full" className="p-1!">
+                    <InboxLine size={20} className="text-gray-400" />
+                  </Button>
+                }
               />
 
               <Field.Input
@@ -131,16 +135,16 @@ export default function ComprehensiveFormExample() {
                 type="password"
                 label="Password"
                 placeholder="Enter a strong password"
-                required
-                helperText="Must be at least 8 characters (with show/hide toggle)"
-                showPasswordToggle={true} // Default is true, set to false to hide toggle
+                showPasswordToggle
+                
+                isRequired
+                description="Must be at least 8 characters"
               />
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Field.Input
                   name="phone"
-                  type="phone"
-                  labelMode="floating"
+                  type="tel"
                   label="Phone Number"
                   placeholder="+1 (555) 123-4567"
                 />
@@ -149,7 +153,6 @@ export default function ComprehensiveFormExample() {
                   name="website"
                   type="url"
                   label="Website"
-                  labelMode="floating"
                   placeholder="https://example.com"
                 />
               </div>
@@ -159,60 +162,68 @@ export default function ComprehensiveFormExample() {
                   name="age"
                   type="number"
                   label="Age"
-                  min={18}
-                  max={120}
-                  labelMode="static"
-                  required
+                  isRequired
                 />
 
                 <Field.Input
-                  name="birthDate"
-                  type="date"
-                  label="Birth Date"
-                  required
-                  labelMode="static"
-                />
-                <Field.Input
-                  name="birthDate"
-                  type="datetime-local"
-                  label="Birth Date with Time"
-                  required
+                  name="searchQuery"
+                  type="search"
+                  label="Search"
+                  placeholder="Type to search..."
+                  isClearable
+                  description="Clearable search input"
                 />
               </div>
-            </section>
 
-            {/* Section 2: OTP & Textarea */}
+              {/* Examples with start/end content */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                <Field.Input
+                  name="website"
+                  type="url"
+                  label="Website URL"
+                  placeholder="example.com"
+                  startContent={
+                    <span className="text-default-400 text-small">https://</span>
+                  }
+                  endContent={
+                    <span className="text-default-400 text-small">.com</span>
+                  }
+                />
+                <Field.DatePicker
+                  name="birthDate"
+                  label="Birth Date"
+                  showMonthAndYearPickers
+                  isRequired
+                  description="Select your birth date"
+                />
+              </div>
+
+
             <section className="space-y-4">
               <h2 className="text-2xl font-semibold border-b-2 border-gray-300 dark:border-gray-700 pb-2 text-gray-900 dark:text-gray-100 transition-colors duration-300">
-                OTP & Text Areas
+                OTP & Text Areas (Legacy UniversalInput)
               </h2>
 
-              <Field.Input
+              {/* RHF OTP Example */}
+              <Field.Otp
                 name="verificationCode"
-                type="otp"
-                label="Verification Code"
-                otpLength={6}
-                pattern="[0-9]*"
-                helperText="Enter the 6-digit code sent to your email"
+                label="Verification Code (RHF)"
+                length={6}
+                description="Enter the 6-digit code sent to your email"
+                isRequired
+                variant="bordered"
               />
 
-              <Field.Input
+              <Field.Textarea
                 name="bio"
-                type="textarea"
                 label="Bio"
-                rows={3}
+                labelPlacement="outside"
                 placeholder="Tell us about yourself..."
-                helperText="Maximum 500 characters"
-              />
-
-              <Field.Input
-                name="description"
-                type="editor"
-                label="Detailed Description"
-                placeholder="Tell us about yourself in more details"
-                helperText="Use the rich text editor to format your content"
+                description="Maximum 500 characters"
               />
             </section>
+
 
             {/* Section 3: Select Dropdowns */}
             <section className="space-y-4">
@@ -227,27 +238,29 @@ export default function ComprehensiveFormExample() {
                   type="text"
                   label="First Name"
                   placeholder="John"
-                  labelMode="floating"
                 />
 
-                <Field.Select
-                  name="countryFloating"
-                  label="Country"
-                  isMulti
-                  labelMode="floating"
-                  placeholder="Select your country"
-                  options={[
-                    { label: "United States", value: "us" },
-                    { label: "United Kingdom", value: "uk" },
-                    { label: "Canada", value: "ca" },
-                    { label: "Australia", value: "au" },
-                    { label: "Germany", value: "de" },
-                  ]}
-                />
               </div>
 
               <Field.Select
                 name="country"
+                label="Country"
+                variant="bordered"
+                options={[
+                  { label: "United States", value: "us" },
+                  { label: "United Kingdom", value: "uk" },
+                  { label: "Canada", value: "ca" },
+                  { label: "Australia", value: "au" },
+                  { label: "Germany", value: "de" },
+                ]}
+                placeholder="Select your country"
+                required
+                helperText="Select the country where you reside"
+                selectionMode="single"
+              />
+
+             <Field.Select
+                name="countryMultiple"
                 label="Country"
                 options={[
                   { label: "United States", value: "us" },
@@ -259,22 +272,7 @@ export default function ComprehensiveFormExample() {
                 placeholder="Select your country"
                 required
                 helperText="Select the country where you reside"
-              />
-
-              <Field.Select
-                name="skills"
-                label="Technical Skills"
-                options={[
-                  { label: "React", value: "react" },
-                  { label: "TypeScript", value: "typescript" },
-                  { label: "Node.js", value: "nodejs" },
-                  { label: "Python", value: "python" },
-                  { label: "Go", value: "go" },
-                  { label: "Rust", value: "rust" },
-                ]}
-                isMulti
-                maxSelect={4}
-                helperText="Select up to 4 skills"
+                selectionMode="multiple"
               />
             </section>
 
@@ -464,6 +462,7 @@ export default function ComprehensiveFormExample() {
                 {JSON.stringify(form.watch(), null, 2)}
               </pre>
             </details>
+            </section>
           </Form>
         </div>
       </div>

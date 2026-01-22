@@ -1,5 +1,6 @@
+import { CalendarDate, parseDate } from "@internationalized/date";
 import type { Dayjs } from "dayjs";
-
+import type { DateValue } from "@react-types/datepicker";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -71,4 +72,56 @@ export function fToNow(date: DatePickerFormat): string {
   }
 
   return dayjs(date).toNow(true);
+}
+
+
+/**
+ * Safely converts various date formats to CalendarDate
+ * Supports: CalendarDate objects, ISO date strings (YYYY-MM-DD), null/undefined
+ */
+export function toDateValue(value: any): DateValue | null {
+  if (!value) return null;
+  
+  // Already a DateValue object
+  if (value && typeof value === "object" && "year" in value && "month" in value && "day" in value) {
+    return value as DateValue;
+  }
+  
+  // Handle string dates (YYYY-MM-DD format)
+  if (typeof value === "string") {
+    try {
+      // Use parseDate for ISO format strings
+      if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+        return parseDate(value);
+      }
+      
+      // Fallback: manual parsing with validation
+      const parts = value.split("-");
+      if (parts.length === 3) {
+        const year = parseInt(parts[0], 10);
+        const month = parseInt(parts[1], 10);
+        const day = parseInt(parts[2], 10);
+        
+        // Validate parsed values
+        if (
+          !isNaN(year) && 
+          !isNaN(month) && 
+          !isNaN(day) &&
+          year > 0 && 
+          month >= 1 && 
+          month <= 12 && 
+          day >= 1 && 
+          day <= 31
+        ) {
+          return new CalendarDate(year, month, day);
+        }
+      }
+    } catch (error) {
+      console.warn(`Failed to parse date string: "${value}"`, error);
+      return null;
+    }
+  }
+  
+  console.warn(`Unsupported date value format:`, value);
+  return null;
 }
