@@ -1,7 +1,4 @@
-"use client";
-import AnalyticsWidgetSummary from "@/components/ui/analytics-widget-summary";
-import { Users, Podcast } from "lucide-react";
-import { ActionButton } from "@/components/ui/action-button";
+"use client";;
 import {
   HorizontalBarChart,
   PieChart,
@@ -15,43 +12,52 @@ import {
   ApexAreaChart,
   ApexStackedHorizontalBarChart,
 } from "@/components/chart";
+
+import { TrendCard, MetricCard, StatusCard } from "@/components/kpi";
+import { UsersGroupRounded, ServerSquare } from "@solar-icons/react-perf/Linear";
 export default function ChartsExamplesPage() {
   return (
     <div className="container min-w-screen min-h-screen  p-10 space-y-8 ">
       <h1 className="text-2xl font-bold">Charts & Analytics Examples</h1>
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <AnalyticsWidgetSummary
-          title="Users"
-          total={18765}
-          percent={2.6}
-          icon={<Users />}
-          chartType="mini-bars"
-          chartData={[
-            { label: "Mon", visits: 40 },
-            { label: "Tue", visits: 60 },
-            { label: "Wed", visits: 45 },
-            { label: "Thu", visits: 70 },
-            { label: "Fri", visits: 55 },
-          ]}
-          dataKey="visits"
-        />
+      {/* KPI Cards Examples */}
+      <section className="mt-8">
+        <h2 className="text-xl font-medium mb-4">KPI Cards Examples</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* Trend card */}
+          <div className="p-4 bg-card rounded-md">
+            <h3 className="font-medium mb-2">Trend Card</h3>
+            {/* @ts-ignore */}
+            <TrendCard
+              title="Total Revenue"
+              value="$228,451"
+              change="33%"
+              trendChipVariant="flat"
+              changeType="positive"
+              trendType="up"
+            />
+          </div>
 
-        <AnalyticsWidgetSummary
-          title="Posts"
-          total={3232323}
-          color="#FFE1D1"
-          percent={-12}
-          icon={<Podcast />}
-          chartType="sparkline"
-          chartData={[
-            { label: "Mon", visits: 40 },
-            { label: "Tue", visits: 60 },
-            { label: "Wed", visits: 45 },
-            { label: "Thu", visits: 70 },
-            { label: "Fri", visits: 55 },
-          ]}
-          dataKey="visits"
-        />
+          {/* Metric card */}
+          <div className="p-4 bg-card rounded-md">
+            <h3 className="font-medium ">Metric Card</h3>
+            {/* @ts-ignore */}
+            <MetricCard
+              title="Total Users"
+              value="5,400"
+              change="33%"  
+              trendChipPosition="bottom"
+              changeType="positive"
+              icon={<UsersGroupRounded width={20} />}
+            />
+          </div>
+
+          {/* Status card */}
+          <div className="p-4 bg-card rounded-md">
+            <h3 className="font-medium mb-2">Status Card</h3>
+            {/* @ts-ignore */}
+            <StatusCard title="Server Load" value={38} status="good" icon={<ServerSquare size={20} />} />
+          </div>
+        </div>
       </section>
 
       <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
