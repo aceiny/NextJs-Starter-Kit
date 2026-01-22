@@ -1,8 +1,8 @@
-"use client";;
+"use client";
 import { Card, Chip, cn, Button } from "@heroui/react";
-import { ArrowRightUp } from '@solar-icons/react-perf/Linear';
-import { ArrowRight } from '@solar-icons/react-perf/Linear';
-import { ArrowRightDown } from '@solar-icons/react-perf/Linear';
+import { ArrowRightUp } from "@solar-icons/react-perf/Linear";
+import { ArrowRight } from "@solar-icons/react-perf/Linear";
+import { ArrowRightDown } from "@solar-icons/react-perf/Linear";
 import React from "react";
 export type MetricCardProps = {
   title: string;
@@ -29,25 +29,33 @@ export default function MetricCard({
     <Card className="dark:border-default-100 border border-transparent">
       <div className="flex items-start gap-4 p-4">
         <div
-          className={cn("mt-1 flex h-8 w-8 items-center justify-center rounded-md", {
-            "bg-success-50": changeType === "positive",
-            "bg-warning-50": changeType === "neutral",
-            "bg-danger-50": changeType === "negative",
-          })}
-        >
-          {icon && (
-            React.isValidElement(icon)
-              ? React.cloneElement(icon as React.ReactElement<any>, {
-                  className: cn(((icon as any)?.props?.className) ?? undefined, {
-                    "text-success": changeType === "positive",
-                    "text-warning": changeType === "neutral",
-                    "text-danger": changeType === "negative",
-                  }),
-                  width: (icon as any)?.props?.width ?? 20,
-                  height: (icon as any)?.props?.height ?? 20,
-                } as any)
-              : icon
+          className={cn(
+            "mt-1 flex h-8 w-8 items-center justify-center rounded-md",
+            {
+              "bg-success-50": changeType === "positive",
+              "bg-warning-50": changeType === "neutral",
+              "bg-danger-50": changeType === "negative",
+            },
           )}
+        >
+          {icon &&
+            (React.isValidElement(icon)
+              ? React.cloneElement(
+                  icon as React.ReactElement<any>,
+                  {
+                    className: cn(
+                      (icon as any)?.props?.className ?? undefined,
+                      {
+                        "text-success": changeType === "positive",
+                        "text-warning": changeType === "neutral",
+                        "text-danger": changeType === "negative",
+                      },
+                    ),
+                    width: (icon as any)?.props?.width ?? 20,
+                    height: (icon as any)?.props?.height ?? 20,
+                  } as any,
+                )
+              : icon)}
         </div>
 
         <div className="flex flex-col gap-y-2 ">
@@ -62,7 +70,13 @@ export default function MetricCard({
               "bottom-4": trendChipPosition === "bottom",
             })}
             classNames={{ content: "font-semibold text-[0.65rem]" }}
-            color={changeType === "positive" ? "success" : changeType === "neutral" ? "warning" : "danger"}
+            color={
+              changeType === "positive"
+                ? "success"
+                : changeType === "neutral"
+                  ? "warning"
+                  : "danger"
+            }
             radius="sm"
             size="sm"
             startContent={

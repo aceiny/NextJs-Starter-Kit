@@ -110,12 +110,12 @@ export default function ApexPieChart({
         {displayedIndex !== null && labels?.[displayedIndex] !== undefined ? (
           <div className="text-center">
             <div
-              className={`text-lg font-bold ${isDark ? "text-slate-200" : "text-slate-600"}`}
+              className={`text-lg font-bold ${isDark ? "text-gray-400" : "text-slate-600"}`}
             >
               {labels[displayedIndex]}
             </div>
             <div
-              className={`text-md font-semibold ${isDark ? "text-white" : "text-slate-900"}`}
+              className={`text-xl font-semibold ${isDark ? "text-white" : "text-slate-900"}`}
             >
               {series?.[displayedIndex]}
             </div>

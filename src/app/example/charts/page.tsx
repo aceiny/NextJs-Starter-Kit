@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import {
   HorizontalBarChart,
   PieChart,
@@ -14,7 +14,10 @@ import {
 } from "@/components/chart";
 
 import { TrendCard, MetricCard, StatusCard } from "@/components/kpi";
-import { UsersGroupRounded, ServerSquare } from "@solar-icons/react-perf/Linear";
+import {
+  UsersGroupRounded,
+  ServerSquare,
+} from "@solar-icons/react-perf/Linear";
 export default function ChartsExamplesPage() {
   return (
     <div className="container min-w-screen min-h-screen  p-10 space-y-8 ">
@@ -33,6 +36,7 @@ export default function ChartsExamplesPage() {
               change="33%"
               trendChipVariant="flat"
               changeType="positive"
+              trendChipPosition="top"
               trendType="up"
             />
           </div>
@@ -44,8 +48,8 @@ export default function ChartsExamplesPage() {
             <MetricCard
               title="Total Users"
               value="5,400"
-              change="33%"  
-              trendChipPosition="bottom"
+              change="33%"
+              trendChipPosition="top"
               changeType="positive"
               icon={<UsersGroupRounded width={20} />}
             />
@@ -55,7 +59,12 @@ export default function ChartsExamplesPage() {
           <div className="p-4 bg-card rounded-md">
             <h3 className="font-medium mb-2">Status Card</h3>
             {/* @ts-ignore */}
-            <StatusCard title="Server Load" value={38} status="good" icon={<ServerSquare size={20} />} />
+            <StatusCard
+              title="Server Load"
+              value={38}
+              status="good"
+              icon={<ServerSquare size={20} />}
+            />
           </div>
         </div>
       </section>

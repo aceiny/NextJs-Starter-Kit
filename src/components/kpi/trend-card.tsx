@@ -1,8 +1,8 @@
-"use client";;
+"use client";
 import { Card, Chip, cn } from "@heroui/react";
-import { ArrowRightUp } from '@solar-icons/react-perf/Linear';
-import { ArrowRight } from '@solar-icons/react-perf/Linear';
-import { ArrowRightDown } from '@solar-icons/react-perf/Linear';
+import { ArrowRightUp } from "@solar-icons/react-perf/Linear";
+import { ArrowRight } from "@solar-icons/react-perf/Linear";
+import { ArrowRightDown } from "@solar-icons/react-perf/Linear";
 export type TrendCardProps = {
   title: string;
   value: string;
@@ -19,7 +19,7 @@ export default function TrendCard({
   change,
   changeType,
   trendType = "up",
-  trendChipPosition = "bottom",
+  trendChipPosition = "top",
   trendChipVariant = "light",
 }: TrendCardProps) {
   return (
@@ -37,7 +37,11 @@ export default function TrendCard({
           })}
           classNames={{ content: "font-medium text-[0.65rem]" }}
           color={
-            changeType === "positive" ? "success" : changeType === "neutral" ? "warning" : "danger"
+            changeType === "positive"
+              ? "success"
+              : changeType === "neutral"
+                ? "warning"
+                : "danger"
           }
           radius="sm"
           size="sm"

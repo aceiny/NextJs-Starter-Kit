@@ -1,8 +1,17 @@
-"use client";;
-import { Button, Card, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Progress, cn } from "@heroui/react";
-import { MenuDots } from '@solar-icons/react-perf/Bold';
-import { ServerSquare, SdCard } from '@solar-icons/react-perf/Linear';
-import React from 'react';
+"use client";
+import {
+  Button,
+  Card,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+  Progress,
+  cn,
+} from "@heroui/react";
+import { MenuDots } from "@solar-icons/react-perf/Bold";
+import { ServerSquare, SdCard } from "@solar-icons/react-perf/Linear";
+import React from "react";
 export type StatusCardProps = {
   title: string;
   value: number;
@@ -12,15 +21,28 @@ export type StatusCardProps = {
   onExport?: () => void;
 };
 
-export default function StatusCard({ title, value, status, icon, onViewDetails, onExport }: StatusCardProps) {
+export default function StatusCard({
+  title,
+  value,
+  status,
+  icon,
+  onViewDetails,
+  onExport,
+}: StatusCardProps) {
   return (
     <Card className="dark:border-default-100 flex flex-col border border-transparent p-4">
       <div
-        className={cn("flex h-8 mb-2 w-8 items-center justify-center rounded-md border p-0.5", {
-          "border-success-200 bg-success-50 dark:border-success-100": status === "good",
-          "border-warning-200 bg-warning-50 dark:border-warning-100": status === "warn",
-          "border-danger-200 bg-danger-50 dark:border-danger-100": status === "danger",
-        })}
+        className={cn(
+          "flex h-8 mb-2 w-8 items-center justify-center rounded-md border p-0.5",
+          {
+            "border-success-200 bg-success-50 dark:border-success-100":
+              status === "good",
+            "border-warning-200 bg-warning-50 dark:border-warning-100":
+              status === "warn",
+            "border-danger-200 bg-danger-50 dark:border-danger-100":
+              status === "danger",
+          },
+        )}
       >
         {icon ? (
           icon
@@ -38,17 +60,40 @@ export default function StatusCard({ title, value, status, icon, onViewDetails, 
         <dd className="text-default-700 text-2xl font-semibold">{value}%</dd>
       </div>
 
-      <Progress aria-label="status" className="mt-2" color={status === "good" ? "success" : status === "warn" ? "warning" : "danger"} value={value} />
+      <Progress
+        aria-label="status"
+        className="mt-2"
+        color={
+          status === "good"
+            ? "success"
+            : status === "warn"
+              ? "warning"
+              : "danger"
+        }
+        value={value}
+      />
 
-      <Dropdown classNames={{ content: "min-w-[120px]" }} placement="bottom-end">
+      <Dropdown
+        classNames={{ content: "min-w-[120px]" }}
+        placement="bottom-end"
+      >
         <DropdownTrigger>
-          <Button isIconOnly className="absolute top-2 right-2 w-auto rounded-full" size="sm" variant="light">
+          <Button
+            isIconOnly
+            className="absolute top-2 right-2 w-auto rounded-full"
+            size="sm"
+            variant="light"
+          >
             <MenuDots size={16} />
           </Button>
         </DropdownTrigger>
         <DropdownMenu itemClasses={{ title: "text-tiny" }} variant="flat">
-          <DropdownItem key="view-details" onClick={onViewDetails}>View Details</DropdownItem>
-          <DropdownItem key="export-data" onClick={onExport}>Export Data</DropdownItem>
+          <DropdownItem key="view-details" onClick={onViewDetails}>
+            View Details
+          </DropdownItem>
+          <DropdownItem key="export-data" onClick={onExport}>
+            Export Data
+          </DropdownItem>
           <DropdownItem key="set-alert">Set Alert</DropdownItem>
         </DropdownMenu>
       </Dropdown>

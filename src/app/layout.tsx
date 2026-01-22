@@ -12,7 +12,6 @@ const inter = Inter({
   display: "swap",
 });
 
-
 export const metadata: Metadata = {
   title: "NextJs Starter Kit",
   description: "Made by Aceiny",
@@ -25,9 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${inter.variable} antialiased`}
-      >
+      <body className={`${inter.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <ReactQueryProvider>
             <NextTopLoader />
