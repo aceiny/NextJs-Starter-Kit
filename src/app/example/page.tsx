@@ -8,6 +8,10 @@ import {
   ChevronRight,
   Menu,
   Filter,
+  Layers,
+  FileX,
+  AlertCircle,
+  ShieldAlert,
 } from "lucide-react";
 
 interface ExampleCardProps {
@@ -62,6 +66,14 @@ function ExampleCard({
 }
 
 const examples: ExampleCardProps[] = [
+  {
+    title: "Tabs Component",
+    description:
+      "Flexible tabbed interfaces with icons, badges, and multiple layout options. Supports controlled state and vertical/horizontal layouts.",
+    href: "/example/tabs",
+    icon: <Layers className="h-6 w-6" />,
+    docPath: "docs/TABS_DOCUMENTATION.md",
+  },
   {
     title: "DataTable & Empty/Error States",
     description:
@@ -171,6 +183,65 @@ export default function ExamplesPage() {
           </div>
         </section>
 
+        {/* Error Pages Section */}
+        <section className="mt-12">
+          <h2 className="mb-6 text-lg font-semibold text-gray-900 dark:text-gray-100">
+            Error Pages
+          </h2>
+          <div className="grid gap-6 sm:grid-cols-3">
+            <Link
+              href="/example/404"
+              className="group relative flex flex-col gap-4 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:border-blue-300 hover:shadow-lg dark:border-gray-800 dark:bg-gray-950 dark:hover:border-blue-700"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 text-white transition-transform duration-300 group-hover:scale-110">
+                <FileX className="h-6 w-6" />
+              </div>
+              <div>
+                <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
+                  404 Not Found
+                </h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  Page not found error state
+                </p>
+              </div>
+            </Link>
+
+            <Link
+              href="/example/500"
+              className="group relative flex flex-col gap-4 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:border-red-300 hover:shadow-lg dark:border-gray-800 dark:bg-gray-950 dark:hover:border-red-700"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-red-500 to-orange-500 text-white transition-transform duration-300 group-hover:scale-110">
+                <AlertCircle className="h-6 w-6" />
+              </div>
+              <div>
+                <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
+                  500 Server Error
+                </h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  Internal server error state
+                </p>
+              </div>
+            </Link>
+
+            <Link
+              href="/example/403"
+              className="group relative flex flex-col gap-4 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:border-yellow-300 hover:shadow-lg dark:border-gray-800 dark:bg-gray-950 dark:hover:border-yellow-700"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-yellow-500 to-orange-500 text-white transition-transform duration-300 group-hover:scale-110">
+                <ShieldAlert className="h-6 w-6" />
+              </div>
+              <div>
+                <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
+                  403 Access Denied
+                </h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  Permission denied error state
+                </p>
+              </div>
+            </Link>
+          </div>
+        </section>
+
         {/* Documentation Links */}
         <section className="mt-12">
           <h2 className="mb-4 text-lg font-semibold text-gray-900 dark:text-gray-100">
@@ -178,6 +249,14 @@ export default function ExamplesPage() {
           </h2>
           <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-950">
             <ul className="space-y-3 text-sm">
+              <li>
+                <code className="rounded bg-gray-100 px-2 py-1 font-mono text-xs dark:bg-gray-800">
+                  docs/TABS_DOCUMENTATION.md
+                </code>
+                <span className="ml-2 text-gray-500 dark:text-gray-400">
+                  - Tabs component documentation
+                </span>
+              </li>
               <li>
                 <code className="rounded bg-gray-100 px-2 py-1 font-mono text-xs dark:bg-gray-800">
                   docs/DATA_TABLE_DOCUMENTATION.md

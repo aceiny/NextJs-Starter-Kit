@@ -49,17 +49,28 @@ components/form/
 ├── FormControl.tsx                    # Input wrapper
 ├── FormDescription.tsx                # Helper text
 ├── FormMessage.tsx                    # Error messages
-├── RHFUniversalInput.tsx             # Text, password, email, number, date, OTP, textarea, editor
-├── RHFSelect.tsx                      # Dropdown (single/multi-select)
 ├── RHFCheckbox.tsx                    # Single checkbox
 ├── RHFCheckboxGroup.tsx              # Multiple checkboxes
 ├── RHFSearchableCheckboxGroup.tsx    # Searchable checkbox list
 ├── RHFRadioGroup.tsx                 # Radio button group
 ├── RHFUpload.tsx                      # File upload (single/multiple)
 ├── useThemeMode.ts                    # Theme management hook
-├── ThemeProvider.tsx                  # Theme provider wrapper
-├── ThemeToggle.tsx                    # Theme toggle button
-└── index.ts                           # Exports all components
+├── index.ts                           # Exports all components
+├── input/
+│   ├── RHFInput.tsx                   # Text, email, password, number inputs
+│   ├── RHFTextarea.tsx                # Textarea input
+│   ├── RHFOtp.tsx                     # OTP input
+│   ├── RHFEditor.tsx                  # Rich text editor
+│   └── index.ts
+├── date/
+│   ├── RHFDatePicker.tsx              # Date picker
+│   ├── RHFDateRangePicker.tsx         # Date range picker
+│   ├── RHFDateInput.tsx               # Date input
+│   ├── RHFTimeInput.tsx               # Time input
+│   └── index.ts
+└── others/
+    ├── RHFSelect.tsx                  # Dropdown (single/multi-select)
+    └── index.ts
 ```
 
 ### Basic Setup
@@ -180,9 +191,9 @@ function MyForm() {
 
 ## Input Types
 
-### Field.Input (Universal Input Component)
+### Field.Input - Text-based Inputs
 
-Handles multiple input types through a single interface.
+HeroUI Input component for text, email, password, search, tel, url, and number types.
 
 #### Text Input
 
@@ -192,8 +203,8 @@ Handles multiple input types through a single interface.
   type="text"
   label="First Name"
   placeholder="John"
-  required
-  helperText="Enter your legal first name"
+  isRequired
+  description="Enter your legal first name"
 />
 ```
 
@@ -205,11 +216,11 @@ Handles multiple input types through a single interface.
   type="email"
   label="Email Address"
   placeholder="john@example.com"
-  required
+  isRequired
 />
 ```
 
-#### Password Input (with show/hide toggle)
+#### Password Input
 
 ```tsx
 <Field.Input
@@ -217,13 +228,10 @@ Handles multiple input types through a single interface.
   type="password"
   label="Password"
   placeholder="Enter password"
-  showPasswordToggle={true} // Default: true
-  required
-  helperText="Must be at least 8 characters"
+  isRequired
+  description="Must be at least 8 characters"
 />
 ```
-
-Set `showPasswordToggle={false}` to disable the eye icon.
 
 #### Number Input
 
@@ -232,10 +240,10 @@ Set `showPasswordToggle={false}` to disable the eye icon.
   name="age"
   type="number"
   label="Age"
-  min={18}
-  max={120}
+  minValue={18}
+  maxValue={120}
   step={1}
-  required
+  isRequired
 />
 ```
 
@@ -244,83 +252,158 @@ Set `showPasswordToggle={false}` to disable the eye icon.
 ```tsx
 <Field.Input
   name="phone"
-  type="phone"
+  type="tel"
   label="Phone Number"
   placeholder="+1 (555) 123-4567"
 />
 ```
 
-#### Date Input
-
-```tsx
-<Field.Input name="birthDate" type="date" label="Birth Date" required />
-```
-
-#### DateTime Input
+#### Search Input
 
 ```tsx
 <Field.Input
-  name="appointmentTime"
-  type="datetime-local"
-  label="Appointment Date & Time"
-  required
+  name="search"
+  type="search"
+  label="Search"
+  placeholder="Search..."
+  isClearable
 />
 ```
 
-#### OTP Input (Shadcn-style individual boxes)
+#### URL Input
 
 ```tsx
 <Field.Input
+  name="website"
+  type="url"
+  label="Website"
+  placeholder="https://example.com"
+/>
+```
+
+---
+
+### Field.Textarea
+
+HeroUI Textarea component for multi-line text input.
+
+```tsx
+<Field.Textarea
+  name="bio"
+  label="Bio"
+  placeholder="Tell us about yourself..."
+  description="Maximum 500 characters"
+  minRows={4}
+  maxRows={8}
+/>
+```
+
+**Props:**
+
+- `minRows` - Minimum number of rows
+- `maxRows` - Maximum number of rows
+- `disableAutosize` - Disable automatic resizing
+- `minLength` - Minimum character length
+- `maxLength` - Maximum character length
+
+---
+
+### Field.Otp
+
+HeroUI InputOtp component for verification codes.
+
+```tsx
+<Field.Otp
   name="verificationCode"
-  type="otp"
   label="Verification Code"
-  otpLength={6} // Default: 6
-  pattern="[0-9]*"
-  helperText="Enter the 6-digit code sent to your email"
+  length={6}
+  allowedKeys="^[0-9]*$"
+  description="Enter the 6-digit code sent to your email"
 />
 ```
 
-Features:
+**Features:**
 
-- Individual character boxes (like shadcn)
+- Individual character boxes
 - Auto-focuses next box on entry
 - Backspace navigates to previous box
 - Arrow keys for navigation
 - Paste support (pastes full code)
-- Always uses static label (not floating)
 
-#### Textarea
+**Props:**
+
+- `length` - Number of characters (default: 6)
+- `allowedKeys` - Regex pattern for allowed characters
+- `textAlign` - Text alignment in boxes
+
+---
+
+### Field.DatePicker
+
+HeroUI DatePicker component for selecting dates.
 
 ```tsx
-<Field.Input
-  name="bio"
-  type="textarea"
-  label="Bio"
-  rows={4}
-  placeholder="Tell us about yourself..."
-  helperText="Maximum 500 characters"
+<Field.DatePicker
+  name="birthDate"
+  label="Birth Date"
+  isRequired
+  showMonthAndYearPickers
 />
 ```
 
-#### Rich Text Editor
+**Props:**
+
+- `showMonthAndYearPickers` - Show month/year selection
+- `visibleMonths` - Number of visible months
+- `minValue` - Minimum selectable date
+- `maxValue` - Maximum selectable date
+- `granularity` - Time granularity (day, hour, minute, second)
+
+---
+
+### Field.DateRangePicker
+
+HeroUI DateRangePicker component for selecting date ranges.
 
 ```tsx
-<Field.Input
-  name="content"
-  type="editor"
-  label="Article Content"
-  placeholder="Write your content..."
-  helperText="Use the toolbar to format text"
+<Field.DateRangePicker
+  name="dateRange"
+  label="Date Range"
+  isRequired
+  showMonthAndYearPickers
 />
 ```
 
-**Note:** The editor is a placeholder. Replace with your preferred rich text editor (TipTap, Quill, Slate, etc.)
+---
+
+### Field.DateInput
+
+HeroUI DateInput component for entering dates via text.
+
+```tsx
+<Field.DateInput
+  name="startDate"
+  label="Start Date"
+  placeholderValue={new CalendarDate(2024, 1, 1)}
+  isRequired
+/>
+```
+
+---
+
+### Field.TimeInput
+
+HeroUI TimeInput component for entering times.
+
+```tsx
+<Field.TimeInput name="appointmentTime" label="Appointment Time" isRequired />
+```
 
 ---
 
 ### Field.Select (Dropdown)
 
-Custom dropdown component (not native `<select>`).
+HeroUI Select component supporting single and multi-select.
 
 #### Single Select
 
@@ -329,13 +412,13 @@ Custom dropdown component (not native `<select>`).
   name="country"
   label="Country"
   options={[
-    { label: "United States", value: "us" },
-    { label: "United Kingdom", value: "uk" },
-    { label: "Canada", value: "ca" },
+    { key: "us", label: "United States", value: "us" },
+    { key: "uk", label: "United Kingdom", value: "uk" },
+    { key: "ca", label: "Canada", value: "ca" },
   ]}
   placeholder="Select your country"
-  required
-  helperText="Select the country where you reside"
+  isRequired
+  description="Select the country where you reside"
 />
 ```
 
@@ -346,13 +429,39 @@ Custom dropdown component (not native `<select>`).
   name="skills"
   label="Technical Skills"
   options={[
-    { label: "React", value: "react" },
-    { label: "TypeScript", value: "typescript" },
-    { label: "Node.js", value: "nodejs" },
+    { key: "react", label: "React", value: "react" },
+    { key: "typescript", label: "TypeScript", value: "typescript" },
+    { key: "nodejs", label: "Node.js", value: "nodejs" },
   ]}
-  isMulti
-  maxSelect={3} // Optional: limit selections
-  helperText="Select up to 3 skills"
+  selectionMode="multiple"
+  description="Select your skills"
+/>
+```
+
+#### With Sections
+
+```tsx
+<Field.Select
+  name="role"
+  label="Role"
+  sections={[
+    {
+      key: "admin",
+      title: "Admin Roles",
+      items: [
+        { key: "superadmin", label: "Super Admin", value: "superadmin" },
+        { key: "admin", label: "Admin", value: "admin" },
+      ],
+    },
+    {
+      key: "user",
+      title: "User Roles",
+      items: [
+        { key: "member", label: "Member", value: "member" },
+        { key: "guest", label: "Guest", value: "guest" },
+      ],
+    },
+  ]}
 />
 ```
 
@@ -363,11 +472,21 @@ Custom dropdown component (not native `<select>`).
   name="role"
   label="Role"
   options={[
-    { label: "Admin", value: "admin", disabled: true },
-    { label: "User", value: "user" },
+    { key: "admin", label: "Admin", value: "admin" },
+    { key: "user", label: "User", value: "user" },
   ]}
+  disabledKeys={["admin"]}
 />
 ```
+
+**Props:**
+
+- `options` - Array of select options
+- `sections` - Grouped options with section headers
+- `selectionMode` - "single" or "multiple"
+- `disabledKeys` - Array of disabled option keys
+- `isLoading` - Show loading state
+- `isVirtualized` - Enable virtualization for large lists
 
 ---
 
@@ -377,13 +496,13 @@ Custom dropdown component (not native `<select>`).
 <Field.Checkbox
   name="acceptTerms"
   label="I accept the terms and conditions"
-  required
+  isRequired
 />
 
 <Field.Checkbox
   name="newsletter"
   label="Subscribe to newsletter"
-  helperText="Receive updates about new features"
+  description="Receive updates about new features"
   disabled={false}
 />
 ```
@@ -402,7 +521,7 @@ Custom dropdown component (not native `<select>`).
     { label: "Marketing Emails", value: "marketing" },
     { label: "Event Notifications", value: "events" },
   ]}
-  helperText="Choose the types of emails you'd like to receive"
+  description="Choose the types of emails you'd like to receive"
 />
 ```
 
@@ -437,7 +556,7 @@ For large lists of options with search functionality.
   ]}
   placeholder="Search languages..."
   maxHeight="300px" // Scrollable height
-  helperText="Search and select languages you know"
+  description="Search and select languages you know"
 />
 ```
 
@@ -462,7 +581,7 @@ Features:
     { label: "Female", value: "female" },
     { label: "Other", value: "other" },
   ]}
-  required
+  isRequired
 />
 ```
 
@@ -495,7 +614,7 @@ Features:
       description: "Pay with your PayPal account",
     },
   ]}
-  required
+  isRequired
 />
 ```
 
@@ -516,7 +635,7 @@ Three upload styles: `default`, `avatar`, `button`.
   maxFiles={3}
   maxSize={10 * 1024 * 1024} // 10MB per file
   showPreview
-  helperText="Upload up to 3 documents"
+  description="Upload up to 3 documents"
 />
 ```
 
@@ -844,41 +963,83 @@ const onSubmit = async (data: FormData) => {
 
 ### Common Props (All Components)
 
-| Prop         | Type                | Default  | Description                             |
-| ------------ | ------------------- | -------- | --------------------------------------- |
-| `name`       | `Path<T>`           | Required | Field name matching form schema         |
-| `label`      | `string`            | -        | Label text displayed above/around field |
-| `helperText` | `string`            | -        | Helper text displayed below field       |
-| `required`   | `boolean`           | `false`  | Whether field is required               |
-| `disabled`   | `boolean`           | `false`  | Whether field is disabled               |
-| `className`  | `string`            | -        | Additional CSS classes                  |
-| `theme`      | `"light" \| "dark"` | System   | Force specific theme                    |
+| Prop          | Type      | Default  | Description                             |
+| ------------- | --------- | -------- | --------------------------------------- |
+| `name`        | `Path<T>` | Required | Field name matching form schema         |
+| `label`       | `string`  | -        | Label text displayed above/around field |
+| `description` | `string`  | -        | Description text displayed below field  |
+| `isRequired`  | `boolean` | `false`  | Whether field is required               |
+| `isDisabled`  | `boolean` | `false`  | Whether field is disabled               |
+| `isReadOnly`  | `boolean` | `false`  | Whether field is read-only              |
+| `className`   | `string`  | -        | Additional CSS classes                  |
 
-### Field.Input Props
+### Field.Input Props (HeroUI Input)
 
-| Prop                 | Type                     | Default      | Description                              |
-| -------------------- | ------------------------ | ------------ | ---------------------------------------- |
-| `type`               | `UniversalInputType`     | `"text"`     | Input type (text, email, password, etc.) |
-| `placeholder`        | `string`                 | -            | Placeholder text                         |
-| `rows`               | `number`                 | `4`          | Textarea rows                            |
-| `otpLength`          | `number`                 | `6`          | OTP character count                      |
-| `pattern`            | `string`                 | `"[0-9]*"`   | OTP validation pattern                   |
-| `min`                | `number`                 | -            | Number input minimum                     |
-| `max`                | `number`                 | -            | Number input maximum                     |
-| `step`               | `number`                 | -            | Number input step                        |
-| `labelMode`          | `"floating" \| "static"` | `"floating"` | Label position mode                      |
-| `showPasswordToggle` | `boolean`                | `true`       | Show/hide password toggle                |
-| `onChangeSideEffect` | `(value: any) => void`   | -            | Side effect callback                     |
+| Prop                 | Type                   | Default  | Description                     |
+| -------------------- | ---------------------- | -------- | ------------------------------- |
+| `type`               | `string`               | `"text"` | HTML input type                 |
+| `placeholder`        | `string`               | -        | Placeholder text                |
+| `variant`            | HeroUI Variant         | -        | Input style variant             |
+| `radius`             | HeroUI Radius          | -        | Border radius                   |
+| `size`               | HeroUI Size            | -        | Input size                      |
+| `labelPlacement`     | HeroUI LabelPlacement  | -        | Label positioning               |
+| `onChangeSideEffect` | `(value: any) => void` | -        | Side effect callback            |
+| `startContent`       | `ReactNode`            | -        | Icon/content at start of input  |
+| `endContent`         | `ReactNode`            | -        | Icon/content at end of input    |
+| `isClearable`        | `boolean`              | `false`  | Show clear button               |
+| `errorMessage`       | `string`               | -        | Custom error message (from RHF) |
 
-### Field.Select Props
+### Field.Textarea Props (HeroUI Textarea)
 
-| Prop                 | Type                   | Default  | Description                   |
-| -------------------- | ---------------------- | -------- | ----------------------------- |
-| `options`            | `SelectOption[]`       | Required | Array of options              |
-| `placeholder`        | `string`               | -        | Placeholder text              |
-| `isMulti`            | `boolean`              | `false`  | Enable multi-select           |
-| `maxSelect`          | `number`               | -        | Max selections (multi-select) |
-| `onChangeSideEffect` | `(value: any) => void` | -        | Side effect callback          |
+| Prop                 | Type                   | Default | Description                 |
+| -------------------- | ---------------------- | ------- | --------------------------- |
+| `placeholder`        | `string`               | -       | Placeholder text            |
+| `minRows`            | `number`               | `3`     | Minimum rows                |
+| `maxRows`            | `number`               | -       | Maximum rows (auto-expands) |
+| `variant`            | HeroUI Variant         | -       | Textarea style variant      |
+| `radius`             | HeroUI Radius          | -       | Border radius               |
+| `size`               | HeroUI Size            | -       | Textarea size               |
+| `onChangeSideEffect` | `(value: any) => void` | -       | Side effect callback        |
+
+### Field.Otp Props (HeroUI InputOtp)
+
+| Prop                 | Type                   | Default | Description             |
+| -------------------- | ---------------------- | ------- | ----------------------- |
+| `length`             | `number`               | `6`     | Number of OTP digits    |
+| `variant`            | HeroUI Variant         | -       | OTP input style variant |
+| `onChangeSideEffect` | `(value: any) => void` | -       | Side effect callback    |
+
+### Field.Select Props (HeroUI Select)
+
+| Prop                 | Type                     | Default    | Description                            |
+| -------------------- | ------------------------ | ---------- | -------------------------------------- |
+| `options`            | `SelectOption[]`         | Required   | Array of options                       |
+| `sections`           | `SelectSection[]`        | -          | Grouped sections with options          |
+| `placeholder`        | `string`                 | -          | Placeholder text                       |
+| `selectionMode`      | `"single" \| "multiple"` | `"single"` | Single or multi-select mode            |
+| `disabledKeys`       | `string[]`               | -          | Array of disabled option keys          |
+| `isLoading`          | `boolean`                | `false`    | Show loading spinner                   |
+| `isVirtualized`      | `boolean`                | `false`    | Enable virtual scrolling (large lists) |
+| `variant`            | HeroUI Variant           | -          | Select style variant                   |
+| `radius`             | HeroUI Radius            | -          | Border radius                          |
+| `size`               | HeroUI Size              | -          | Select size                            |
+| `onChangeSideEffect` | `(value: any) => void`   | -          | Side effect callback                   |
+
+### Field.DatePicker Props (HeroUI DatePicker)
+
+| Prop                 | Type                   | Default | Description              |
+| -------------------- | ---------------------- | ------- | ------------------------ |
+| `placeholder`        | `string`               | -       | Placeholder text         |
+| `variant`            | HeroUI Variant         | -       | DatePicker style variant |
+| `radius`             | HeroUI Radius          | -       | Border radius            |
+| `size`               | HeroUI Size            | -       | DatePicker size          |
+| `onChangeSideEffect` | `(value: any) => void` | -       | Side effect callback     |
+
+### Field.Checkbox Props
+
+| Prop                 | Type                       | Default | Description          |
+| -------------------- | -------------------------- | ------- | -------------------- |
+| `onChangeSideEffect` | `(value: boolean) => void` | -       | Side effect callback |
 
 ### Field.CheckboxGroup Props
 
@@ -957,7 +1118,7 @@ export function LoginForm() {
         type="email"
         label="Email"
         placeholder="you@example.com"
-        required
+        isRequired
       />
 
       <Field.Input
@@ -965,7 +1126,7 @@ export function LoginForm() {
         type="password"
         label="Password"
         placeholder="Enter password"
-        required
+        isRequired
       />
 
       <Field.Checkbox name="rememberMe" label="Remember me" />
@@ -1016,21 +1177,20 @@ export function ProfileForm() {
           name="firstName"
           label="First Name"
           placeholder="John"
-          required
+          isRequired
         />
         <Field.Input
           name="lastName"
           label="Last Name"
           placeholder="Doe"
-          required
+          isRequired
         />
       </div>
 
-      <Field.Input
+      <Field.Textarea
         name="bio"
-        type="textarea"
         label="Bio"
-        rows={4}
+        minRows={4}
         placeholder="Tell us about yourself..."
       />
 
@@ -1038,12 +1198,12 @@ export function ProfileForm() {
         name="country"
         label="Country"
         options={[
-          { label: "United States", value: "us" },
-          { label: "United Kingdom", value: "uk" },
-          { label: "Canada", value: "ca" },
+          { key: "us", label: "United States", value: "us" },
+          { key: "uk", label: "United Kingdom", value: "uk" },
+          { key: "ca", label: "Canada", value: "ca" },
         ]}
         placeholder="Select country"
-        required
+        isRequired
       />
 
       <Field.Upload
@@ -1192,9 +1352,9 @@ export function MultiStepForm() {
       {step === 1 && (
         <>
           <h2>Personal Information</h2>
-          <Field.Input name="firstName" label="First Name" required />
-          <Field.Input name="lastName" label="Last Name" required />
-          <Field.Input name="email" type="email" label="Email" required />
+          <Field.Input name="firstName" label="First Name" isRequired />
+          <Field.Input name="lastName" label="Last Name" isRequired />
+          <Field.Input name="email" type="email" label="Email" isRequired />
           <button type="button" onClick={() => setStep(2)}>Next</button>
         </>
       )}
@@ -1206,9 +1366,9 @@ export function MultiStepForm() {
             name="country"
             label="Country"
             options={[...]}
-            required
+            isRequired
           />
-          <Field.Input name="phone" type="phone" label="Phone" />
+          <Field.Input name="phone" type="tel" label="Phone" />
           <button type="button" onClick={() => setStep(1)}>Back</button>
           <button type="button" onClick={() => setStep(3)}>Next</button>
         </>

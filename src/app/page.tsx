@@ -1,6 +1,8 @@
+"use client";
 import Link from "next/link";
 import { APP_PATHS } from "@/shared/constants/paths";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { Button } from "@heroui/react";
 import {
   Github,
   ArrowRight,
@@ -12,6 +14,7 @@ import {
   MessageSquare,
   Menu,
   Filter,
+  Sparkles,
 } from "lucide-react";
 
 export default function Home() {
@@ -63,23 +66,31 @@ export default function Home() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <Link
+            <Button
+              as={Link}
               href={APP_PATHS.EXAMPLE}
-              className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold rounded-xl hover:bg-gray-800 dark:hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+              color="primary"
+              size="lg"
+              radius="lg"
+              endContent={<ArrowRight className="w-5 h-5" />}
+              className="font-semibold shadow-lg"
             >
               View Examples
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-            </Link>
+            </Button>
 
-            <a
+            <Button
+              as="a"
               href="https://github.com/aceiny/NextJs-Starter-Kit"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white font-semibold rounded-xl border-2 border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-300 shadow-sm hover:shadow-md transform hover:scale-105"
+              variant="bordered"
+              size="lg"
+              radius="lg"
+              startContent={<Github className="w-5 h-5" />}
+              className="font-semibold"
             >
-              <Github className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
               Star on GitHub
-            </a>
+            </Button>
           </div>
         </div>
 
@@ -220,20 +231,28 @@ export default function Home() {
 
         {/* CTA Section */}
         <div className="mt-24 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-6">
+            <Sparkles className="w-4 h-4" />
+            <span className="text-sm font-medium">Get Started</span>
+          </div>
           <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
             Ready to start building?
           </h3>
           <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
             Check out the example page to see all components in action —
-            including the new Charts & Analytics demos.
+            including the new Tabs & Charts demos.
           </p>
-          <Link
+          <Button
+            as={Link}
             href={APP_PATHS.EXAMPLE}
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+            color="primary"
+            size="lg"
+            radius="lg"
+            endContent={<ArrowRight className="w-5 h-5" />}
+            className="font-semibold shadow-lg bg-gradient-to-r from-blue-600 to-purple-600"
           >
             View Live Examples
-            <ArrowRight className="w-5 h-5" />
-          </Link>
+          </Button>
         </div>
       </main>
 

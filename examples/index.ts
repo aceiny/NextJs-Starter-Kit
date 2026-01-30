@@ -24,6 +24,9 @@ export { ComprehensiveFormExample } from "./form";
 // Dropdown examples
 export { ActionMenuExamples } from "./dropdown";
 
+// Tabs examples
+export { TabsExample } from "./tabs";
+
 // Data display examples
 export { DataTableExamples } from "./data-display";
 
