@@ -1,12 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "@/lib/utils";
-import {
-  Tooltip as TooltipPrimitive,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Tooltip } from "@heroui/react";
 
 // ============================================================
 // TYPES
@@ -48,30 +43,27 @@ export interface CustomTooltipProps {
 }
 
 // ============================================================
-// VARIANT STYLES
+// VARIANT TO COLOR MAPPING
 // ============================================================
 
-const variantStyles: Record<TooltipVariant, string> = {
-  default: "bg-foreground text-background",
-  info: "bg-blue-600 text-white dark:bg-blue-500",
-  success: "bg-green-600 text-white dark:bg-green-500",
-  warning: "bg-amber-500 text-white dark:bg-amber-400 dark:text-gray-900",
-  error: "bg-red-600 text-white dark:bg-red-500",
+const variantToColor = {
+  default: "default" as const,
+  info: "primary" as const,
+  success: "success" as const,
+  warning: "warning" as const,
+  error: "danger" as const,
 };
 
-const arrowStyles: Record<TooltipVariant, string> = {
-  default: "fill-foreground",
-  info: "fill-blue-600 dark:fill-blue-500",
-  success: "fill-green-600 dark:fill-green-500",
-  warning: "fill-amber-500 dark:fill-amber-400",
-  error: "fill-red-600 dark:fill-red-500",
-};
+// ============================================================
+// PLACEMENT MAPPING
+// ============================================================
 
-const sizeStyles: Record<TooltipSize, string> = {
-  sm: "text-xs px-2 py-1",
-  md: "text-sm px-3 py-1.5",
-  lg: "text-base px-4 py-2",
-};
+const placementMap = {
+  top: "top",
+  bottom: "bottom",
+  left: "left",
+  right: "right",
+} as const;
 
 // ============================================================
 // COMPONENT
@@ -81,63 +73,33 @@ export function CustomTooltip({
   content,
   children,
   side = "top",
-  align = "center",
   delayDuration = 200,
-  sideOffset = 4,
+  sideOffset = 7,
   variant = "default",
   size = "md",
   disabled = false,
   className,
-  showArrow = true,
-  maxWidth = 300,
+  showArrow = false,
 }: CustomTooltipProps) {
   if (disabled) {
     return <>{children}</>;
   }
 
   return (
-    <TooltipPrimitive delayDuration={delayDuration}>
-      <TooltipTrigger asChild>{children}</TooltipTrigger>
-      <TooltipContent
-        side={side}
-        align={align}
-        sideOffset={sideOffset}
-        className={cn(
-          "z-50 rounded-md shadow-md",
-          "animate-in fade-in-0 zoom-in-95",
-          "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
-          "data-[side=bottom]:slide-in-from-top-2",
-          "data-[side=left]:slide-in-from-right-2",
-          "data-[side=right]:slide-in-from-left-2",
-          "data-[side=top]:slide-in-from-bottom-2",
-          variantStyles[variant],
-          sizeStyles[size],
-          className,
-        )}
-        style={{
-          maxWidth: typeof maxWidth === "number" ? `${maxWidth}px` : maxWidth,
-        }}
-      >
-        {content}
-        {showArrow && (
-          <div
-            className={cn(
-              "absolute size-2.5 rotate-45 rounded-[2px]",
-              arrowStyles[variant],
-              // Position arrow based on side
-              side === "top" &&
-                "bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2",
-              side === "bottom" &&
-                "top-0 left-1/2 -translate-x-1/2 -translate-y-1/2",
-              side === "left" &&
-                "right-0 top-1/2 translate-x-1/2 -translate-y-1/2",
-              side === "right" &&
-                "left-0 top-1/2 -translate-x-1/2 -translate-y-1/2",
-            )}
-          />
-        )}
-      </TooltipContent>
-    </TooltipPrimitive>
+    <Tooltip
+      content={content}
+      placement={placementMap[side]}
+      delay={delayDuration}
+      offset={sideOffset}
+      color={variantToColor[variant]}
+      size={size}
+      showArrow={showArrow}
+      classNames={{
+        base: className,
+      }}
+    >
+      {children}
+    </Tooltip>
   );
 }
 

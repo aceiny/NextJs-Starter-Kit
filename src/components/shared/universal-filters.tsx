@@ -1,22 +1,19 @@
 "use client";
 import { useForm } from "react-hook-form";
 import React, {
-  useState,
-  useEffect,
-  useMemo,
-  useCallback,
-  useRef,
+    useState,
+    useEffect,
+    useMemo,
+    useCallback,
+    useRef,
 } from "react";
 import { cn } from "@/lib/utils";
 import { Form, Field } from "@/components/form";
 import {
-  FilterConfig,
-  FiltersConfig,
+    FilterConfig,
+    FiltersConfig,
 } from "@/types/shared/interface/filter-config.interface";
-import {
-  useAllSearchParams,
-  useSetQueryParams,
-} from "@/hooks/shared/use-query-params";
+import { useQueryStates, parseAsString } from "nuqs";
 import { RotateCcw, Filter, ChevronDown, ChevronUp } from "lucide-react";
 import { useClickOutside } from "@/hooks/shared/useClickOutside";
 
@@ -61,15 +58,30 @@ export default function UniversalFilters({
   dropdownIcon = <Filter />,
   dropdownButtonSize = "md",
 }: UniversalFiltersProps) {
-  const allParams = useAllSearchParams();
-  const { setMultipleParams } = useSetQueryParams();
+  // Build query states config from filter config
+  const queryStatesConfig = useMemo(() => {
+    const stateConfig: Record<string, any> = {};
+    config.filters.forEach((filter) => {
+      // Use parseAsString for all filters - we'll handle type conversion in getDefaultValues
+      stateConfig[filter.param] = parseAsString;
+    });
+    return stateConfig;
+  }, [config.filters]);
+
+  const [allParams, setAllParams] = useQueryStates(queryStatesConfig, {
+    history: "replace", // Use replace to avoid polluting browser history
+  });
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   // Debounce timers for input fields
   const debounceTimers = useRef<Record<string, NodeJS.Timeout>>({});
 
   // Memoize params to prevent infinite loops
-  const memoizedParams = useMemo(() => allParams, [JSON.stringify(allParams)]);
+  const memoizedParams = useMemo(
+    () => allParams,
+    [JSON.stringify(allParams)]
+  );
 
   // Close dropdown when clicking outside
   const dropdownRef = useClickOutside(() => {
@@ -168,30 +180,26 @@ export default function UniversalFilters({
       }
 
       const applyFilter = () => {
-        const params: Record<string, string | null> = {};
-
         // Handle array values
         if (Array.isArray(value)) {
-          params[param] = value.length > 0 ? value.join(",") : null;
+          setAllParams({ [param]: value.length > 0 ? value.join(",") : null });
         }
-        // Handle empty/null values - DON'T set to "all"
+        // Handle empty/null values
         else if (value === "" || value === null || value === undefined) {
-          params[param] = null;
+          setAllParams({ [param]: null });
         }
         // Handle "all" explicitly - clear the filter
         else if (value === "all") {
-          params[param] = null;
+          setAllParams({ [param]: null });
         }
         // Handle boolean values
         else if (typeof value === "boolean") {
-          params[param] = String(value);
+          setAllParams({ [param]: String(value) });
         }
         // Handle other values
         else {
-          params[param] = String(value);
+          setAllParams({ [param]: String(value) });
         }
-
-        setMultipleParams({ params, replace: true });
       };
 
       // Debounce text inputs (text, email, phone, number, search, etc.)
@@ -211,7 +219,7 @@ export default function UniversalFilters({
         applyFilter();
       }
     },
-    [setMultipleParams],
+    [setAllParams],
   );
 
   // Reset all filters
@@ -222,7 +230,7 @@ export default function UniversalFilters({
       resetParams[filter.param] = null;
     });
 
-    setMultipleParams({ params: resetParams, replace: true });
+    setAllParams(resetParams);
     form.reset({});
 
     if (config.onReset) {

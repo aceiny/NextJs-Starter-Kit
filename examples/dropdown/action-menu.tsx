@@ -25,8 +25,7 @@ import {
   Video,
   Music,
 } from "lucide-react";
-import { Button, Avatar } from "@heroui/react";
-import { toast } from "sonner";
+import { Button, Avatar, addToast } from "@heroui/react";
 import ActionMenu from "@/components/shared/DropdownActionMenu";
 
 export function ActionMenuExamples() {
@@ -63,25 +62,25 @@ export function ActionMenuExamples() {
                     id: "copy",
                     label: "Copy",
                     icon: Copy,
-                    onClick: () => toast.info("Copied!"),
+                    onClick: () => addToast({ title: "Copied!", color: "primary" }),
                   },
                   {
                     id: "edit",
                     label: "Edit",
                     icon: Edit,
-                    onClick: () => toast.info("Edit clicked"),
+                    onClick: () => addToast({ title: "Edit clicked", color: "primary" }),
                   },
                   {
                     id: "share",
                     label: "Share",
                     icon: Share,
-                    onClick: () => toast.info("Share clicked"),
+                    onClick: () => addToast({ title: "Share clicked", color: "primary" }),
                   },
                   {
                     id: "download",
                     label: "Download",
                     icon: Download,
-                    onClick: () => toast.info("Download clicked"),
+                    onClick: () => addToast({ title: "Download clicked", color: "primary" }),
                     showDivider: true,
                   },
                   {
@@ -89,7 +88,7 @@ export function ActionMenuExamples() {
                     label: "Delete",
                     icon: Trash2,
                     variant: "destructive",
-                    onClick: () => toast.error("Deleted!"),
+                    onClick: () => addToast({ title: "Deleted!", color: "danger" }),
                   },
                 ]}
               />
@@ -115,21 +114,21 @@ export function ActionMenuExamples() {
                   label: "Copy",
                   icon: Copy,
                   shortcut: "⌘C",
-                  onClick: () => toast.info("Copied!"),
+                  onClick: () => addToast({ title: "Copied!", color: "primary" }),
                 },
                 {
                   id: "paste",
                   label: "Paste",
                   icon: Edit,
                   shortcut: "⌘V",
-                  onClick: () => toast.info("Pasted!"),
+                  onClick: () => addToast({ title: "Pasted!", color: "primary" }),
                 },
                 {
                   id: "cut",
                   label: "Cut",
                   icon: Trash2,
                   shortcut: "⌘X",
-                  onClick: () => toast.info("Cut!"),
+                  onClick: () => addToast({ title: "Cut!", color: "primary" }),
                 },
               ]}
               variant="bordered"
@@ -156,19 +155,19 @@ export function ActionMenuExamples() {
                   id: "user",
                   label: "New User",
                   icon: User,
-                  onClick: () => toast.info("New user"),
+                  onClick: () => addToast({ title: "New user", color: "primary" }),
                 },
                 {
                   id: "team",
                   label: "New Team",
                   icon: Users,
-                  onClick: () => toast.info("New team"),
+                  onClick: () => addToast({ title: "New team", color: "primary" }),
                 },
                 {
                   id: "project",
                   label: "New Project",
                   icon: Archive,
-                  onClick: () => toast.info("New project"),
+                  onClick: () => addToast({ title: "New project", color: "primary" }),
                 },
               ]}
             />
@@ -193,27 +192,27 @@ export function ActionMenuExamples() {
                       id: "profile",
                       label: "View Profile",
                       icon: User,
-                      onClick: () => toast.info("Profile"),
+                      onClick: () => addToast({ title: "Profile", color: "primary" }),
                     },
                     {
                       id: "billing",
                       label: "Billing",
                       icon: CreditCard,
-                      onClick: () => toast.info("Billing"),
+                      onClick: () => addToast({ title: "Billing", color: "primary" }),
                     },
                     {
                       id: "settings",
                       label: "Settings",
                       icon: Settings,
                       shortcut: "⌘S",
-                      onClick: () => toast.info("Settings"),
+                      onClick: () => addToast({ title: "Settings", color: "primary" }),
                     },
                     {
                       id: "shortcuts",
                       label: "Keyboard Shortcuts",
                       icon: Keyboard,
                       shortcut: "⌘K",
-                      onClick: () => toast.info("Shortcuts"),
+                      onClick: () => addToast({ title: "Shortcuts", color: "primary" }),
                     },
                   ],
                 },
@@ -226,13 +225,13 @@ export function ActionMenuExamples() {
                       id: "support",
                       label: "Support",
                       icon: LifeBuoy,
-                      onClick: () => toast.info("Support"),
+                      onClick: () => addToast({ title: "Support", color: "primary" }),
                     },
                     {
                       id: "api",
                       label: "API",
                       icon: Cloud,
-                      onClick: () => toast.info("API"),
+                      onClick: () => addToast({ title: "API", color: "primary" }),
                     },
                   ],
                 },
@@ -246,7 +245,7 @@ export function ActionMenuExamples() {
                       icon: LogOut,
                       shortcut: "⇧⌘Q",
                       variant: "destructive",
-                      onClick: () => toast.info("Logged out"),
+                      onClick: () => addToast({ title: "Logged out", color: "primary" }),
                     },
                   ],
                 },
@@ -272,7 +271,7 @@ export function ActionMenuExamples() {
                   const selected = Array.from(keys)[0];
                   if (selected) {
                     setSelectedTheme(String(selected));
-                    toast.success(`Theme changed to ${selected}`);
+                    addToast({ title: `Theme changed to ${selected}`, color: "success" });
                   }
                 }}
                 items={[
@@ -305,7 +304,7 @@ export function ActionMenuExamples() {
                 const selected = Array.from(keys)[0];
                 if (selected) {
                   setSelectedTheme(String(selected));
-                  toast.success(`Theme changed to ${selected}`);
+                  addToast({ title: `Theme changed to ${selected}`, color: "success" });
                 }
               }}
               items={[
@@ -344,7 +343,7 @@ export function ActionMenuExamples() {
               selectedKeys={selectedFiles}
               onSelectionChange={(keys: any) => {
                 setSelectedFiles(keys as Set<React.Key>);
-                toast.info(`${(keys as Set<React.Key>).size} items selected`);
+                addToast({ title: `${(keys as Set<React.Key>).size} items selected`, color: "primary" });
               }}
               items={[
                 { id: "images", label: "Images", icon: ImageIcon },
@@ -370,7 +369,7 @@ export function ActionMenuExamples() {
                 selectedKeys={selectedFiles}
                 onSelectionChange={(keys: any) => {
                   setSelectedFiles(keys as Set<React.Key>);
-                  toast.info(`${(keys as Set<React.Key>).size} items selected`);
+                  addToast({ title: `${(keys as Set<React.Key>).size} items selected`, color: "primary" });
                 }}
                 items={[
                   { id: "images", label: "Images", icon: ImageIcon },
@@ -401,21 +400,21 @@ export function ActionMenuExamples() {
                   label: "Download",
                   description: "Save file to your device",
                   icon: Download,
-                  onClick: () => toast.info("Download started"),
+                  onClick: () => addToast({ title: "Download started", color: "primary" }),
                 },
                 {
                   id: "share",
                   label: "Share",
                   description: "Share with your team",
                   icon: Share,
-                  onClick: () => toast.info("Share dialog opened"),
+                  onClick: () => addToast({ title: "Share dialog opened", color: "primary" }),
                 },
                 {
                   id: "archive",
                   label: "Archive",
                   description: "Move to archive folder",
                   icon: Archive,
-                  onClick: () => toast.info("Archived"),
+                  onClick: () => addToast({ title: "Archived", color: "primary" }),
                 },
               ]}
               variant="faded"
@@ -453,13 +452,13 @@ export function ActionMenuExamples() {
                       id: "profile",
                       label: "View Profile",
                       icon: User,
-                      onClick: () => toast.info("Profile"),
+                      onClick: () => addToast({ title: "Profile", color: "primary" }),
                     },
                     {
                       id: "settings",
                       label: "Settings",
                       icon: Settings,
-                      onClick: () => toast.info("Settings"),
+                      onClick: () => addToast({ title: "Settings", color: "primary" }),
                     },
                   ],
                 },
@@ -472,7 +471,7 @@ export function ActionMenuExamples() {
                       label: "Log out",
                       icon: LogOut,
                       variant: "destructive",
-                      onClick: () => toast.info("Logged out"),
+                      onClick: () => addToast({ title: "Logged out", color: "primary" }),
                     },
                   ],
                 },
@@ -497,14 +496,14 @@ export function ActionMenuExamples() {
                       id: "edit",
                       label: "Edit",
                       icon: Edit,
-                      onClick: () => toast.info("Edit"),
+                      onClick: () => addToast({ title: "Edit", color: "primary" }),
                     },
                     {
                       id: "delete",
                       label: "Delete",
                       icon: Trash2,
                       variant: "destructive",
-                      onClick: () => toast.error("Delete"),
+                      onClick: () => addToast({ title: "Delete", color: "danger" }),
                     },
                   ]}
                 />
@@ -520,14 +519,14 @@ export function ActionMenuExamples() {
                       id: "edit",
                       label: "Edit",
                       icon: Edit,
-                      onClick: () => toast.info("Edit"),
+                      onClick: () => addToast({ title: "Edit", color: "primary" }),
                     },
                     {
                       id: "delete",
                       label: "Delete",
                       icon: Trash2,
                       variant: "destructive",
-                      onClick: () => toast.error("Delete"),
+                      onClick: () => addToast({ title: "Delete", color: "danger" }),
                     },
                   ]}
                 />
@@ -611,14 +610,14 @@ export function ActionMenuExamples() {
                       label: "Open",
                       shortcut: "⌘O",
                       icon: FileText,
-                      onClick: () => toast.info("Open"),
+                      onClick: () => addToast({ title: "Open", color: "primary" }),
                     },
                     {
                       id: "save",
                       label: "Save",
                       icon: Download,
                       shortcut: "⌘S",
-                      onClick: () => toast.info("Save"),
+                      onClick: () => addToast({ title: "Save", color: "primary" }),
                     },
                   ],
                 },
@@ -630,17 +629,17 @@ export function ActionMenuExamples() {
                     {
                       id: "pdf",
                       label: "PDF",
-                      onClick: () => toast.info("Export as PDF"),
+                      onClick: () => addToast({ title: "Export as PDF", color: "primary" }),
                     },
                     {
                       id: "csv",
                       label: "CSV",
-                      onClick: () => toast.info("Export as CSV"),
+                      onClick: () => addToast({ title: "Export as CSV", color: "primary" }),
                     },
                     {
                       id: "xlsx",
                       label: "Excel",
-                      onClick: () => toast.info("Export as Excel"),
+                      onClick: () => addToast({ title: "Export as Excel", color: "primary" }),
                     },
                   ],
                 },

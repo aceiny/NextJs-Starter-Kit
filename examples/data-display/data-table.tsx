@@ -6,7 +6,7 @@ import { ActionMenu } from "@/components/shared/DropdownActionMenu";
 import { Button } from "@/components/ui/button";
 import { EmptyState, ErrorState, LoadingState } from "@/components/state";
 import { Edit, Trash2, Eye, Copy, Mail } from "lucide-react";
-import { toast } from "sonner";
+import { addToast } from "@heroui/react";
 
 // ============================================================
 // SAMPLE DATA
@@ -220,12 +220,18 @@ export function DataTableExamples() {
 
   // Handle bulk actions
   const handleBulkDelete = () => {
-    toast.error(`Deleted ${selectedKeys.size} user(s)`);
+    addToast({
+      title: `Deleted ${selectedKeys.size} user(s)`,
+      color: "danger",
+    });
     setSelectedKeys(new Set());
   };
 
   const handleBulkEmail = () => {
-    toast.info(`Sending email to ${selectedKeys.size} user(s)`);
+    addToast({
+      title: `Sending email to ${selectedKeys.size} user(s)`,
+      color: "primary",
+    });
     setSelectedKeys(new Set());
   };
 
@@ -302,7 +308,7 @@ export function DataTableExamples() {
           title="Team Members"
           showHeader
           actionLabel="Add Member"
-          onActionClick={() => toast.info("Add member clicked!")}
+          onActionClick={() => addToast({ title: "Add member clicked!", color: "primary" })}
           isLoading={showLoading}
           error={showError ? new Error("Sample error") : undefined}
           errorTitle="Failed to load team members"
@@ -344,13 +350,13 @@ export function DataTableExamples() {
                     id: "view",
                     label: "View Profile",
                     icon: Eye,
-                    onClick: () => toast.info(`Viewing ${row.name}'s profile`),
+                    onClick: () => addToast({ title: `Viewing ${row.name}'s profile`, color: "primary" }),
                   },
                   {
                     id: "edit",
                     label: "Edit",
                     icon: Edit,
-                    onClick: () => toast.info(`Editing ${row.name}`),
+                    onClick: () => addToast({ title: `Editing ${row.name}`, color: "primary" }),
                   },
                   {
                     id: "copy",
@@ -358,7 +364,7 @@ export function DataTableExamples() {
                     icon: Copy,
                     onClick: () => {
                       navigator.clipboard.writeText(row.email);
-                      toast.success("Email copied to clipboard");
+                      addToast({ title: "Email copied to clipboard", color: "success" });
                     },
                     showDivider: true,
                   },
@@ -367,7 +373,7 @@ export function DataTableExamples() {
                     label: "Delete",
                     icon: Trash2,
                     variant: "destructive",
-                    onClick: () => toast.error(`Deleted ${row.name}`),
+                    onClick: () => addToast({ title: `Deleted ${row.name}`, color: "danger" }),
                   },
                 ]}
               />
@@ -539,7 +545,7 @@ export function DataTableExamples() {
               title="Something went wrong"
               message="Please try again later."
               size="sm"
-              onRetry={() => toast.info("Retrying...")}
+              onRetry={() => addToast({ title: "Retrying...", color: "primary" })}
             />
           </div>
           <div className="rounded-lg border border-border bg-card p-4">
@@ -551,7 +557,7 @@ export function DataTableExamples() {
               title="Critical error"
               message="Unable to process your request."
               size="sm"
-              onRetry={() => toast.info("Retrying...")}
+              onRetry={() => addToast({ title: "Retrying...", color: "primary" })}
             />
           </div>
           <div className="rounded-lg border border-border bg-card p-4">
@@ -563,7 +569,7 @@ export function DataTableExamples() {
               title="Connection lost"
               message="Check your internet connection."
               size="sm"
-              onRetry={() => toast.info("Retrying...")}
+              onRetry={() => addToast({ title: "Retrying...", color: "primary" })}
             />
           </div>
           <div className="rounded-lg border border-border bg-card p-4">
@@ -575,7 +581,7 @@ export function DataTableExamples() {
               title="Server error"
               message="The server is temporarily unavailable."
               size="sm"
-              onRetry={() => toast.info("Retrying...")}
+              onRetry={() => addToast({ title: "Retrying...", color: "primary" })}
             />
           </div>
           <div className="rounded-lg border border-border bg-card p-4">

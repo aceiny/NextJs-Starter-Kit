@@ -3777,6 +3777,11 @@
   resolved "https://registry.yarnpkg.com/@solar-icons/react-perf/-/react-perf-2.0.3.tgz#e093a174babbb17683efb997e7de8bd921188ad0"
   integrity sha512-H68mbj1Pi/XDXLn5B0GR6c0UqkJ7r6dx43fmqa23TNO+SQETtI8rJCGxFLLJldJN5epdYpziNqBxe2ZlgpzUCA==
 
+"@standard-schema/spec@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@standard-schema/spec/-/spec-1.0.0.tgz#f193b73dc316c4170f2e82a881da0f550d551b9c"
+  integrity sha512-m2bOd0f2RT9k8QJx1JN85cZYyH1RqFBdlwtkSlf4tBDYLCiiZnv1fIIwacK6cqwXavOydf0NPToMQgpKq+dVlA==
+
 "@standard-schema/utils@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@standard-schema/utils/-/utils-0.3.0.tgz#3d5e608f16c2390c10528e98e59aef6bf73cae7b"
@@ -7052,6 +7057,13 @@ nprogress@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/nprogress/-/nprogress-0.2.0.tgz#cb8f34c53213d895723fcbab907e9422adbcafb1"
   integrity sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==
+
+nuqs@^2.8.7:
+  version "2.8.7"
+  resolved "https://registry.yarnpkg.com/nuqs/-/nuqs-2.8.7.tgz#911ffba0d30500390d7d472d6b820aad9a0687e8"
+  integrity sha512-wxzRUKn9ENnhX2jU5fBjpekaZZOSxmTzUqS4U2yMrpOaPU6ee7VUqSyHx81c/3FRyDFnFETTLjdsA+ZNKq2jhg==
+  dependencies:
+    "@standard-schema/spec" "1.0.0"
 
 object-assign@^4.1.1:
   version "4.1.1"

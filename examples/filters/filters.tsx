@@ -1,11 +1,13 @@
 "use client";
 import UniversalFilters from "@/components/shared/universal-filters";
 import { FiltersConfig } from "@/types/shared/interface/filter-config.interface";
-import { useAllSearchParams } from "@/hooks/shared/use-query-params";
+import { useSearchParams } from "next/navigation";
 import { SlidersHorizontal, Package, Users, Calendar } from "lucide-react";
 
 export default function UniversalFiltersExample() {
-  const params = useAllSearchParams();
+  // Get all search params for display purposes
+  const searchParams = useSearchParams();
+  const params = Object.fromEntries(searchParams.entries());
 
   // Example 1: User Management Filters (Tabs Mode)
   const userFilters: FiltersConfig = {

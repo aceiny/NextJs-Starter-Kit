@@ -1,7 +1,4 @@
-import {
-  useSearchParams,
-  useSetQueryParams,
-} from "@/hooks/shared/use-query-params";
+import { useQueryStates, parseAsInteger } from "nuqs";
 import { Params } from "@/shared/constants/params";
 import { PaginationProps } from "@/types/pagination/pagination-props.interface";
 
@@ -37,9 +34,16 @@ export const usePagination = ({
   initialPageSize = 10,
   rowsPerPageOptions = [5, 10, 20, 50],
 }: UsePaginationProps = {}): UsePaginationReturn => {
-  const pageParam = useSearchParams(Params.PAGE_INDEX);
-  const pageSizeParam = useSearchParams(Params.PAGE_SIZE);
-  const { setParam } = useSetQueryParams();
+  // Use nuqs for client-side pagination
+  const [params, setParams] = useQueryStates(
+    {
+      [Params.PAGE_INDEX]: parseAsInteger.withDefault(1),
+      [Params.PAGE_SIZE]: parseAsInteger.withDefault(initialPageSize),
+    },
+    {
+      history: "replace", // Use replace to avoid polluting browser history
+    }
+  );
 
   // Determine if this is server-side (values provided) or client-side (read from URL)
   const isServerSide =
@@ -54,28 +58,20 @@ export const usePagination = ({
     pageSize = currentPageSize!;
   } else {
     // Client-side: read from URL and convert to 0-based for UI
-    pageIndex = pageParam ? Number(pageParam) - 1 : 0; // Convert from 1-based URL to 0-based UI
-    pageSize = pageSizeParam ? Number(pageSizeParam) : initialPageSize;
+    pageIndex = params[Params.PAGE_INDEX] - 1; // Convert from 1-based URL to 0-based UI
+    pageSize = params[Params.PAGE_SIZE];
   }
 
   const handlePageChange = (newPage: number) => {
-    const urlPageValue = isServerSide
-      ? newPage.toString()
-      : (newPage + 1).toString();
-    setParam({
-      name: Params.PAGE_INDEX,
-      value: urlPageValue,
-      replace: true,
-    });
+    const urlPageValue = isServerSide ? newPage : newPage + 1;
+    setParams({ [Params.PAGE_INDEX]: urlPageValue });
   };
 
   const handlePageSizeChange = (newSize: number) => {
-    setParam({
-      name: Params.PAGE_SIZE,
-      value: newSize.toString(),
-      replace: true,
+    setParams({
+      [Params.PAGE_SIZE]: newSize,
+      [Params.PAGE_INDEX]: 1, // Always reset to page 1
     });
-    setParam({ name: Params.PAGE_INDEX, value: "1", replace: true }); // Always reset to page 1
   };
 
   const pagination = (totalCount: number): PaginationProps => ({

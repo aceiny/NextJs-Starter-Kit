@@ -3,8 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import ReactQueryProvider from "@/providers/react-query.provider";
 import { ThemeProvider } from "@/providers/theme.provider";
-import { Toaster } from "@/components/ui/sonner";
+import { ToastProvider } from "@heroui/toast";
 import NextTopLoader from "nextjs-toploader";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -27,15 +28,18 @@ export default function RootLayout({
       <body className={`${inter.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <ReactQueryProvider>
-            <NextTopLoader />
-            {children}
-            <Toaster
-              position="top-right"
-              duration={3000}
-              richColors
-              closeButton
-              visibleToasts={5}
-            />
+            <NuqsAdapter>
+              <ToastProvider
+                placement="bottom-right"
+                toastProps={{
+                  timeout: 3000,
+                  variant: "flat",
+                }}
+                maxVisibleToasts={5}
+              />
+                <NextTopLoader />
+                {children}
+            </NuqsAdapter>
           </ReactQueryProvider>
         </ThemeProvider>
       </body>

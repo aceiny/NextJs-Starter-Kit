@@ -1,6 +1,6 @@
 "use client";
 
-import { toast } from "sonner";
+import { addToast } from "@heroui/react";
 import { Button } from "@/components/ui/button";
 import { toastMessages } from "@/shared/constants/toast-messages";
 
@@ -9,35 +9,61 @@ export function SonnerTypes() {
     <div className="flex flex-wrap gap-2">
       <Button
         variant="outline"
-        onClick={() => toast(toastMessages.default.eventCreated)}
+        onClick={() =>
+          addToast({
+            title: toastMessages.default.eventCreated,
+            color: "default",
+          })
+        }
       >
         Default
       </Button>
 
       <Button
         variant="outline"
-        onClick={() => toast.success(toastMessages.success.eventCreated)}
+        onClick={() =>
+          addToast({
+            title: toastMessages.success.eventCreated,
+            color: "success",
+          })
+        }
       >
         Success
       </Button>
 
       <Button
         variant="outline"
-        onClick={() => toast.info(toastMessages.info.arriveEarly)}
+        onClick={() =>
+          addToast({
+            title: "Information",
+            description: toastMessages.info.arriveEarly,
+            color: "primary",
+          })
+        }
       >
         Info
       </Button>
 
       <Button
         variant="outline"
-        onClick={() => toast.warning(toastMessages.warning.tooEarly)}
+        onClick={() =>
+          addToast({
+            title: toastMessages.warning.tooEarly,
+            color: "warning",
+          })
+        }
       >
         Warning
       </Button>
 
       <Button
         variant="outline"
-        onClick={() => toast.error(toastMessages.error.eventFailed)}
+        onClick={() =>
+          addToast({
+            title: toastMessages.error.eventFailed,
+            color: "danger",
+          })
+        }
       >
         Error
       </Button>
@@ -45,17 +71,36 @@ export function SonnerTypes() {
       <Button
         variant="outline"
         onClick={() => {
-          toast.promise(
-            () =>
-              new Promise<{ name: string }>((resolve) =>
-                setTimeout(() => resolve({ name: "Event" }), 2000),
-              ),
-            {
-              loading: toastMessages.promise.loading,
-              success: toastMessages.promise.success,
-              error: toastMessages.promise.error,
-            },
-          );
+          const promise = new Promise<{ name: string }>((resolve, reject) => {
+            setTimeout(() => {
+              const success = Math.random() > 0.3;
+              if (success) {
+                resolve({ name: "Event" });
+              } else {
+                reject(new Error("Failed to create event"));
+              }
+            }, 3000);
+          });
+
+          promise
+            .then((data) => {
+              addToast({
+                title: toastMessages.promise.success(data),
+                color: "success",
+              });
+            })
+            .catch(() => {
+              addToast({
+                title: toastMessages.promise.error,
+                color: "danger",
+              });
+            });
+
+          addToast({
+            title: toastMessages.promise.loading,
+            color: "default",
+            timeout: 3000,
+          });
         }}
       >
         Promise
