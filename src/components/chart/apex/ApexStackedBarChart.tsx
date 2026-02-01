@@ -3,6 +3,9 @@
 import ReactApexChart from "./DynamicApexChart";
 import { useTheme } from "next-themes";
 import { apexChartTooltipWithTitle } from "./tooltip";
+import ActionMenu, {
+    ActionMenuItem,
+} from "@/components/shared/DropdownActionMenu";
 
 export interface ApexStackedBarChartProps {
   series?: { name: string; data: number[] }[];
@@ -11,6 +14,13 @@ export interface ApexStackedBarChartProps {
   colors?: string[];
   /** columnWidth accepts values like '55%' or '20px' or a number (treated as px) */
   columnWidth?: string | number;
+  // Layout options
+  variant?: "simple" | "full";
+  title?: string;
+  showLegend?: boolean;
+  legendPosition?: "top" | "bottom" | "left" | "right";
+  actions?: ActionMenuItem[];
+  className?: string;
 }
 
 export default function ApexStackedBarChart({
@@ -22,6 +32,12 @@ export default function ApexStackedBarChart({
   height = 320,
   colors = ["#2065D1", "#FFB020"],
   columnWidth = "55%",
+  variant = "simple",
+  title,
+  showLegend = false,
+  legendPosition = "bottom",
+  actions,
+  className = "",
 }: ApexStackedBarChartProps) {
   const resolvedColumnWidth =
     typeof columnWidth === "number" ? `${columnWidth}px` : columnWidth;
@@ -98,7 +114,7 @@ export default function ApexStackedBarChart({
     theme: { mode: isDark ? "dark" : "light" },
   };
 
-  return (
+  const renderChart = () => (
     <div className="w-full" style={{ height }}>
       {/* @ts-ignore */}
       <ReactApexChart
@@ -107,6 +123,87 @@ export default function ApexStackedBarChart({
         type="bar"
         height={height}
       />
+    </div>
+  );
+
+  const renderLegend = () => {
+    if (!showLegend) return null;
+
+    const legendClasses =
+      legendPosition === "left" || legendPosition === "right"
+        ? "flex flex-col gap-2"
+        : "flex flex-wrap gap-3 justify-center";
+
+    return (
+      <div className={legendClasses}>
+        {series.map((item, index) => (
+          <div key={index} className="flex items-center gap-2">
+            <div
+              className="w-3 h-3 rounded-sm flex-shrink-0"
+              style={{ backgroundColor: colors[index] }}
+            />
+            <span className="text-sm text-foreground/80">{item.name}</span>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  // Simple variant: just the chart
+  if (variant === "simple") {
+    return renderChart();
+  }
+
+  // Full variant with left/right legend positioning
+  if (legendPosition === "left" || legendPosition === "right") {
+    return (
+      <div className={`rounded-lg bg-card ${className}`}>
+        {/* Header with title and actions */}
+        {(title || actions) && (
+          <div className="flex items-center justify-between px-6 py-4">
+            {title && (
+              <h3 className="text-lg font-semibold text-foreground">{title}</h3>
+            )}
+            {actions && actions.length > 0 && <ActionMenu items={actions} />}
+          </div>
+        )}
+
+        {/* Chart and Legend Side by Side */}
+        <div
+          className={`flex ${legendPosition === "left" ? "flex-row-reverse" : "flex-row"} items-center gap-6 p-6`}
+        >
+          <div className="flex-1">{renderChart()}</div>
+          <div className="flex-shrink-0">{renderLegend()}</div>
+        </div>
+      </div>
+    );
+  }
+
+  // Full variant: chart with title, legend (top/bottom), and actions
+  return (
+    <div className={`rounded-lg bg-card ${className}`}>
+      {/* Header with title and actions */}
+      {(title || actions) && (
+        <div className="flex items-center justify-between px-6 py-4">
+          {title && (
+            <h3 className="text-lg font-semibold text-foreground">{title}</h3>
+          )}
+          {actions && actions.length > 0 && <ActionMenu items={actions} />}
+        </div>
+      )}
+
+      {/* Legend at top */}
+      {showLegend && legendPosition === "top" && (
+        <div className="px-6 pt-4">{renderLegend()}</div>
+      )}
+
+      {/* Chart */}
+      <div className="p-6">{renderChart()}</div>
+
+      {/* Legend at bottom */}
+      {showLegend && legendPosition === "bottom" && (
+        <div className="px-6 pb-4">{renderLegend()}</div>
+      )}
     </div>
   );
 }
