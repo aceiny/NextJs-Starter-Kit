@@ -1,6 +1,6 @@
 # 🚀 Next.js Production-Ready Starter
 
-A comprehensive, production-ready Next.js 16 starter template with TypeScript, featuring a complete form system, state management, API clients, and dark mode support.
+A comprehensive, production-ready and scalable Next.js 16 starter template with TypeScript, featuring a complete form system, state management, API clients, and dark mode support.
 
 [![Next.js](https://img.shields.io/badge/Next.js-16.0-black?style=flat&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=flat&logo=typescript)](https://www.typescriptlang.org/)
@@ -145,6 +145,15 @@ This will delete all targeted files and directories without any confirmation.
 - ✅ **Debounced Inputs** - Optimized performance for text filters
 - ✅ **Theme Support** - Works seamlessly with dark mode
 
+### 🛡️ **Middleware System**
+
+- ✅ **Middleware Chaining** - Compose multiple middlewares in sequence
+- ✅ **Auth Guard** - Built-in authentication middleware
+- ✅ **Skip Static Assets** - Automatically bypass middleware for static files
+- ✅ **Type-Safe** - Full TypeScript support with custom middleware types
+- ✅ **Easy to Extend** - Simple pattern for creating custom middlewares
+- ✅ **Examples Included** - Logging, rate limiting, security headers, and more
+
 ### 🎯 **Developer Experience**
 
 - ✅ **TypeScript** - Full type safety throughout
@@ -234,85 +243,78 @@ Navigate to [http://localhost:3000](http://localhost:3000) to see your applicati
 
 ## 📁 Project Structure
 
+This structure is designed to be scalable, with clear separation of app routes, shared UI, domain features, and configuration.
+
 ```
-├── app/                          # Next.js app directory
-│   ├── layout.tsx               # Root layout with providers
-│   ├── page.tsx                 # Home page
-│   ├── example/                 # Example pages
-│   │   ├── page.tsx             # Examples navigation hub
-│   │   ├── data-table/          # DataTable examples
-│   │   ├── dialog/              # Dialog examples
-│   │   ├── dropdown/            # Dropdown/ActionMenu examples
-│   │   ├── form/                # Form examples
-│   │   └── toast/               # Toast & Tooltip examples
-│   └── globals.css              # Global styles
-│
-├── components/
-│   ├── form/                    # React Hook Form components
-│   │   ├── RHFUniversalInput.tsx   # Universal input (text, password, OTP, etc.)
-│   │   ├── RHFSelect.tsx           # Select dropdown
-│   │   ├── RHFUpload.tsx           # File upload
-│   │   ├── RHFCheckbox.tsx         # Single checkbox
-│   │   ├── RHFCheckboxGroup.tsx    # Multiple checkboxes
-│   │   ├── RHFSearchableCheckboxGroup.tsx
-│   │   ├── RHFRadioGroup.tsx       # Radio buttons
-│   │   └── ...                     # Other form components
+├── src/
+│   ├── app/                          # Next.js app directory
+│   │   ├── layout.tsx               # Root layout with providers
+│   │   ├── page.tsx                 # Home page
+│   │   ├── example/                 # Example pages
+│   │   │   ├── page.tsx             # Examples navigation hub
+│   │   │   ├── data-table/          # DataTable examples
+│   │   │   ├── dialog/              # Dialog examples
+│   │   │   ├── dropdown/            # Dropdown/ActionMenu examples
+│   │   │   ├── form/                # Form examples
+│   │   │   ├── filters/             # Universal filters examples
+│   │   │   ├── tabs/                # Tabs examples
+│   │   │   └── toast/               # Toast & Tooltip examples
+│   │   └── globals.css              # Global styles
 │   │
-│   ├── ui/                      # shadcn/ui components
-│   │   ├── button.tsx
-│   │   ├── input.tsx
-│   │   ├── select.tsx
-│   │   ├── sonner.tsx           # Toast component
-│   │   └── ...
+│   ├── components/
+│   │   ├── common/                  # Feature-focused UI (charts, dialog, dropdown, form, table, etc.)
+│   │   ├── page/                    # Page-level UI components
+│   │   ├── ui/                      # Reusable base UI components
+│   │   └── ThemeToggle.tsx          # Dark mode toggle
 │   │
-│   ├── ActionMenu.tsx           # Dropdown action menu
-│   ├── CustomTooltip.tsx        # Variant-based tooltips
-│   ├── DataTable.tsx            # Full-featured data table
-│   ├── DialogCreator.tsx        # Dialog component
-│   ├── EmptyState.tsx           # Empty state placeholder
-│   ├── ErrorState.tsx           # Error state placeholder
-│   └── ThemeToggle.tsx          # Dark mode toggle
-│
-├── stores/                      # Zustand stores
-│   ├── auth.store.ts           # Authentication state
-│   ├── ui.store.ts             # UI state (sidebar, modal, notifications)
-│   └── index.ts                # Central export
-│
-├── lib/
-│   ├── http/
-│   │   ├── internal-api.ts     # Internal API client (Next.js routes)
-│   │   └── external-api.ts     # External API client
+│   ├── config/                      # App configuration
+│   │   ├── query.client.config.ts   # React Query configuration
+│   │   └── rhf/                     # React Hook Form defaults
 │   │
-│   ├── utils/
-│   │   └── error.utils.ts      # Error extraction utilities
+│   ├── hooks/                       # Custom hooks
+│   │   ├── use-dialog.ts
+│   │   └── shared/                  # Shared hooks (debounce, storage, pagination, etc.)
 │   │
-│   ├── query-client.ts         # React Query client
-│   └── utils.ts                # General utilities
+│   ├── lib/                         # Helpers & utilities
+│   │   ├── http/                    # API clients
+│   │   ├── query-client.ts          # React Query client
+│   │   └── utils.ts                 # General utilities
+│   │
+│   ├── middlewares/                 # Middleware system
+│   │   ├── chain.ts                 # Middleware chaining utility
+│   │   ├── auth-guard.middleware.ts # Authentication middleware
+│   │   └── skip-static.middleware.ts # Skip static assets
+│   │
+│   ├── providers/                   # App providers
+│   │   ├── heroui.provider.tsx
+│   │   ├── react-query.provider.tsx
+│   │   └── theme.provider.tsx
+│   │
+│   ├── schema/                      # Zod validation schemas
+│   │   └── auth.schema.ts
+│   │
+│   ├── section/                     # Page sections grouped by domain
+│   │   ├── auth/
+│   │   └── error/
+│   │
+│   ├── shared/                      # Shared constants and styles
+│   │   ├── constants/
+│   │   └── styles/
+│   │
+│   ├── stores/                      # Zustand stores
+│   │   ├── auth.store.ts
+│   │   ├── ui.store.ts
+│   │   └── index.ts
+│   │
+│   └── types/                       # TypeScript types
+│       ├── index.ts
+│       ├── pagination/
+│       └── shared/
 │
-├── providers/
-│   ├── react-query.provider.tsx   # React Query provider
-│   └── theme.provider.tsx         # Theme provider
-│
-├── shared/
-│   └── constants/
-│       ├── paths.ts            # Centralized route paths
-│       └── toast-messages.ts   # Toast message constants
-│
-├── schema/
-│   └── auth.schema.ts          # Zod validation schemas
-│
-├── types/
-│   └── index.ts                # TypeScript type definitions
-│
-├── config/
-│   └── query.client.config.ts  # React Query configuration
-│
-└── docs/                        # Comprehensive documentation
-    ├── FORM_SYSTEM_DOCUMENTATION.md
-    ├── MODAL_DIALOG_DOCUMENTATION.md
-    ├── TOOLTIP_AND_DROPDOWN_DOCUMENTATION.md
-    ├── API_DOCUMENTATION.md
-    └── STATE_AND_UTILITIES.md
+├── docs/                            # Comprehensive documentation
+├── examples/                        # Example snippets
+├── public/                          # Static assets
+└── scripts/                         # Utility scripts
 ```
 
 ---
@@ -322,13 +324,16 @@ Navigate to [http://localhost:3000](http://localhost:3000) to see your applicati
 Comprehensive guides for all features:
 
 | Documentation          | Description                                                                       | Link                                                      |
-| ---------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------- | --- | ---------------------- | ------------------------------------------------------------------------------ | ------------------------------------------- | --- | --------------- | ---------------------------------------------------------------- | ---------------------------------------- |
+| ---------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------- |
 | **Form System**        | Complete guide to all 13 form components, input types, validation, theming        | [View Docs](./docs/FORM_SYSTEM_DOCUMENTATION.md)          |
 | **Modal/Dialog**       | Dialog system with per-button loading, async handlers, and customization          | [View Docs](./docs/MODAL_DIALOG_DOCUMENTATION.md)         |
-| **Tooltip & Dropdown** | CustomTooltip variants, ActionMenu with groups, checkboxes, submenus              | [View Docs](./docs/TOOLTIP_AND_DROPDOWN_DOCUMENTATION.md) |     | **Charts & Analytics** | Compact ApexCharts-based sparklines and mini-bar charts with dashboard widgets | [View Docs](./docs/CHARTS_AND_ANALYTICS.md) |     | **API & Axios** | HTTP clients setup, interceptors, error handling, authentication | [View Docs](./docs/API_DOCUMENTATION.md) |
+| **Tooltip & Dropdown** | CustomTooltip variants, ActionMenu with groups, checkboxes, submenus              | [View Docs](./docs/TOOLTIP_AND_DROPDOWN_DOCUMENTATION.md) |
+| **Middleware System**  | Middleware chaining, auth guard, rate limiting, logging, custom middleware setup  | [View Docs](./docs/MIDDLEWARE_DOCUMENTATION.md)           |
+| **Charts & Analytics** | Compact ApexCharts-based sparklines and mini-bar charts with dashboard widgets | [View Docs](./docs/CHARTS_AND_ANALYTICS.md) |
+| **API & Axios**        | HTTP clients setup, interceptors, error handling, authentication                  | [View Docs](./docs/API_DOCUMENTATION.md)                  |
 | **State & Utilities**  | Zustand stores, React Query, Toasts, Path constants                               | [View Docs](./docs/STATE_AND_UTILITIES.md)                |
 | **Universal Filters**  | 13 filter types with URL sync, tabs/dropdown modes, TypeScript examples           | [View Docs](./docs/UNIVERSAL_FILTERS_DOCUMENTATION.md)    |
-| **Charts & Analytics** | Sparkline, mini-bar charts, `AnalyticsWidgetSummary` and `AnalyticsCard` examples | [View Docs](./docs/CHARTS_AND_ANALYTICS.md)               |
+| **DataTable**          | Sortable, paginated data tables with selection and actions                        | [View Docs](./docs/DATA_TABLE_DOCUMENTATION.md)           |
 
 ## Custom React Hooks
 
@@ -372,6 +377,7 @@ const { pageIndex, pageSize, pagination } = usePagination();
 - **🎨 Form Components** - [Form System Documentation](./docs/FORM_SYSTEM_DOCUMENTATION.md)
 - **🎯 Modal/Dialog** - [Modal & Dialog Documentation](./docs/MODAL_DIALOG_DOCUMENTATION.md)
 - **💬 Tooltips & Dropdowns** - [Tooltip & Dropdown Documentation](./docs/TOOLTIP_AND_DROPDOWN_DOCUMENTATION.md)
+- **🛡️ Middleware System** - [Middleware Documentation](./docs/MIDDLEWARE_DOCUMENTATION.md)
 - **🌐 API Calls** - [API Documentation](./docs/API_DOCUMENTATION.md)
 - **🗄️ State Management** - [State & Utilities Documentation](./docs/STATE_AND_UTILITIES.md)
 

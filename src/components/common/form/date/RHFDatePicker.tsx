@@ -7,7 +7,7 @@ import { toDateValue } from "@/lib/utils/time-utills";
 import {
   RHF_BASE_DEFAULTS,
   RHF_DATE_LIKE_DEFAULTS,
-} from "../../../config/rhf/rhf-date-defaults.config";
+} from "@/config/rhf/rhf-date-defaults.config";
 import { RHFDateLikeFieldProps } from "@/types/shared/interface/rhf-date-base.interface";
 
 interface RHFDatePickerProps<

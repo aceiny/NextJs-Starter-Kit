@@ -78,9 +78,12 @@ export function RHFSearchableCheckboxGroup<T extends FieldValues>({
     if (!searchQuery.trim()) return options;
 
     const query = searchQuery.toLowerCase();
-    return options.filter((option) =>
-      option.label.toLowerCase().includes(query),
-    );
+    return options.filter((option) => {
+      if (typeof option.label === "string") {
+        return option.label.toLowerCase().includes(query);
+      }
+      return false;
+    });
   }, [options, searchQuery]);
 
   return (

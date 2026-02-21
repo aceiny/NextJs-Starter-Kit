@@ -1,9 +1,11 @@
 "use client";
 import { Controller, FieldValues } from "react-hook-form";
-import { Input, NumberInput } from "@heroui/react";
+import { Button, Input, NumberInput } from "@heroui/react";
 import { RHF_BASE_DEFAULTS } from "@/config/rhf/rhf-date-defaults.config";
 import { RHFBaseFieldProps } from "@/types/shared/interface/rhf-date-base.interface";
-
+import { useState } from "react";
+import { EyeClosed } from "@solar-icons/react-perf/BoldDuotone";
+import { Eye } from "@solar-icons/react-perf/BoldDuotone";
 interface RHFInputProps<T extends FieldValues> extends RHFBaseFieldProps<T> {
   /** Input type */
   type?: "text" | "email" | "password" | "search" | "tel" | "url" | "number";
@@ -78,9 +80,10 @@ export default function RHFInput<T extends FieldValues>({
   hideStepper,
   isWheelDisabled,
 }: RHFInputProps<T>) {
-  //   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  //   const togglePasswordVisibility = () => setIsPasswordVisible(!isPasswordVisible);
+  const togglePasswordVisibility = () =>
+    setIsPasswordVisible(!isPasswordVisible);
 
   return (
     <Controller
@@ -129,6 +132,67 @@ export default function RHFInput<T extends FieldValues>({
                 field.onChange(value);
                 onValueChange?.(value);
                 onChangeSideEffect?.(value);
+              }}
+            />
+          );
+        }
+        if (type === "password") {
+          return (
+            <Input
+              {...field}
+              value={field.value || undefined}
+              type={isPasswordVisible ? "text" : type}
+              label={label}
+              placeholder={placeholder}
+              description={description}
+              errorMessage={errorMessage || fieldState.error?.message}
+              isInvalid={isInvalid ?? !!fieldState.error}
+              isRequired={isRequired}
+              isReadOnly={isReadOnly}
+              isDisabled={disabled}
+              variant={variant}
+              color={color}
+              size={size}
+              radius={radius}
+              labelPlacement={labelPlacement}
+              startContent={startContent}
+              endContent={
+                <Button
+                  variant="light"
+                  isIconOnly
+                  size="sm"
+                  radius="md"
+                  onPress={togglePasswordVisibility}
+                >
+                  {isPasswordVisible ? (
+                    <EyeClosed size={26} />
+                  ) : (
+                    <Eye size={26} />
+                  )}
+                </Button>
+              }
+              autoFocus={autoFocus}
+              disableAnimation={disableAnimation}
+              classNames={classNames}
+              className={className}
+              isClearable={isClearable}
+              fullWidth={fullWidth}
+              {...(minLength && { minLength })}
+              {...(maxLength && { maxLength })}
+              {...(pattern && { pattern })}
+              {...(isClearable && {
+                onClear: () => {
+                  field.onChange("");
+                  onClear?.();
+                },
+              })}
+              onValueChange={(value) => {
+                onValueChange?.(value);
+                onChangeSideEffect?.(value);
+              }}
+              onChange={(e) => {
+                field.onChange(e);
+                onChangeSideEffect?.(e.target.value);
               }}
             />
           );

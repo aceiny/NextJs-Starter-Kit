@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { DataTable, type HeaderConfig } from "@/components/shared/DataTable";
-import { ActionMenu } from "@/components/shared/DropdownActionMenu";
+import { DataTable, type HeaderConfig } from "@/components/table";
+import { ActionMenu } from "@/components/dropdown";
 import { Button } from "@/components/ui/button";
 import { EmptyState, ErrorState, LoadingState } from "@/components/state";
 import { Edit, Trash2, Eye, Copy, Mail } from "lucide-react";

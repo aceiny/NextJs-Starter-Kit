@@ -23,7 +23,7 @@ export function ActionButton({ btn }: ActionButtonProps) {
   const buttonEl = (
     <RippleButton
       type="button"
-      onClick={b.onClick}
+      onPress={b.onClick}
       variant={b.variant as any}
       size={b.size as any}
     >

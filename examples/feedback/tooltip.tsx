@@ -1,13 +1,9 @@
 "use client";
 
+import { CustomTooltip } from "@/components/tooltip";
+import { ErrorTooltip, InfoTooltip, SuccessTooltip, WarningTooltip } from "@/components/tooltip";
 import { Button } from "@/components/ui/button";
-import {
-  CustomTooltip,
-  InfoTooltip,
-  SuccessTooltip,
-  WarningTooltip,
-  ErrorTooltip,
-} from "@/components/shared/CustomTooltip";
+
 import {
   Info,
   CheckCircle,
