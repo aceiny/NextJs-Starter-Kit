@@ -13,7 +13,7 @@ import { withSkipStaticMiddleware } from "./middlewares/skip-static.middleware";
 
 export default chain([
   withSkipStaticMiddleware,
-  withAuthGuardMiddleware,
+  // withAuthGuardMiddleware,
 ]);
 
 export const config = {
